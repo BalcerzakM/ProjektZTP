@@ -11,9 +11,21 @@ public class MillionaireTypeQuestionFactory implements QuestionFactory {
         List<String> options = new ArrayList<String>();
         options.add(w.getTarget());
         //tutaj testy powinny być czy wordSet ma wystarczająco słów i czy nie są puste itd.
-        options.add(ws.get(0).getTarget());
-        options.add(ws.get(1).getTarget());
-        options.add(ws.get(2).getTarget());
+//        options.add(ws.get(0).getTarget());
+//        options.add(ws.get(1).getTarget());
+//        options.add(ws.get(2).getTarget());
+
+        if (ws.size() > 3) {
+            while (options.size() < 4) {
+                Word option = ws.get((int) (Math.random() * ws.size()));
+                if (!options.contains(option.getTarget())) {
+                    options.add(option.getTarget());
+                }
+            }
+        }
+        else {
+            System.out.println("WordSet nie posiada wystarczająco wyrazów");
+        }
 
         Collections.shuffle(options);
 
