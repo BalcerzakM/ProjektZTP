@@ -17,8 +17,10 @@ public class Main {
         Question q1 = factory.createQuestion(w, ws);
         System.out.println(q1);
 
-        LearningMode mode1 = new FlashCardMode();
-        mode1.start(ws);
+        //LearningMode mode1 = new FlashCardMode();
+        //mode1.start(ws);
+        LearningMode mode2 = new TypingMode();
+        mode2.start(ws);
 
     }
 }
