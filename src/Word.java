@@ -11,6 +11,8 @@ public class Word {
         this.category = category;
     }
 
+    //metoda switch, aby zamieniała z pl na ang? ablo sie bawić w gety w klientach????
+
     public String getSource() {
         return source;
     }
