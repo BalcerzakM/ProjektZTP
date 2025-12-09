@@ -17,6 +17,6 @@ public class MillionaireTypeQuestionFactory implements QuestionFactory {
 
         Collections.shuffle(options);
 
-        return new Question("Jakie jest poprawne tłumaczenie słowa "+w.getSource(), w.getTarget(), options);
+        return new Question("Jakie jest poprawne tłumaczenie słowa: \""+w.getSource() +"\"", w.getTarget(), options);
     }
 }

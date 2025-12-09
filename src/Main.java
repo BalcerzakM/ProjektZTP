@@ -6,7 +6,7 @@ public class Main {
         System.out.println("Hello, World!");
         Word w = new Word("duck", "kaczka", "B1", "animals");
         List<Word> animals = new ArrayList<Word>();
-        animals.add(new Word("spider", "pajak", "A2", "animals"));
+        animals.add(new Word("spider", "pająk", "A2", "animals"));
         animals.add(new Word("deer", "jelen", "B1", "animals"));
         animals.add(new Word("frog", "zaba", "B1", "animals"));
         animals.add(new Word("dog", "pies", "A1", "animals"));

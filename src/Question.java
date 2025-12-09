@@ -23,6 +23,6 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Zapytanie: '" + prompt + "' Odpowiedż: '" + correctAnswer + "' Opcje '" + options + "'";
+        return "Zapytanie: \"" + prompt + " \" Odpowiedż: \"" + correctAnswer + "\" Opcje " + options;
     }
 }
