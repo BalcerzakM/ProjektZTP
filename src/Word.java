@@ -1,22 +1,22 @@
 public class Word {
-    String eng;
-    String pl;
+    String source;
+    String target;
     String difficulty;
     String category;
 
-    public Word(String eng, String pl, String difficulty, String category) {
-        this.eng = eng;
-        this.pl = pl;
+    public Word(String source, String target, String difficulty, String category) {
+        this.source = source;
+        this.target = target;
         this.difficulty = difficulty;
         this.category = category;
     }
 
-    public String getEng() {
-        return eng;
+    public String getSource() {
+        return source;
     }
 
-    public String getPl() {
-        return pl;
+    public String getTarget() {
+        return target;
     }
 
     public String getDifficulty() {
