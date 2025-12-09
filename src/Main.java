@@ -19,8 +19,10 @@ public class Main {
 
         //LearningMode mode1 = new FlashCardMode();
         //mode1.start(ws);
-        LearningMode mode2 = new TypingMode();
-        mode2.start(ws);
+        //LearningMode mode2 = new TypingMode();
+        //mode2.start(ws);
+        LearningMode mode3 = new ConnectMode();
+        mode3.start(ws);
 
     }
 }
