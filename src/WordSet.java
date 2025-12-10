@@ -3,6 +3,7 @@ import java.util.List;
 public class WordSet {
     String name;
     List<Word> words;
+    String difficulty;
 
     public WordSet(String name, List<Word> words) {
         this.name = name;
