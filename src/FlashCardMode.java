@@ -10,12 +10,11 @@ public class FlashCardMode implements LearningMode{
         System.out.println("*******************************");
         System.out.println();
         for (Word word : wordSet.getWords()) {
-            Question q = factory.createQuestion(word, wordSet);
             System.out.println("*******************************");
             System.out.println();
-            System.out.println("            "+q.getPrompt());
+            System.out.println("            "+word.getSource());
             String line = scanner.nextLine();
-            System.out.println("            "+q.getCorrectAnswer());
+            System.out.println("            "+word.getTarget());
             line = scanner.nextLine();
             System.out.println("*******************************");
         }

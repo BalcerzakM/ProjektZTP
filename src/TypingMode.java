@@ -10,13 +10,13 @@ public class TypingMode implements LearningMode{
         System.out.println("*******************************");
         System.out.println();
         for (Word word : wordSet.getWords()) {
-            Question q = factory.createQuestion(word, wordSet);
+            //Question q = factory.createQuestion(word, wordSet);
             System.out.println("*******************************");
             System.out.println();
-            System.out.println("            "+q.getPrompt());
+            System.out.println("            "+word.getSource());
             System.out.printf("Wpisz tłumaczenie:");
             String line = scanner.nextLine();
-            while(!line.equalsIgnoreCase(q.getCorrectAnswer())) {
+            while(!line.equalsIgnoreCase(word.getTarget())) {
                 System.out.println("            Źle!");
                 line = scanner.nextLine();
             }
