@@ -5,9 +5,10 @@ public class WordSet {
     List<Word> words;
     String difficulty;
 
-    public WordSet(String name, List<Word> words) {
+    public WordSet(String name, List<Word> words, String difficulty) {
         this.name = name;
         this.words = words;
+        this.difficulty = difficulty;
     }
 
     public String getName() {

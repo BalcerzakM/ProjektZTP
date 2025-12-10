@@ -7,14 +7,14 @@ public class LearningApp {
     public LearningApp() {}
 
     private void readWordSetFromFile(String fileName) throws FileNotFoundException {
-        this.wordSet = new WordSet(fileName, new ArrayList<>());
         Scanner scanner = new Scanner(new File(fileName));
         String difficulty = scanner.nextLine().strip();
-        Word word = new Word("", "", difficulty, fileName);
+        this.wordSet = new WordSet(fileName, new ArrayList<>(), difficulty);
         while (scanner.hasNextLine()) {
             String[] line = scanner.nextLine().split("-");
-            word.setSource(line[0].strip());
-            word.setTarget(line[1].strip());
+            String source = line[0].strip();
+            String target = line[1].strip();
+            Word word = new Word(source, target);
             this.wordSet.addWord(word);
         }
         scanner.close();
