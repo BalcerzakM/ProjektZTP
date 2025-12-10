@@ -21,8 +21,10 @@ public class Main {
         //mode1.start(ws);
         //LearningMode mode2 = new TypingMode();
         //mode2.start(ws);
-        LearningMode mode3 = new ConnectMode();
-        mode3.start(ws);
+        //LearningMode mode3 = new ConnectMode();
+        //mode3.start(ws);
+        LearningMode mode4 = new MillionaireMode();
+        mode4.start(ws);
 
     }
 }

@@ -7,7 +7,6 @@ public class ConnectMode implements LearningMode{
     @Override
     public void start(WordSet wordSet) {
         Scanner scanner = new Scanner(System.in);
-        QuestionFactory factory = new FlashCardQuestionFactory();
         System.out.println("*******************************");
         System.out.println("          Tryb Łączenia!");
         System.out.println("*******************************");
