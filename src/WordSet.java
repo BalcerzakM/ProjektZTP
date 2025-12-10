@@ -3,10 +3,12 @@ import java.util.List;
 public class WordSet {
     String name;
     List<Word> words;
+    String difficulty;
 
-    public WordSet(String name, List<Word> words) {
+    public WordSet(String name, List<Word> words, String difficulty) {
         this.name = name;
         this.words = words;
+        this.difficulty = difficulty;
     }
 
     public String getName() {
@@ -23,5 +25,9 @@ public class WordSet {
 
     public void setWords(List<Word> words) {
         this.words = words;
+    }
+
+    public void addWord(Word word) {
+        words.add(word);
     }
 }
