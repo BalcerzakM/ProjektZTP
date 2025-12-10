@@ -2,7 +2,7 @@ import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
 
 public class FlashCardMode implements LearningMode{
     @Override
-    public void start(WordSet wordSet) {
+    public void start(WordSet wordSet, LearningSession learningSession) {
         Scanner scanner = new Scanner(System.in);
         QuestionFactory factory = new FlashCardQuestionFactory();
         System.out.println("*******************************");

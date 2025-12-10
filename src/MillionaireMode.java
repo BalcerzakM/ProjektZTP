@@ -5,7 +5,7 @@ import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
 
 public class MillionaireMode implements LearningMode{
     @Override
-    public void start(WordSet wordSet) {
+    public void start(WordSet wordSet, LearningSession learningSession) {
         Scanner scanner = new Scanner(System.in);
         List<Word> ws = wordSet.getWords();
         List<String> options = new ArrayList<String>();
@@ -51,10 +51,12 @@ public class MillionaireMode implements LearningMode{
 
         if (options.get(odp).equals(w.getTarget())) {
             System.out.println("            Dobrze! ");
+            learningSession.notifyObservers(w, true);
         }
 
         else {
             System.out.println("            Źle! ");
+            learningSession.notifyObservers(w, false);
         }
         options.clear();
         System.out.println("*******************************");
