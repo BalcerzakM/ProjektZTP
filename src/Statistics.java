@@ -53,11 +53,16 @@ public class Statistics implements AnswerObserver {
         correctPercent = 0;
     }
 
+    public void toOverallStats() {
+        correctOverall += correctCount;
+        incorrectOverall += incorrectCount;
+    }
+
     public void savetoFile(String filename){
-        System.out.println("Zapis statystyk do pliku" + filename);
+        System.out.println("Zapis statystyk do pliku " + filename);
     }
 
     public void readFromFile(String filename){
-        System.out.println("Wczytywanie statystyk z pliku" + filename);
+        System.out.println("Wczytywanie statystyk z pliku " + filename);
     }
 }

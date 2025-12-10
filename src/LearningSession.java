@@ -3,14 +3,13 @@ import java.util.List;
 
 public class LearningSession {
     private List<AnswerObserver> observers;
-    private LearningMode mode;
+    private LearningMode mode; //to moze byc niepotrzebne
 
     LearningSession() {
         observers = new ArrayList<>();
-        this.mode = mode;
     }
     public void setMode(LearningMode mode) {
-        this.mode = mode;
+        this.mode = mode; //to moze byc niepotrzebne
     }
 
     public void registerObserver(AnswerObserver observer) {
@@ -25,5 +24,14 @@ public class LearningSession {
         for (AnswerObserver observer : observers) {
             observer.onAnswer(w, correct);
         }
+    }
+
+    public Statistics getStatistics() {
+        for (AnswerObserver observer : observers) {
+            if  (observer instanceof Statistics) {
+                return (Statistics) observer;
+            }
+        }
+        return null;
     }
 }

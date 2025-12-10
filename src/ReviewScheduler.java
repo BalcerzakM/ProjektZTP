@@ -6,12 +6,16 @@ public class ReviewScheduler implements AnswerObserver {
 
     @Override
     public void onAnswer(Word w, boolean correct) {
-        if (!correct) {
+        if (!correct && !reviewWords.contains(w)) {
             reviewWords.add(w);
         }
     }
 
     public List<Word> getReviewWords() {
         return reviewWords;
+    }
+
+    public WordSet createReviewSet() {
+        return new WordSet("powtorzenie", reviewWords, "RV");
     }
 }
