@@ -24,4 +24,8 @@ public class WordSet {
     public void setWords(List<Word> words) {
         this.words = words;
     }
+
+    public void addWord(Word word) {
+        words.add(word);
+    }
 }

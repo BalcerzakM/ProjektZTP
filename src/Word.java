@@ -13,6 +13,14 @@ public class Word {
 
     //metoda switch, aby zamieniała z pl na ang? ablo sie bawić w gety w klientach????
 
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
     public String getSource() {
         return source;
     }
