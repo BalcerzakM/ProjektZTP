@@ -5,10 +5,11 @@ import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
 
 public class MillionaireMode implements LearningMode{
     @Override
-    public void start(WordSet wordSet) {
+    public void start(WordSet wordSet, LearningSession learningSession) {
         Scanner scanner = new Scanner(System.in);
         List<Word> ws = wordSet.getWords();
         List<String> options = new ArrayList<String>();
+        Statistics stats = learningSession.getStatistics();
 
         System.out.println("*******************************");
         System.out.println("          Tryb Milionerów!");
@@ -51,10 +52,12 @@ public class MillionaireMode implements LearningMode{
 
         if (options.get(odp).equals(w.getTarget())) {
             System.out.println("            Dobrze! ");
+            learningSession.notifyObservers(w, true);
         }
 
         else {
             System.out.println("            Źle! ");
+            learningSession.notifyObservers(w, false);
         }
         options.clear();
         System.out.println("*******************************");
@@ -62,7 +65,7 @@ public class MillionaireMode implements LearningMode{
         placeholder = scanner.nextLine();
         }
 
-        System.out.println("Ilość poprawnych odpowiedzi: ");//JANEK DO ROBOTY
+        System.out.println("Ilość poprawnych odpowiedzi: " + stats.getCorrectCount());//JANEK DO ROBOTY //no gosciu nie wiem czy to sie tak da
         System.out.println("Super Wynik! Gratulacje!");
     }
 

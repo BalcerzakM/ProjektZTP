@@ -5,7 +5,7 @@ import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
 
 public class ConnectMode implements LearningMode{
     @Override
-    public void start(WordSet wordSet) {
+    public void start(WordSet wordSet, LearningSession learningSession) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("*******************************");
         System.out.println("          Tryb Łączenia!");
@@ -44,11 +44,13 @@ public class ConnectMode implements LearningMode{
 
             if (tab1.get(left).getTarget().equals(tab2.get(right))) {
                 System.out.println("            Dobrze!");
+                learningSession.notifyObservers(null, true); //tu moze zostac null chyba
                 tab1.remove(left);
                 tab2.remove(right);
 
             } else {
                 System.out.println("            Źle! Spróbuj ponownie.");
+                learningSession.notifyObservers(null, false); //zamiast null powinien byc odpowiedni word, inaczej reviewScheduler bedzie robil errora
             }
         }
 
