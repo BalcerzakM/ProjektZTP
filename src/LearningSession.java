@@ -3,14 +3,15 @@ import java.util.List;
 
 public class LearningSession {
     private List<AnswerObserver> observers;
-    private LearningMode mode; //to moze byc niepotrzebne
+//    private LearningMode mode; //to moze byc niepotrzebne
 
     LearningSession() {
         observers = new ArrayList<>();
     }
-    public void setMode(LearningMode mode) {
-        this.mode = mode; //to moze byc niepotrzebne
-    }
+
+//    public void setMode(LearningMode mode) {
+//        this.mode = mode; //to moze byc niepotrzebne
+//    }
 
     public void registerObserver(AnswerObserver observer) {
         observers.add(observer);

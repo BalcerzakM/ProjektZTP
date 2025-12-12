@@ -12,7 +12,7 @@ public class Main {
 
 
         LearningSession learningSession = new LearningSession();
-        Statistics stats = new Statistics();
+        Statistics stats = Statistics.getInstance();
         ReviewScheduler review = new ReviewScheduler();
 
         learningSession.registerObserver(stats);
@@ -40,21 +40,26 @@ public class Main {
         //mode2.start(ws);
         //LearningMode mode3 = new ConnectMode();
         //mode3.start(ws);
-        learningSession.setMode(mode4);
+//        learningSession.setMode(mode4);
         mode4.start(ws, learningSession);
         System.out.println(stats.showStatistics());
+        stats.addToOverallStats();
+        stats.resetStatistics();
 
 //        learningSession.setMode(mode3);
-//        mode3.start(ws, learningSession);     //review bedzie wyrzucalo blad tutaj
+//        mode3.start(ws, learningSession);     //review bedzie wyrzucalo blad w ConnectMode bo trzeba odpowiedni Word podac a narazie jest null
 //        System.out.println(stats.showStatistics());
 
-        learningSession.setMode(mode2);
+//        learningSession.setMode(mode2);
         mode2.start(ws, learningSession);
         System.out.println(stats.showStatistics());
+        stats.addToOverallStats();
+        stats.resetStatistics();
 
-        learningSession.setMode(mode1);
+//        learningSession.setMode(mode1);
         WordSet reviewSet = review.createReviewSet();
         mode1.start(reviewSet, learningSession);
         System.out.println(stats.showStatistics());
+        System.out.println(stats.showOverallStatistics());
     }
 }
