@@ -1,10 +1,18 @@
+import LearningModes.*;
+import models.LearningSession;
+import models.Question;
+import models.Word;
+import models.WordSet;
+import observers.ReviewScheduler;
+import observers.Statistics;
+import questions.MillionaireTypeQuestionFactory;
+import questions.QuestionFactory;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
         LearningMode mode1 = new FlashCardMode();
         LearningMode mode2 = new TypingMode();
         LearningMode mode3 = new ConnectMode();
@@ -34,31 +42,31 @@ public class Main {
         Question q1 = factory.createQuestion(w, ws);
         System.out.println(q1);
 
-        //LearningMode mode1 = new FlashCardMode();
+        //LearningModes.LearningMode mode1 = new LearningModes.FlashCardMode();
         //mode1.start(ws);
-        //LearningMode mode2 = new TypingMode();
+        //LearningModes.LearningMode mode2 = new LearningModes.TypingMode();
         //mode2.start(ws);
-        //LearningMode mode3 = new ConnectMode();
+        //LearningModes.LearningMode mode3 = new LearningModes.ConnectMode();
         //mode3.start(ws);
 //        learningSession.setMode(mode4);
-        mode4.start(ws, learningSession);
+        mode4.start(learningSession);
         System.out.println(stats.showStatistics());
         stats.addToOverallStats();
         stats.resetStatistics();
 
 //        learningSession.setMode(mode3);
-//        mode3.start(ws, learningSession);     //review bedzie wyrzucalo blad w ConnectMode bo trzeba odpowiedni Word podac a narazie jest null
+//        mode3.start(ws, learningSession);     //review bedzie wyrzucalo blad w LearningModes.ConnectMode bo trzeba odpowiedni models.Word podac a narazie jest null
 //        System.out.println(stats.showStatistics());
 
 //        learningSession.setMode(mode2);
-        mode2.start(ws, learningSession);
+        mode2.start(learningSession);
         System.out.println(stats.showStatistics());
         stats.addToOverallStats();
         stats.resetStatistics();
 
 //        learningSession.setMode(mode1);
         WordSet reviewSet = review.createReviewSet();
-        mode1.start(reviewSet, learningSession);
+        mode1.start(learningSession);
         System.out.println(stats.showStatistics());
         System.out.println(stats.showOverallStatistics());
     }

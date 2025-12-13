@@ -1,18 +1,24 @@
+package LearningModes;
+
+import models.LearningSession;
+import models.Word;
+import models.WordSet;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
 
-public class ConnectMode implements LearningMode{
+public class ConnectMode implements LearningMode {
     @Override
-    public void start(WordSet wordSet, LearningSession learningSession) {
+    public void start(LearningSession learningSession) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("*******************************");
         System.out.println("          Tryb Łączenia!");
         System.out.println("*******************************");
         System.out.println();
 
-        List<Word> ws = wordSet.getWords();
+        List<Word> ws = learningSession.getWordSet().getWords();
         List<Word> tab1 = new ArrayList<Word>();
         List<String> tab2 = new ArrayList<String>();
 
@@ -26,7 +32,7 @@ public class ConnectMode implements LearningMode{
             }
         }
         else {
-            System.out.println("WordSet nie posiada wystarczająco wyrazów");
+            System.out.println("models.WordSet nie posiada wystarczająco wyrazów");
         }
 
         Collections.shuffle(tab2);

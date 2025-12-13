@@ -1,3 +1,5 @@
+package models;
+
 public class Word {
     String source;
     String target;
@@ -24,6 +26,14 @@ public class Word {
 
     public String getTarget() {
         return target;
+    }
+
+    public boolean isAnswerCorrect(String answer) {
+        if (answer.equals(target)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

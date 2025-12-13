@@ -1,17 +1,25 @@
+package models;
+
+import LearningModes.LearningMode;
+import observers.AnswerObserver;
+import observers.Statistics;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class LearningSession {
-    private List<AnswerObserver> observers;
-//    private LearningMode mode; //to moze byc niepotrzebne
+    private List<AnswerObserver> observers = new ArrayList<>();
+    private WordSet wordSet;
+    private LearningMode mode;
 
-    LearningSession() {
-        observers = new ArrayList<>();
+    public void setMode(LearningMode mode) {
+        this.mode = mode;
     }
 
-//    public void setMode(LearningMode mode) {
-//        this.mode = mode; //to moze byc niepotrzebne
-//    }
+    public LearningMode getMode() {
+        return mode;
+    }
+
 
     public void registerObserver(AnswerObserver observer) {
         observers.add(observer);
@@ -34,5 +42,13 @@ public class LearningSession {
             }
         }
         return null;
+    }
+
+    public WordSet getWordSet() {
+        return wordSet;
+    }
+
+    public void setWordSet(WordSet wordSet) {
+        this.wordSet = wordSet;
     }
 }

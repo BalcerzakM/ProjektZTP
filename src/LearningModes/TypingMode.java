@@ -1,16 +1,24 @@
+package LearningModes;
+
+import models.LearningSession;
+import models.Word;
+import models.WordSet;
+import questions.FlashCardQuestionFactory;
+import questions.QuestionFactory;
+
 import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
 
-public class TypingMode implements LearningMode{
+public class TypingMode implements LearningMode {
     @Override
-    public void start(WordSet wordSet,  LearningSession learningSession) {
+    public void start(LearningSession learningSession) {
         Scanner scanner = new Scanner(System.in);
         QuestionFactory factory = new FlashCardQuestionFactory();
         System.out.println("*******************************");
         System.out.println("          Tryb Wpisywania!");
         System.out.println("*******************************");
         System.out.println();
-        for (Word word : wordSet.getWords()) {
-            //Question q = factory.createQuestion(word, wordSet);
+        for (Word word : learningSession.getWordSet().getWords()) {
+            //models.Question q = factory.createQuestion(word, wordSet);
             System.out.println("*******************************");
             System.out.println();
             System.out.println("            "+word.getSource());

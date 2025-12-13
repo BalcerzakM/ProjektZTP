@@ -1,3 +1,9 @@
+package questions;
+
+import models.Question;
+import models.Word;
+import models.WordSet;
+
 public class FlashCardQuestionFactory implements QuestionFactory {
     @Override
     public Question createQuestion(Word w, WordSet wordSet) {
