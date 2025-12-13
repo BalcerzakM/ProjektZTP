@@ -50,7 +50,7 @@ public class ConnectMode implements LearningMode{
 
             } else {
                 System.out.println("            Źle! Spróbuj ponownie.");
-                learningSession.notifyObservers(null, false); //zamiast null powinien byc odpowiedni word, inaczej reviewScheduler bedzie robil errora
+                learningSession.notifyObservers(tab1.get(left), false);
             }
         }
 
