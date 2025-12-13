@@ -67,6 +67,7 @@ public class MillionaireMode implements LearningMode{
 
         System.out.println("Ilość poprawnych odpowiedzi: " + stats.getCorrectCount());//JANEK DO ROBOTY //no gosciu nie wiem czy to sie tak da
         System.out.println("Super Wynik! Gratulacje!");
+        scanner.close();
     }
 
 

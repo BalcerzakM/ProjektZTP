@@ -1,9 +1,9 @@
 import java.util.List;
 
 public class WordSet {
-    String name;
-    List<Word> words;
-    String difficulty;
+    private String name;
+    private List<Word> words;
+    private String difficulty;
 
     public WordSet(String name, List<Word> words, String difficulty) {
         this.name = name;

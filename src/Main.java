@@ -10,14 +10,6 @@ public class Main {
         LearningMode mode3 = new ConnectMode();
         LearningMode mode4 = new MillionaireMode();
 
-
-        LearningSession learningSession = new LearningSession();
-        Statistics stats = Statistics.getInstance();
-        ReviewScheduler review = new ReviewScheduler();
-
-        learningSession.registerObserver(stats);
-        learningSession.registerObserver(review);
-
         Word w = new Word("duck", "kaczka");
         List<Word> animals = new ArrayList<Word>();
         animals.add(new Word("spider", "pająk"));
@@ -29,6 +21,15 @@ public class Main {
         animals.add(new Word("fish", "ryba"));
 
         WordSet ws = new WordSet("animals", animals, "B1");
+
+        LearningSession learningSession = new LearningSession(ws);
+        Statistics stats = Statistics.getInstance();
+        ReviewScheduler review = new ReviewScheduler();
+
+        learningSession.registerObserver(stats);
+        learningSession.registerObserver(review);
+
+
 
         QuestionFactory factory = new MillionaireTypeQuestionFactory();
         Question q1 = factory.createQuestion(w, ws);

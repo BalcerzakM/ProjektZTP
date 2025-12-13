@@ -4,9 +4,12 @@ import java.util.List;
 public class LearningSession {
     private List<AnswerObserver> observers;
 //    private LearningMode mode; //to moze byc niepotrzebne
+    private SessionState state;
+    private WordSet wordSet;
 
-    LearningSession() {
+    LearningSession(WordSet wordSet) {
         observers = new ArrayList<>();
+        this.wordSet = wordSet;
     }
 
 //    public void setMode(LearningMode mode) {
@@ -34,5 +37,21 @@ public class LearningSession {
             }
         }
         return null;
+    }
+
+    public void setState(SessionState state) {
+        this.state = state;
+    }
+    public void start(){
+        state.start(this);
+    }
+    public void pause(){
+        state.pause(this);
+    }
+    public void resume(){
+        state.resume(this);
+    }
+    public void end(){
+        state.end(this);
     }
 }

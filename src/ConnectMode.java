@@ -55,6 +55,7 @@ public class ConnectMode implements LearningMode{
         }
 
         System.out.println("Wszystkie połączone! Gratulacje!");
+        scanner.close();
     }
 
     private static void connectPrint(List<String> tab2, List<Word> tab1) {
@@ -66,6 +67,5 @@ public class ConnectMode implements LearningMode{
         }
         System.out.println("*******************************");
     }
-
 
 }
