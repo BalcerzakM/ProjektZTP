@@ -17,6 +17,6 @@ public class PausedState implements SessionState {
 
     @Override
     public void resume(LearningSession session) {
-
+        session.setState(new StartedState());
     }
 }

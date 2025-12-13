@@ -19,55 +19,58 @@ public class MillionaireMode implements LearningMode{
         System.out.println("Ile pytań chcesz przerobić?");
         int ile = scanner.nextInt() - 1;
 
-        for(int i=0;i<=ile;i++) {
-            System.out.println();
-            System.out.println("*******************************");
+        for (int i = 0; i <= ile; i++) {
+            if (!learningSession.isStarted()) {
+                System.out.println("Sesja wstrzymana.");
+                break;
+            } else {
+                System.out.println();
+                System.out.println("*******************************");
 
-        Word w = ws.get((int) (Math.random() * ws.size()));
+                Word w = ws.get((int) (Math.random() * ws.size()));
 
-        options.add(w.getTarget());
+                options.add(w.getTarget());
 
-        if (ws.size() > 3) {
-            while (options.size() < 4) {
-                Word option = ws.get((int) (Math.random() * ws.size()));
-                if (!options.contains(option.getTarget())) {
-                    options.add(option.getTarget());
+                if (ws.size() > 3) {
+                    while (options.size() < 4) {
+                        Word option = ws.get((int) (Math.random() * ws.size()));
+                        if (!options.contains(option.getTarget())) {
+                            options.add(option.getTarget());
+                        }
+                    }
+                } else {
+                    System.out.println("WordSet nie posiada wystarczająco wyrazów");
                 }
+
+                Collections.shuffle(options);
+
+
+                System.out.println("Jakie jest poprawne tłumaczenie słowa: \"" + w.getSource() + "\"");
+                int k = 1;
+                for (String option : options) {
+                    System.out.println(k + ") " + option);
+                    k++;
+                }
+                int odp = scanner.nextInt() - 1;
+
+                if (options.get(odp).equals(w.getTarget())) {
+                    System.out.println("            Dobrze! ");
+                    learningSession.notifyObservers(w, true);
+                } else {
+                    System.out.println("            Źle! ");
+                    learningSession.notifyObservers(w, false);
+                }
+                options.clear();
+                System.out.println("*******************************");
+                String placeholder = scanner.nextLine();
+                ;
+                placeholder = scanner.nextLine();
             }
-        }
-        else {
-            System.out.println("WordSet nie posiada wystarczająco wyrazów");
-        }
 
-        Collections.shuffle(options);
-
-
-        System.out.println("Jakie jest poprawne tłumaczenie słowa: \"" + w.getSource() +"\"");
-        int k=1;
-        for (String option : options) {
-            System.out.println(k+") " + option);
-            k++;
+            System.out.println("Ilość poprawnych odpowiedzi: " + stats.getCorrectCount());//JANEK DO ROBOTY //no gosciu nie wiem czy to sie tak da
+            System.out.println("Super Wynik! Gratulacje!");
+            //scanner.close();
         }
-        int odp = scanner.nextInt() - 1;
-
-        if (options.get(odp).equals(w.getTarget())) {
-            System.out.println("            Dobrze! ");
-            learningSession.notifyObservers(w, true);
-        }
-
-        else {
-            System.out.println("            Źle! ");
-            learningSession.notifyObservers(w, false);
-        }
-        options.clear();
-        System.out.println("*******************************");
-        String placeholder= scanner.nextLine();;
-        placeholder = scanner.nextLine();
-        }
-
-        System.out.println("Ilość poprawnych odpowiedzi: " + stats.getCorrectCount());//JANEK DO ROBOTY //no gosciu nie wiem czy to sie tak da
-        System.out.println("Super Wynik! Gratulacje!");
-        scanner.close();
     }
 
 

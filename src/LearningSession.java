@@ -10,6 +10,7 @@ public class LearningSession {
     LearningSession(WordSet wordSet) {
         observers = new ArrayList<>();
         this.wordSet = wordSet;
+        this.state = new StartedState();//albo tu jakiś idleState, że czeka na konkretny tryb
     }
 
 //    public void setMode(LearningMode mode) {
@@ -53,5 +54,9 @@ public class LearningSession {
     }
     public void end(){
         state.end(this);
+    }
+
+    public boolean isStarted(){
+        return state instanceof StartedState;
     }
 }

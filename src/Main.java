@@ -31,9 +31,6 @@ public class Main {
 
 
 
-        QuestionFactory factory = new MillionaireTypeQuestionFactory();
-        Question q1 = factory.createQuestion(w, ws);
-        System.out.println(q1);
 
         //LearningMode mode1 = new FlashCardMode();
         //mode1.start(ws);

@@ -18,7 +18,7 @@ public class FlashCardMode implements LearningMode{
             line = scanner.nextLine();
             System.out.println("*******************************");
         }
-        scanner.close();
+        //scanner.close();
 
 
     }
