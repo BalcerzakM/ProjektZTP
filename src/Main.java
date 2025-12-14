@@ -21,7 +21,7 @@ public class Main {
                 Controller controller = controllers.get(currentState);
                 currentState = controller.run(context);
             } else {
-                System.out.println("Błąd: NIeznany stan aplikacji.");
+                System.out.println("Błąd: Nieznany stan aplikacji.");
                 break;
             }
         }

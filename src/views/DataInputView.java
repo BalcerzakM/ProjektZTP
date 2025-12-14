@@ -20,10 +20,10 @@ public class DataInputView {
         }
     }
 
-    public String prompt(String promptMessage) {
+    public String showChooseFileNamePrompt() {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
-        System.out.print(promptMessage);
+        System.out.print("Wybierz zestaw słówek, którego chcesz się nauczyć: ");
         return scanner.nextLine();
     }
 

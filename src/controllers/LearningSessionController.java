@@ -19,7 +19,7 @@ public class LearningSessionController implements Controller {
         view = new LearningSessionView(context.getCurrentWordSet().getName());
         while(true) {
             view.showMainPage();
-            String line = view.prompt();
+            String line = view.showChooseModePrompt();
             int command = Integer.parseInt(line);
             switch (command) {
                 case 1:

@@ -17,7 +17,7 @@ public class DataInputController implements Controller {
     public AppState run(AppContext context) {
         while(true) {
             view.show();
-            String line= view.prompt("Wybierz zestaw słówek, którego chcesz się nauczyć: ");
+            String line= view.showChooseFileNamePrompt();
             String path = "resources/wordSets/" + line + ".txt";
             try {
                 WordSet importedWordSet = Connector.getInstance().readWordSetFromFile(path);

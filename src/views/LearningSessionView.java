@@ -22,7 +22,7 @@ public class LearningSessionView {
     }
 
 
-    public String prompt() {
+    public String showChooseModePrompt() {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
         System.out.print("Wybierz tryb nauki: ");
