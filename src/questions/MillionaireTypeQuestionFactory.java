@@ -1,3 +1,9 @@
+package questions;
+
+import models.Question;
+import models.Word;
+import models.WordSet;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -5,7 +11,7 @@ import java.util.List;
 public class MillionaireTypeQuestionFactory implements QuestionFactory {
     @Override
     public Question createQuestion(Word w, WordSet wordSet) {
-        //WordSet powinien byc przekazywany aby te inne odpowiedzi miały sens, ale też aby brało słówka z odpowiedniego działu
+        //models.WordSet powinien byc przekazywany aby te inne odpowiedzi miały sens, ale też aby brało słówka z odpowiedniego działu
         //i losowanie odpowiedzi albo shuffle za każdym razem tylko to liniówka pewnie, albo math rand z wykluczeniem opcji co były, aby nie powtarzało odpowiedzi.
         List<Word> ws = wordSet.getWords();
         List<String> options = new ArrayList<String>();
@@ -24,7 +30,7 @@ public class MillionaireTypeQuestionFactory implements QuestionFactory {
             }
         }
         else {
-            System.out.println("WordSet nie posiada wystarczająco wyrazów");
+            System.out.println("models.WordSet nie posiada wystarczająco wyrazów");
         }
 
         Collections.shuffle(options);

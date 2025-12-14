@@ -1,5 +1,10 @@
+package observers;
+
 import java.util.ArrayList;
 import java.util.List;
+import models.Word;
+import models.WordSet;
+
 
 public class ReviewScheduler implements AnswerObserver {
     private List<Word> reviewWords = new ArrayList<Word>();

@@ -1,3 +1,7 @@
+package observers;
+
+import models.Word;
+
 public class Statistics implements AnswerObserver {
     private int correctCount = 0;
     private int incorrectCount = 0;

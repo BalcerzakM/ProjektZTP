@@ -1,3 +1,9 @@
+package questions;
+
+import models.Question;
+import models.Word;
+import models.WordSet;
+
 public class TypingQuestionFactory implements QuestionFactory {
 
     @Override
