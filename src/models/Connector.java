@@ -1,7 +1,4 @@
-package app;
-
-import models.Word;
-import models.WordSet;
+package models;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,9 +7,6 @@ import java.util.Scanner;
 
 public class Connector {
     private static Connector instance;
-
-    private Connector() {
-    }
 
     public static Connector getInstance() {
         if (instance == null) {

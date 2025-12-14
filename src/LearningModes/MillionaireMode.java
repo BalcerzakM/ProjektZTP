@@ -12,9 +12,9 @@ import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
 
 public class MillionaireMode implements LearningMode {
     @Override
-    public void start(LearningSession learningSession) {
+    public void start(WordSet wordSet, LearningSession learningSession) {
         Scanner scanner = new Scanner(System.in);
-        List<Word> ws = learningSession.getWordSet().getWords();
+        List<Word> ws = wordSet.getWords();
         List<String> options = new ArrayList<String>();
         Statistics stats = learningSession.getStatistics();
 

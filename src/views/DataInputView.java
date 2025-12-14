@@ -4,17 +4,16 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class DataInputView implements View {
+public class DataInputView {
     private List<String> fileNameList;
 
     public DataInputView(List<String> fileNameList) {
         this.fileNameList = fileNameList;
     }
 
-    @Override
     public void show() {
-        View topBar = new TopBar();
-        topBar.show();
+        ComponentsDrawer drawer = new ComponentsDrawer();
+        drawer.showTopBar();
         System.out.println("Dostępne zestawy słówek:");
         for (int i = 0; i < fileNameList.size(); i++) {
             System.out.println(i + ". " + fileNameList.get(i));
@@ -29,6 +28,6 @@ public class DataInputView implements View {
     }
 
     public void showError() {
-        System.out.println("Błąd: Nieprawidłowa instrukcja.");
+        System.out.println("Błąd: Nie można wczytać pliku.");
     }
 }

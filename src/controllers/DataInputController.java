@@ -2,6 +2,8 @@ package controllers;
 
 import app.AppContext;
 import app.AppState;
+import models.Connector;
+import models.WordSet;
 import views.DataInputView;
 
 import java.io.FileNotFoundException;
@@ -16,8 +18,10 @@ public class DataInputController implements Controller {
         while(true) {
             view.show();
             String line= view.prompt("Wybierz zestaw słówek, którego chcesz się nauczyć: ");
+            String path = "resources/wordSets/" + line + ".txt";
             try {
-                context.connector.readWordSetFromFile(line);
+                WordSet importedWordSet = Connector.getInstance().readWordSetFromFile(path);
+                context.setCurrentWordSet(importedWordSet);
             } catch (FileNotFoundException e) {
                 view.showError();
                 continue;

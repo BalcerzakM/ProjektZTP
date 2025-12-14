@@ -2,17 +2,16 @@ package views;
 
 import java.util.Scanner;
 
-public class LearningSessionView implements View {
+public class LearningSessionView {
     private String wordSetName;
 
     public LearningSessionView(String wordSetName) {
         this.wordSetName = wordSetName;
     }
 
-    @Override
-    public void show() {
-        View topBar = new TopBar();
-        topBar.show();
+    public void showMainPage() {
+        ComponentsDrawer drawer = new ComponentsDrawer();
+        drawer.showTopBar();
         System.out.println("Witaj w aplikacji do nauki języków!");
         System.out.println("Wybrano zestaw słówek: " + wordSetName);
         System.out.println("Dostępne trybt nauki:");
@@ -22,16 +21,18 @@ public class LearningSessionView implements View {
         System.out.println("4. Wpisz odpowiedź");
     }
 
-    public String prompt(String promptMessage) {
+
+    public String prompt() {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
-        System.out.print(promptMessage);
+        System.out.print("Wybierz tryb nauki: ");
         return scanner.nextLine();
     }
 
     public void showError() {
-        System.out.println("Błąd: Nie można wczytać pliku.");
+        System.out.println("Błąd: Nieprawidłowa instrukcja.");
     }
+
 
 
 }

@@ -11,14 +11,14 @@ import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
 
 public class ConnectMode implements LearningMode {
     @Override
-    public void start(LearningSession learningSession) {
+    public void start(WordSet wordSet, LearningSession learningSession) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("*******************************");
         System.out.println("          Tryb Łączenia!");
         System.out.println("*******************************");
         System.out.println();
 
-        List<Word> ws = learningSession.getWordSet().getWords();
+        List<Word> ws = wordSet.getWords();
         List<Word> tab1 = new ArrayList<Word>();
         List<String> tab2 = new ArrayList<String>();
 

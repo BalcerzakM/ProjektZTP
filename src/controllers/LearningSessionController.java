@@ -18,8 +18,8 @@ public class LearningSessionController implements Controller {
     public AppState run(AppContext context) {
         view = new LearningSessionView(context.getCurrentWordSet().getName());
         while(true) {
-            view.show();
-            String line = view.prompt("Wybierz tryb nauki: ");
+            view.showMainPage();
+            String line = view.prompt();
             int command = Integer.parseInt(line);
             switch (command) {
                 case 1:
@@ -38,7 +38,7 @@ public class LearningSessionController implements Controller {
                     view.showError();
                     continue;
             }
-            model.getMode().start(model);
+            model.getMode().start(context.getCurrentWordSet(), model);
         }
     }
 }
