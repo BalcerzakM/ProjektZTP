@@ -26,6 +26,7 @@ public class FlashCardMode implements LearningMode {
             System.out.println("            "+word.getTarget());
             line = scanner.nextLine();
             System.out.println("*******************************");
+            learningSession.notifyObservers(word, true);
         }
 
 

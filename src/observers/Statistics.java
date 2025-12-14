@@ -2,6 +2,9 @@ package observers;
 
 import models.Word;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Statistics implements AnswerObserver {
     private int correctCount = 0;
     private int incorrectCount = 0;
@@ -11,6 +14,7 @@ public class Statistics implements AnswerObserver {
     private int correctOverall = 0;
     private int incorrectOverall = 0;
     private int longestStreak = 0;
+    private Set<Word> learnedWords = new HashSet<Word>();
     private static Statistics instance;
 
     private Statistics() {}
@@ -30,12 +34,17 @@ public class Statistics implements AnswerObserver {
             if (streak > maxSessionStreak) {
                 maxSessionStreak = streak;
             }
+            learnedWords.add(w);
         } else {
             incorrectCount++;
             streak = 0;
         }
         if (correctCount + incorrectCount > 0) {
             correctPercent = (correctCount*100)/(correctCount + incorrectCount);
+        }
+
+        if (maxSessionStreak % 5 == 0 && maxSessionStreak > 0) {
+            System.out.printf("\n-- %d pod rząd! Dobra robota! --\n", maxSessionStreak);
         }
     }
 
@@ -45,12 +54,13 @@ public class Statistics implements AnswerObserver {
 
     public StringBuilder showStatistics() {
         StringBuilder sb = new StringBuilder();
+        String perfect = (correctPercent == 100) ? " IDEALNIE!" : "";
         sb
                 .append("\n===========STATYSTYKI=============\n")
                 .append("Poprawne odpowiedzi: " + correctCount + "\n")
                 .append("Niepoprawne odpowiedzi: " + incorrectCount + "\n")
                 .append("Streak: " + maxSessionStreak + "\n")
-                .append("Skuteczność: " + correctPercent + "%\n")
+                .append("Skuteczność: " + correctPercent + "% " + perfect + "\n")
                 .append("==================================\n");
         return sb;
     }
@@ -78,6 +88,7 @@ public class Statistics implements AnswerObserver {
                 .append("Poprawne odpowiedzi: " + correctOverall + "\n")
                 .append("Niepoprawne odpowiedzi: " + incorrectOverall + "\n")
                 .append("Najlepszy streak: " + longestStreak + "\n")
+                .append("Przerobione slowa: " + learnedWords.size() + "\n")
                 .append("==================================\n");
         return sb;
     }
