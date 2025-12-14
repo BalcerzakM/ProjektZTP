@@ -1,7 +1,8 @@
 package controllers;
 
+import app.AppContext;
 import app.AppState;
 
 public interface Controller {
-    AppState Run();
+    public AppState run(AppContext context);
 }

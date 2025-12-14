@@ -5,8 +5,11 @@ import models.WordSet;
 public class AppContext {
     private String CurrentUser = "user";
     private WordSet CurrentWordSet;
+    public Connector connector = Connector.getInstance();
 
-    public AppContext() {}
+    public AppContext(WordSet CurrentWordSet) {
+        this.CurrentWordSet = CurrentWordSet;
+    }
 
     public String getCurrentUser() {
         return CurrentUser;

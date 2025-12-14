@@ -3,7 +3,7 @@ package views;
 import java.util.Scanner;
 
 public class LearningSessionView implements View {
-    String wordSetName;
+    private String wordSetName;
 
     public LearningSessionView(String wordSetName) {
         this.wordSetName = wordSetName;
@@ -22,15 +22,15 @@ public class LearningSessionView implements View {
         System.out.println("4. Wpisz odpowiedź");
     }
 
-    public Scanner prompt(String promptMessage) {
+    public String prompt(String promptMessage) {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
         System.out.print(promptMessage);
-        return scanner;
+        return scanner.nextLine();
     }
 
     public void showError() {
-        System.out.println("Błąd: Nieprawidłowa instrukcja.");
+        System.out.println("Błąd: Nie można wczytać pliku.");
     }
 
 

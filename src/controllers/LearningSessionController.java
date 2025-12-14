@@ -4,6 +4,7 @@ import LearningModes.ConnectMode;
 import LearningModes.FlashCardMode;
 import LearningModes.MillionaireMode;
 import LearningModes.TypingMode;
+import app.AppContext;
 import app.AppState;
 import views.LearningSessionView;
 import models.LearningSession;
@@ -12,13 +13,14 @@ import java.util.Scanner;
 
 public class LearningSessionController implements Controller {
     public LearningSession model = new LearningSession();
-    public LearningSessionView view = new LearningSessionView(model.getWordSet().getName());
+    public LearningSessionView view;
     @Override
-    public AppState Run() {
+    public AppState run(AppContext context) {
+        view = new LearningSessionView(context.getCurrentWordSet().getName());
         while(true) {
             view.show();
-            Scanner scanner = view.prompt("Wybierz tryb nauki: ");
-            int command = scanner.nextInt();
+            String line = view.prompt("Wybierz tryb nauki: ");
+            int command = Integer.parseInt(line);
             switch (command) {
                 case 1:
                     model.setMode(new FlashCardMode());
