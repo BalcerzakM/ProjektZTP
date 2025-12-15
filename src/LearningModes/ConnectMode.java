@@ -50,13 +50,13 @@ public class ConnectMode implements LearningMode {
 
             if (tab1.get(left).getTarget().equals(tab2.get(right))) {
                 System.out.println("            Dobrze!");
-                learningSession.notifyObservers(null, true); //tu moze zostac null chyba
+                learningSession.notifyObservers(null, true);
                 tab1.remove(left);
                 tab2.remove(right);
 
             } else {
                 System.out.println("            Źle! Spróbuj ponownie.");
-                learningSession.notifyObservers(null, false); //zamiast null powinien byc odpowiedni word, inaczej reviewScheduler bedzie robil errora
+                learningSession.notifyObservers(tab1.get(left), false);
             }
         }
 
