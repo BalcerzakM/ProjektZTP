@@ -16,7 +16,6 @@ public class MillionaireMode implements LearningMode {
         Scanner scanner = new Scanner(System.in);
         List<Word> ws = wordSet.getWords();
         List<String> options = new ArrayList<String>();
-        Statistics stats = learningSession.getStatistics();
 
         System.out.println("*******************************");
         System.out.println("          Tryb Milionerów!");
@@ -72,7 +71,7 @@ public class MillionaireMode implements LearningMode {
         placeholder = scanner.nextLine();
         }
 
-        System.out.println("Ilość poprawnych odpowiedzi: " + stats.getCorrectCount());
+        System.out.println("Ilość poprawnych odpowiedzi: " + Statistics.getInstance().getCorrectCount());
         System.out.println("Super Wynik! Gratulacje!");
     }
 

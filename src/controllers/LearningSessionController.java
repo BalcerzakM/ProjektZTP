@@ -6,6 +6,8 @@ import LearningModes.MillionaireMode;
 import LearningModes.TypingMode;
 import app.AppContext;
 import app.AppState;
+import observers.ReviewScheduler;
+import observers.Statistics;
 import views.LearningSessionView;
 import models.LearningSession;
 
@@ -16,6 +18,9 @@ public class LearningSessionController implements Controller {
     public LearningSessionView view;
     @Override
     public AppState run(AppContext context) {
+        Statistics statistics = Statistics.getInstance();
+        model.registerObserver(statistics);
+        model.registerObserver(new ReviewScheduler());
         view = new LearningSessionView(context.getCurrentWordSet().getName());
         while(true) {
             view.showMainPage();
@@ -39,6 +44,11 @@ public class LearningSessionController implements Controller {
                     continue;
             }
             model.getMode().start(context.getCurrentWordSet(), model);
+
+            System.out.println(statistics.showStatistics());
+            statistics.addToOverallStats();
+            statistics.resetStatistics();
+            System.out.println(statistics.showOverallStatistics()); //TO TYLKO DO TESTOW, BARDZIEJ JAKO OPCJA DLA USERA BEDZIE
         }
     }
 }

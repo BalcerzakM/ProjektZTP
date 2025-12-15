@@ -31,6 +31,7 @@ public class FlashCardMode implements LearningMode {
             System.out.println("            "+words.get(currentIndex).getTarget());
             line = scanner.nextLine();
             System.out.println("*******************************");
+            learningSession.notifyObservers(null, true);
             if(line.equals("ESCAPE")) {
                 learningSession.saveMemento(currentIndex);
                 break;
