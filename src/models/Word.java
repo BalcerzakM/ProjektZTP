@@ -1,8 +1,8 @@
 package models;
 
 public class Word {
-    String source;
-    String target;
+    private String source;
+    private String target;
 
 
     public Word(String source, String target) {

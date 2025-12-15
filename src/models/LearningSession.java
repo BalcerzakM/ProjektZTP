@@ -11,6 +11,7 @@ public class LearningSession {
     private List<AnswerObserver> observers = new ArrayList<>();
     private WordSet wordSet;
     private LearningMode mode;
+    private SessionMemento memento;
 
     public void setMode(LearningMode mode) {
         this.mode = mode;
@@ -51,4 +52,13 @@ public class LearningSession {
     public void setWordSet(WordSet wordSet) {
         this.wordSet = wordSet;
     }
+
+    public SessionMemento getMemento() {
+        return memento;
+    }
+
+    public void saveMemento(int questionIndex) {
+        this.memento = new SessionMemento(questionIndex);
+    }
+
 }

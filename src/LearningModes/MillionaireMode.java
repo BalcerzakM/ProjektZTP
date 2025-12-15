@@ -24,9 +24,9 @@ public class MillionaireMode implements LearningMode {
         System.out.println();
 
         System.out.println("Ile pytań chcesz przerobić?");
-        int ile = scanner.nextInt() - 1;
+        int ile = scanner.nextInt();
 
-        for(int i=0;i<=ile;i++) {
+        for(int i=0;i<ile;i++) {
             System.out.println();
             System.out.println("*******************************");
 
@@ -72,7 +72,7 @@ public class MillionaireMode implements LearningMode {
         placeholder = scanner.nextLine();
         }
 
-        System.out.println("Ilość poprawnych odpowiedzi: " + stats.getCorrectCount());//JANEK DO ROBOTY //no gosciu nie wiem czy to sie tak da
+        System.out.println("Ilość poprawnych odpowiedzi: " + stats.getCorrectCount());
         System.out.println("Super Wynik! Gratulacje!");
     }
 
