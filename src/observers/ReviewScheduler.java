@@ -16,8 +16,12 @@ public class ReviewScheduler implements AnswerObserver {
             reviewWords.add(w);
         }
 
-        if (reviewWords.size() > 4 && !wasAlertShown) {
-            System.out.printf("\n-- Masz %d słów do powtórki! Sprawdź lekcję powtórzeniową. --\n", reviewWords.size());
+        if (!correct && wasAlertShown) {
+            wasAlertShown = false;
+        }
+
+        if (reviewWords.size() % 5 == 0 && reviewWords.size() > 0 && !wasAlertShown) {
+            System.out.printf("\n-- Masz już %d słów do powtórki! Sprawdź lekcję powtórzeniową. --\n", reviewWords.size());
             wasAlertShown = true;
         }
     }

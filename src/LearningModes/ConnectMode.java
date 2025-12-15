@@ -50,7 +50,7 @@ public class ConnectMode implements LearningMode {
 
             if (tab1.get(left).getTarget().equals(tab2.get(right))) {
                 System.out.println("            Dobrze!");
-                learningSession.notifyObservers(null, true);
+                learningSession.notifyObservers(tab1.get(left), true);
                 tab1.remove(left);
                 tab2.remove(right);
 

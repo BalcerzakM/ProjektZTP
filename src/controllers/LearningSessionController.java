@@ -48,7 +48,7 @@ public class LearningSessionController implements Controller {
             System.out.println(statistics.showStatistics());
             statistics.addToOverallStats();
             statistics.resetStatistics();
-            System.out.println(statistics.showOverallStatistics()); //TO TYLKO DO TESTOW
+            System.out.println(statistics.showOverallStatistics()); //TO TYLKO DO TESTOW, BARDZIEJ JAKO OPCJA DLA USERA BEDZIE
         }
     }
 }
