@@ -2,7 +2,7 @@ package models;
 
 import LearningModes.LearningMode;
 import observers.AnswerObserver;
-import observers.Statistics;
+import observers.SessionStatistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +36,10 @@ public class LearningSession {
         }
     }
 
-    public Statistics getStatistics() {
+    public SessionStatistics getStatistics() {
         for (AnswerObserver observer : observers) {
-            if  (observer instanceof Statistics) {
-                return (Statistics) observer;
+            if  (observer instanceof SessionStatistics) {
+                return (SessionStatistics) observer;
             }
         }
         return null;

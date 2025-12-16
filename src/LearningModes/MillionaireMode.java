@@ -3,7 +3,7 @@ package LearningModes;
 import models.LearningSession;
 import models.Word;
 import models.WordSet;
-import observers.Statistics;
+import observers.SessionStatistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,7 +71,7 @@ public class MillionaireMode implements LearningMode {
         placeholder = scanner.nextLine();
         }
 
-        System.out.println("Ilość poprawnych odpowiedzi: " + Statistics.getInstance().getCorrectCount());
+        System.out.println("Ilość poprawnych odpowiedzi: " + learningSession.getStatistics().getCorrectCount());
         System.out.println("Super Wynik! Gratulacje!");
     }
 

@@ -15,9 +15,11 @@ public class DataInputView {
         ComponentsDrawer drawer = new ComponentsDrawer();
         drawer.showTopBar();
         System.out.println("Dostępne zestawy słówek:");
-        for (int i = 0; i < fileNameList.size(); i++) {
+        int i;
+        for (i = 0; i < fileNameList.size(); i++) {
             System.out.println(i + ". " + fileNameList.get(i));
         }
+        System.out.println(i + ". review");
     }
 
     public String showChooseFileNamePrompt() {

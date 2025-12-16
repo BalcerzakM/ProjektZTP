@@ -6,23 +6,24 @@ import LearningModes.MillionaireMode;
 import LearningModes.TypingMode;
 import app.AppContext;
 import app.AppState;
+import models.OverallStatistics;
 import observers.ReviewScheduler;
-import observers.Statistics;
+import observers.SessionStatistics;
 import views.LearningSessionView;
 import models.LearningSession;
-
-import java.util.Scanner;
 
 public class LearningSessionController implements Controller {
     public LearningSession model = new LearningSession();
     public LearningSessionView view;
     @Override
     public AppState run(AppContext context) {
-        Statistics statistics = Statistics.getInstance();
-        model.registerObserver(statistics);
-        model.registerObserver(new ReviewScheduler());
+        model.registerObserver(context.getReviewScheduler());
+
         view = new LearningSessionView(context.getCurrentWordSet().getName());
         while(true) {
+            SessionStatistics sessionStatistics = new SessionStatistics();
+            model.registerObserver(sessionStatistics);
+
             view.showMainPage();
             String line = view.showChooseModePrompt();
             int command = Integer.parseInt(line);
@@ -45,10 +46,11 @@ public class LearningSessionController implements Controller {
             }
             model.getMode().start(context.getCurrentWordSet(), model);
 
-            System.out.println(statistics.showStatistics());
-            statistics.addToOverallStats();
-            statistics.resetStatistics();
-            System.out.println(statistics.showOverallStatistics()); //TO TYLKO DO TESTOW, BARDZIEJ JAKO OPCJA DLA USERA BEDZIE
+            System.out.println(sessionStatistics.showStatistics());
+            OverallStatistics.getInstance().addToOverallStats(sessionStatistics);
+            model.unregisterObserver(sessionStatistics);
+
+            System.out.println(OverallStatistics.getInstance().showOverallStatistics()); //TO TYLKO DO TESTOW, BARDZIEJ JAKO OPCJA DLA USERA BEDZIE
         }
     }
 }
