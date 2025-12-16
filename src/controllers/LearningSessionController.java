@@ -17,7 +17,7 @@ public class LearningSessionController implements Controller {
     public LearningSessionView view;
     @Override
     public AppState run(AppContext context) {
-        model.registerObserver(new ReviewScheduler());
+        model.registerObserver(context.getReviewScheduler());
 
         view = new LearningSessionView(context.getCurrentWordSet().getName());
         while(true) {

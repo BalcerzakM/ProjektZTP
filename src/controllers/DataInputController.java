@@ -17,7 +17,18 @@ public class DataInputController implements Controller {
     public AppState run(AppContext context) {
         while(true) {
             view.show();
-            String line= view.showChooseFileNamePrompt();
+            String line = view.showChooseFileNamePrompt();
+            if (line.equals("review")) {
+                if (!context.getReviewScheduler().getReviewWords().isEmpty()) {
+                    WordSet reviewWordSet = new WordSet("review", context.getReviewScheduler().getReviewWords(), "review");
+                    context.setCurrentWordSet(reviewWordSet);
+                    return AppState.LearningSession;
+                }
+                else {
+                    System.out.println("Brak słów do powtórzenia!"); //ten komuniakt bedzie pewnie w DataInputView
+                    continue;
+                }
+            }
             String path = "resources/wordSets/" + line + ".txt";
             try {
                 WordSet importedWordSet = Connector.getInstance().readWordSetFromFile(path);

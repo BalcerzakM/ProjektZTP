@@ -20,17 +20,16 @@ public class ReviewScheduler implements AnswerObserver {
             wasAlertShown = false;
         }
 
-        if (reviewWords.size() % 5 == 0 && reviewWords.size() > 0 && !wasAlertShown) {
+        if (reviewWords.size() % 5 == 0 && !reviewWords.isEmpty() && !wasAlertShown) {
             System.out.printf("\n-- Masz już %d słów do powtórki! Sprawdź lekcję powtórzeniową. --\n", reviewWords.size());
             wasAlertShown = true;
         }
     }
 
     public List<Word> getReviewWords() {
-        return reviewWords;
-    }
-
-    public WordSet createReviewSet() {
-        return new WordSet("powtorzenie", reviewWords, "RV");
+        List<Word> reviewWordsCopy = reviewWords;
+        reviewWords.clear();
+        wasAlertShown = false;
+        return reviewWordsCopy;
     }
 }
