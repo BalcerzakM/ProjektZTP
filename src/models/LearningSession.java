@@ -36,15 +36,6 @@ public class LearningSession {
         }
     }
 
-    public SessionStatistics getStatistics() {
-        for (AnswerObserver observer : observers) {
-            if  (observer instanceof SessionStatistics) {
-                return (SessionStatistics) observer;
-            }
-        }
-        return null;
-    }
-
     public WordSet getWordSet() {
         return wordSet;
     }

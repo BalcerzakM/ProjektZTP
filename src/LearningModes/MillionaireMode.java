@@ -70,12 +70,5 @@ public class MillionaireMode implements LearningMode {
         String placeholder= scanner.nextLine();;
         placeholder = scanner.nextLine();
         }
-
-        System.out.println("Ilość poprawnych odpowiedzi: " + learningSession.getStatistics().getCorrectCount());
-        System.out.println("Super Wynik! Gratulacje!");
     }
-
-
-
-
 }
