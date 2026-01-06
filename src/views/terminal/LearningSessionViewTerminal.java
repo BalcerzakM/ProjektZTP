@@ -1,11 +1,11 @@
-package views;
+package views.terminal;
 
 import java.util.Scanner;
 
-public class LearningSessionView {
+public class LearningSessionViewTerminal {
     private String wordSetName;
 
-    public LearningSessionView(String wordSetName) {
+    public LearningSessionViewTerminal(String wordSetName) {
         this.wordSetName = wordSetName;
     }
 

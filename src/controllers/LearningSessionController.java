@@ -1,56 +1,60 @@
 package controllers;
 
-import LearningModes.ConnectMode;
-import LearningModes.FlashCardMode;
-import LearningModes.MillionaireMode;
-import LearningModes.TypingMode;
+import LearningModes.*;
 import app.AppContext;
 import app.AppState;
-import models.OverallStatistics;
-import observers.ReviewScheduler;
 import observers.SessionStatistics;
-import views.LearningSessionView;
 import models.LearningSession;
+import views.MainFrame;
+import views.LearningSessionPanel;
+
+import javax.swing.*;
 
 public class LearningSessionController implements Controller {
-    public LearningSession model = new LearningSession();
-    public LearningSessionView view;
+
+    private LearningSession model = new LearningSession();
+    //private LearningSessionView view;
+    private final MainFrame frame;
+
+    public LearningSessionController(MainFrame frame) {
+        this.frame = frame;
+    }
+
     @Override
     public AppState run(AppContext context) {
+
         model.registerObserver(context.getReviewScheduler());
 
-        view = new LearningSessionView(context.getCurrentWordSet().getName());
-        while(true) {
-            SessionStatistics sessionStatistics = new SessionStatistics();
-            model.registerObserver(sessionStatistics);
+        //view = new LearningSessionView(context.getCurrentWordSet().getName());
 
-            view.showMainPage();
-            String line = view.showChooseModePrompt();
-            int command = Integer.parseInt(line);
-            switch (command) {
-                case 1:
-                    model.setMode(new FlashCardMode());
-                    break;
-                case 2:
-                    model.setMode(new ConnectMode());
-                    break;
-                case 3:
-                    model.setMode(new MillionaireMode());
-                    break;
-                case 4:
-                    model.setMode(new TypingMode());
-                    break;
-                default:
-                    view.showError();
-                    continue;
-            }
-            model.getMode().start(context.getCurrentWordSet(), model);
+        LearningSessionPanel panel = new LearningSessionPanel();
 
-            System.out.println(sessionStatistics.showStatistics());
-            OverallStatistics.getInstance().addToOverallStats(sessionStatistics);
-            model.unregisterObserver(sessionStatistics);
+        panel.onFlashCard(() -> startMode(new FlashCardMode(), context));
+        panel.onConnect(() -> startMode(new ConnectMode(), context));
+        panel.onMillionaire(() -> startMode(new MillionaireMode(), context));
+        panel.onTyping(() -> startMode(new TypingMode(), context));
 
-            System.out.println(OverallStatistics.getInstance().showOverallStatistics()); //TO TYLKO DO TESTOW, BARDZIEJ JAKO OPCJA DLA USERA BEDZIE
-        }
+
+        frame.setView(panel, "LEARNING_SESSION");
+        return null;
+        //return AppState.LearningSession; // GUI steruje dalej
+    }
+
+    private void startMode(LearningMode mode, AppContext context) {
+        SessionStatistics stats = new SessionStatistics();
+        model.registerObserver(stats);
+
+        model.setMode(mode);
+        model.getMode().start(context.getCurrentWordSet(), model);
+
+        model.unregisterObserver(stats);
+
+        JOptionPane.showMessageDialog(
+                frame,
+                stats.showStatistics(),
+                "Session summary",
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }
+

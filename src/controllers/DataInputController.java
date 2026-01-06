@@ -4,47 +4,76 @@ import app.AppContext;
 import app.AppState;
 import models.Connector;
 import models.WordSet;
-import views.DataInputView;
+import views.MainFrame;
+import views.DataInputPanel;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DataInputController implements Controller {
-    public DataInputView view = new DataInputView(readFileList());
+
+    private final MainFrame frame;
+
+    public DataInputController(MainFrame frame) {
+        this.frame = frame;
+    }
 
     @Override
     public AppState run(AppContext context) {
-        while(true) {
-            view.show();
-            String line = view.showChooseFileNamePrompt();
-            if (line.equals("review")) {
-                if (!context.getReviewScheduler().getReviewWords().isEmpty()) {
-                    WordSet reviewWordSet = new WordSet("review", context.getReviewScheduler().getReviewWords(), "review");
-                    context.setCurrentWordSet(reviewWordSet);
-                    return AppState.LearningSession;
-                }
-                else {
-                    System.out.println("Brak słów do powtórzenia!"); //ten komuniakt bedzie pewnie w DataInputView
-                    continue;
-                }
-            }
-            String path = "resources/wordSets/" + line + ".txt";
-            try {
-                WordSet importedWordSet = Connector.getInstance().readWordSetFromFile(path);
-                context.setCurrentWordSet(importedWordSet);
-            } catch (FileNotFoundException e) {
-                view.showError();
-                continue;
-            }
-            return AppState.LearningSession;
+
+        DataInputPanel panel = new DataInputPanel(readFileList());
+
+        panel.onLoad(e -> handleLoad(context, panel));
+        panel.onReview(e -> handleReview(context));
+
+        frame.setView(panel, "DATA_INPUT");
+        return null;
+    }
+
+    private void handleLoad(AppContext context, DataInputPanel panel) {
+        String selected = panel.getSelectedFile();
+
+        if (selected == null) {
+            panel.showError("Wybierz plik z listy.");
+            return;
+        }
+
+        String path = "resources/wordSets/" + selected + ".txt";
+
+        try {
+            WordSet ws = Connector.getInstance().readWordSetFromFile(path);
+            context.setCurrentWordSet(ws);
+            frame.switchState(AppState.LearningSession);
+
+        } catch (FileNotFoundException e) {
+            panel.showError("Nie znaleziono pliku: " + selected);
         }
     }
 
-    private List<String> readFileList() {
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("default");
-        return list;
+    private void handleReview(AppContext context) {
+
+        if (context.getReviewScheduler().getReviewWords().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    frame,
+                    "Brak słów do powtórzenia!",
+                    "Review",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            return;
+        }
+
+        WordSet review = new WordSet(
+                "review",
+                context.getReviewScheduler().getReviewWords(),
+                "review"
+        );
+
+        context.setCurrentWordSet(review);
+        frame.switchState(AppState.LearningSession);
     }
 
+    private List<String> readFileList() {
+        return List.of("default"); // później: skan katalogu
+    }
 }
