@@ -7,71 +7,50 @@ import models.WordSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
 
 public class ConnectMode implements LearningMode {
+
+    private final List<Word> left;
+    private final List<String> right;
+
+    public ConnectMode(WordSet wordSet) {
+        List<Word> ws = wordSet.getWords();
+        left = new ArrayList<>();
+        right = new ArrayList<>();
+
+        Collections.shuffle(ws);
+        for (int i = 0; i < Math.min(8, ws.size()); i++) {
+            left.add(ws.get(i));
+            right.add(ws.get(i).getTarget());
+        }
+        Collections.shuffle(right);
+    }
+
+    public boolean check(int leftIndex, int rightIndex) {
+        return left.get(leftIndex).getTarget().equals(right.get(rightIndex));
+    }
+
+    public Word removePair(int leftIndex, int rightIndex) {
+        Word w = left.remove(leftIndex);
+        right.remove(rightIndex);
+        return w;
+    }
+
+    public boolean isFinished() {
+        return left.isEmpty();
+    }
+
+    public List<Word> getLeftSources() {
+        return left.stream().toList();
+    }
+
+    public List<String> getRightTargets() {
+        return new ArrayList<>(right);
+    }
+
     @Override
     public void start(WordSet wordSet, LearningSession learningSession) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("*******************************");
-        System.out.println("          Tryb Łączenia!");
-        System.out.println("*******************************");
-        System.out.println();
 
-        List<Word> ws = wordSet.getWords();
-        List<Word> tab1 = new ArrayList<Word>();
-        List<String> tab2 = new ArrayList<String>();
-
-        if (ws.size() > 3) {
-            while (tab1.size() < 4 && tab2.size() < 4) {
-                Word option = ws.get((int) (Math.random() * ws.size()));
-                if (!tab1.contains(option)) {
-                    tab1.add(option);
-                    tab2.add(option.getTarget());
-                }
-            }
-        }
-        else {
-            System.out.println("models.WordSet nie posiada wystarczająco wyrazów");
-        }
-
-        Collections.shuffle(tab2);
-
-
-        while (!tab1.isEmpty()) {
-
-            connectPrint(tab2, tab1);
-
-            System.out.println("Wybierz element z lewej kolumny (1-" + tab1.size() + "): ");
-            int left = scanner.nextInt()-1;
-
-            System.out.println("Wybierz element z prawej kolumny (1-" + tab2.size() + "): ");
-            int right = scanner.nextInt()-1;
-
-            if (tab1.get(left).getTarget().equals(tab2.get(right))) {
-                System.out.println("            Dobrze!");
-                learningSession.notifyObservers(tab1.get(left), true);
-                tab1.remove(left);
-                tab2.remove(right);
-
-            } else {
-                System.out.println("            Źle! Spróbuj ponownie.");
-                learningSession.notifyObservers(tab1.get(left), false);
-            }
-        }
-
-        System.out.println("Wszystkie połączone! Gratulacje!");
     }
-
-    private static void connectPrint(List<String> tab2, List<Word> tab1) {
-        System.out.println("*******************************");
-        for (int i = 0; i < tab2.size(); i++) {
-            System.out.println();
-            System.out.println(i+1+"  "+ tab1.get(i).getSource() + "  |  " + tab2.get(i));
-            System.out.println();
-        }
-        System.out.println("*******************************");
-    }
-
-
 }
+
