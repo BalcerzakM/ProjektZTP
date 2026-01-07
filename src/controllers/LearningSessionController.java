@@ -30,7 +30,14 @@ public class LearningSessionController implements Controller {
         LearningSessionPanel panel = new LearningSessionPanel();
 
         panel.onFlashCard(() -> startMode(new FlashCardMode(), context));
-        panel.onConnect(() -> startMode(new ConnectMode(), context));
+        //panel.onConnect(() -> startMode(new ConnectMode(context.getCurrentWordSet()), context));
+        panel.onConnect(() -> {
+                    new ConnectController(
+                            frame,
+                            model,
+                            context.getCurrentWordSet()
+                    ).start();
+                });
         panel.onMillionaire(() -> startMode(new MillionaireMode(), context));
         panel.onTyping(() -> startMode(new TypingMode(), context));
 
@@ -40,6 +47,7 @@ public class LearningSessionController implements Controller {
         //return AppState.LearningSession; // GUI steruje dalej
     }
 
+    //ta metoda jest do synchronicznych mode(terminal)
     private void startMode(LearningMode mode, AppContext context) {
         SessionStatistics stats = new SessionStatistics();
         model.registerObserver(stats);
@@ -55,6 +63,7 @@ public class LearningSessionController implements Controller {
                 "Session summary",
                 JOptionPane.INFORMATION_MESSAGE
         );
+        //STATYSTYKI RACZEJ DO KONTROLERA
     }
 }
 

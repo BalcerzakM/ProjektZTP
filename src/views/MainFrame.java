@@ -4,7 +4,6 @@ import app.AppContext;
 import app.AppState;
 import controllers.Controller;
 import controllers.DataInputController;
-import controllers.DataInputControllerTerminal;
 import controllers.LearningSessionController;
 
 import javax.swing.*;
