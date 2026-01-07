@@ -38,7 +38,22 @@ public class LearningSessionController implements Controller {
                             context.getCurrentWordSet()
                     ).start();
                 });
-        panel.onMillionaire(() -> startMode(new MillionaireMode(), context));
+        panel.onMillionaire(() -> {
+            new MillionaireController(
+                    frame,
+                    model,
+                    context.getCurrentWordSet(),
+                    4,
+                    () -> {
+                        JOptionPane.showMessageDialog(
+                                frame,"statystyki",
+                                //stats.showStatistics(),
+                                "Session summary",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );//Statystyki na przykład , jak nie tu to wywalić. Albo dodać metode, która tu by się wykonywała
+                    }
+                    ).start();
+        });
         panel.onTyping(() -> startMode(new TypingMode(), context));
 
 
@@ -63,7 +78,7 @@ public class LearningSessionController implements Controller {
                 "Session summary",
                 JOptionPane.INFORMATION_MESSAGE
         );
-        //STATYSTYKI RACZEJ DO KONTROLERA
+        //STATYSTYKI albo w osobnej metodzie albo w każdym z kontrolerów mode
     }
 }
 
