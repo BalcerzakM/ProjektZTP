@@ -14,6 +14,7 @@ public class SessionStatisticsPanel extends JPanel {
 
     public SessionStatisticsPanel() {
         setLayout(new GridLayout(0, 1, 5, 5));
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         add(correctLabel);
         add(incorrectLabel);
         add(correctPercentLabel);
@@ -38,5 +39,15 @@ public class SessionStatisticsPanel extends JPanel {
             correctPercentLabel.setText(correctPercentLabel.getText() + " IDEALNIE!");
         }
         maxSessionStreakLabel.setText("Najlepszy streak: " + stats.getMaxSessionStreak());
+    }
+
+    public void showInDialog(JFrame parent) {
+        JDialog dialog = new JDialog(parent, "Podsumowanie lekcji", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.add(this);
+        dialog.pack();
+        dialog.setBounds(0, 0, parent.getWidth()-100, parent.getHeight()-100);
+        dialog.setLocationRelativeTo(parent);
+        dialog.setVisible(true);
     }
 }

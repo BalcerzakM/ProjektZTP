@@ -41,12 +41,7 @@ public class LearningSessionController implements Controller {
                         model.unregisterObserver(stats);
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                         sessionStatsPanel.setStatistics(stats);
-                        JDialog dialog = new JDialog(frame, "Podsumowanie sesji", true);
-                        dialog.add(sessionStatsPanel);
-                        dialog.pack();
-                        dialog.setBounds(0, 0, frame.getWidth()-100, frame.getHeight()-100);
-                        dialog.setLocationRelativeTo(frame);
-                        dialog.setVisible(true);
+                        sessionStatsPanel.showInDialog(frame);
                         frame.setView(panel,"MENU");
                     }
             ).start();
@@ -63,12 +58,7 @@ public class LearningSessionController implements Controller {
                         model.unregisterObserver(stats);
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                         sessionStatsPanel.setStatistics(stats);
-                        JDialog dialog = new JDialog(frame, "Podsumowanie sesji", true);
-                        dialog.add(sessionStatsPanel);
-                        dialog.pack();
-                        dialog.setBounds(0, 0, frame.getWidth()-100, frame.getHeight()-100);
-                        dialog.setLocationRelativeTo(frame);
-                        dialog.setVisible(true);
+                        sessionStatsPanel.showInDialog(frame);
                         frame.setView(panel,"MENU");
                     }
             ).start();
@@ -86,12 +76,7 @@ public class LearningSessionController implements Controller {
                         model.unregisterObserver(stats);
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                         sessionStatsPanel.setStatistics(stats);
-                        JDialog dialog = new JDialog(frame, "Podsumowanie sesji", true);
-                        dialog.add(sessionStatsPanel);
-                        dialog.pack();
-                        dialog.setBounds(0, 0, frame.getWidth()-100, frame.getHeight()-100);
-                        dialog.setLocationRelativeTo(frame);
-                        dialog.setVisible(true);
+                        sessionStatsPanel.showInDialog(frame);
                         frame.setView(panel,"MENU");
                     }
             ).start();
@@ -108,12 +93,7 @@ public class LearningSessionController implements Controller {
                     model.unregisterObserver(stats);
                     SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                     sessionStatsPanel.setStatistics(stats);
-                    JDialog dialog = new JDialog(frame, "Podsumowanie sesji", true);
-                    dialog.add(sessionStatsPanel);
-                    dialog.pack();
-                    dialog.setBounds(0, 0, frame.getWidth()-100, frame.getHeight()-100);
-                    dialog.setLocationRelativeTo(frame);
-                    dialog.setVisible(true);
+                    sessionStatsPanel.showInDialog(frame);
                     frame.setView(panel,"MENU");
                 }
             ).start();
