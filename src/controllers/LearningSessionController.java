@@ -51,10 +51,24 @@ public class LearningSessionController implements Controller {
                                 "Session summary",
                                 JOptionPane.INFORMATION_MESSAGE
                         );//Statystyki na przykład , jak nie tu to wywalić. Albo dodać metode, która tu by się wykonywała
+                        frame.setView(panel,"MENU");
                     }
                     ).start();
         });
-        panel.onTyping(() -> startMode(new TypingMode(), context));
+        panel.onTyping(() ->{ new TypingController(
+                frame,
+                model,
+                context.getCurrentWordSet(), 4,
+                () -> {
+                    JOptionPane.showMessageDialog(
+                            frame,"statystyki",
+                            //stats.showStatistics(),
+                            "Session summary",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );//Statystyki na przykład. dodać metode, która tu by się wykonywała
+                    frame.setView(panel,"MENU");
+                }
+        ).start();});
 
 
         frame.setView(panel, "LEARNING_SESSION");
