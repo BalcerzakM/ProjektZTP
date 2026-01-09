@@ -29,7 +29,23 @@ public class LearningSessionController implements Controller {
 
         LearningSessionPanel panel = new LearningSessionPanel();
 
-        panel.onFlashCard(() -> startMode(new FlashCardMode(), context));
+        panel.onFlashCard(() -> {
+            new FlashCardController(
+                    frame,
+                    model,
+                    context.getCurrentWordSet(),
+                    () -> {
+                        JOptionPane.showMessageDialog(
+                                frame,"statystyki",
+                                //stats.showStatistics(),
+                                "Session summary",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );//Statystyki na przykład , jak nie tu to wywalić. Albo dodać metode, która tu by się wykonywała
+                        frame.setView(panel,"MENU");
+                    }
+            ).start();
+        });
+
         //panel.onConnect(() -> startMode(new ConnectMode(context.getCurrentWordSet()), context));
         panel.onConnect(() -> {
                     new ConnectController(
@@ -76,7 +92,6 @@ public class LearningSessionController implements Controller {
         //return AppState.LearningSession; // GUI steruje dalej
     }
 
-    //ta metoda jest do synchronicznych mode(terminal)
     private void startMode(LearningMode mode, AppContext context) {
         SessionStatistics stats = new SessionStatistics();
         model.registerObserver(stats);
