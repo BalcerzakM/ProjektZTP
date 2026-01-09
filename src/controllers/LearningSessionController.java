@@ -29,17 +29,75 @@ public class LearningSessionController implements Controller {
 
         LearningSessionPanel panel = new LearningSessionPanel();
 
-        panel.onFlashCard(() -> startMode(new FlashCardMode(), context));
-        //panel.onConnect(() -> startMode(new ConnectMode(context.getCurrentWordSet()), context));
+        panel.onFlashCard(() -> {
+            SessionStatistics stats = new SessionStatistics();
+            model.registerObserver(stats);
+            new FlashCardController(
+                    frame,
+                    model,
+                    context.getCurrentWordSet(),
+                    () -> {
+                        model.unregisterObserver(stats);
+                        JOptionPane.showMessageDialog(
+                                frame,
+                                stats.showStatistics(),
+                                "Session summary",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        frame.setView(panel,"MENU");
+                    }
+            ).start();
+        });
+
         panel.onConnect(() -> {
+            SessionStatistics stats = new SessionStatistics();
+            model.registerObserver(stats);
                     new ConnectController(
                             frame,
                             model,
                             context.getCurrentWordSet()
                     ).start();
                 });
-        panel.onMillionaire(() -> startMode(new MillionaireMode(), context));
-        panel.onTyping(() -> startMode(new TypingMode(), context));
+
+        panel.onMillionaire(() -> {
+            SessionStatistics stats = new SessionStatistics();
+            model.registerObserver(stats);
+            new MillionaireController(
+                    frame,
+                    model,
+                    context.getCurrentWordSet(),
+                    4,
+                    () -> {
+                        model.unregisterObserver(stats);
+                        JOptionPane.showMessageDialog(
+                                frame,
+                                stats.showStatistics(),
+                                "Session summary",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                        frame.setView(panel,"MENU");
+                    }
+                    ).start();
+        });
+
+        panel.onTyping(() ->{
+            SessionStatistics stats = new SessionStatistics();
+            model.registerObserver(stats);
+            new TypingController(
+                frame,
+                model,
+                context.getCurrentWordSet(), 4,
+                () -> {
+                    model.unregisterObserver(stats);
+                    JOptionPane.showMessageDialog(
+                            frame,
+                            stats.showStatistics(),
+                            "Session summary",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                    frame.setView(panel,"MENU");
+                }
+        ).start();});
 
 
         frame.setView(panel, "LEARNING_SESSION");
@@ -47,23 +105,6 @@ public class LearningSessionController implements Controller {
         //return AppState.LearningSession; // GUI steruje dalej
     }
 
-    //ta metoda jest do synchronicznych mode(terminal)
-    private void startMode(LearningMode mode, AppContext context) {
-        SessionStatistics stats = new SessionStatistics();
-        model.registerObserver(stats);
 
-        model.setMode(mode);
-        model.getMode().start(context.getCurrentWordSet(), model);
-
-        model.unregisterObserver(stats);
-
-        JOptionPane.showMessageDialog(
-                frame,
-                stats.showStatistics(),
-                "Session summary",
-                JOptionPane.INFORMATION_MESSAGE
-        );
-        //STATYSTYKI RACZEJ DO KONTROLERA
-    }
 }
 
