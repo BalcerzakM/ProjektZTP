@@ -27,7 +27,11 @@ public class ReviewScheduler implements AnswerObserver {
     }
 
     public List<Word> getReviewWords() {
-        List<Word> reviewWordsCopy = reviewWords;
+        return reviewWords;
+    }
+
+    public List<Word> loadReviewWords() {
+        List<Word> reviewWordsCopy = new ArrayList<>(reviewWords);
         reviewWords.clear();
         wasAlertShown = false;
         return reviewWordsCopy;

@@ -63,7 +63,7 @@ public class FlashCardController {
     private void showBack() {
         side = Side.BACK;
         panel.setText(wordSet.getWords().get(index).getTarget());
-        session.notifyObservers(wordSet.getWords().get(index), true);
+        session.notifyObservers(null, true);
     }
 
     private void nextCard() {
