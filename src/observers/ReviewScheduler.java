@@ -15,6 +15,9 @@ public class ReviewScheduler implements AnswerObserver {
         if (!correct && !reviewWords.contains(w)) {
             reviewWords.add(w);
         }
+        else if (!correct && reviewWords.contains(w)) {
+            reviewWords.remove(w);
+        }
 
         if (!correct && wasAlertShown) {
             wasAlertShown = false;

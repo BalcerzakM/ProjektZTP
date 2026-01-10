@@ -47,9 +47,13 @@ public class ConnectController {
             session.notifyObservers(w, true);
 
             if (mode.isFinished()) {
-                JOptionPane.showMessageDialog(frame,
-                        "Wszystkie połączone!");
-                frame.switchState(AppState.LearningSession);
+                JOptionPane.showMessageDialog(
+                        frame,
+                        "Wszystkie połączone!",
+                        "Koniec",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+                onFinish.run();
                 return;
             }
         } else {

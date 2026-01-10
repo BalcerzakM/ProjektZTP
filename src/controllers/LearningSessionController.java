@@ -52,7 +52,7 @@ public class LearningSessionController implements Controller {
             model.registerObserver(stats);
             new ConnectController(
                     frame,
-                    model,  //w ConnectController dodalem onFinish ale nie dalem nigdzie wywolywania bo nie chce tam szponcic pozdro
+                    model,
                     context.getCurrentWordSet(),
                     () -> {
                         model.unregisterObserver(stats);
