@@ -41,9 +41,7 @@ public class SessionStatistics implements AnswerObserver {
         }
     }
 
-    public int getCorrectCount() {
-        return correctCount;
-    }
+    public int getCorrectCount() { return correctCount; }
 
     public int getIncorrectCount() { return incorrectCount; }
 
@@ -54,6 +52,14 @@ public class SessionStatistics implements AnswerObserver {
     public Set<Word> getLearnedWords() { return learnedWords; }
 
     public int getFlashCardCount() { return flashCardCount; }
+
+    public boolean isFlashCardSession() {
+        return flashCardCount > 0;
+    }
+
+    public boolean isPerfect() {
+        return correctPercent == 100;
+    }
 
     public StringBuilder showStatistics() {
         StringBuilder sb = new StringBuilder();

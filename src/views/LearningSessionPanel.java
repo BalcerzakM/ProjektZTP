@@ -9,14 +9,24 @@ public class LearningSessionPanel extends JPanel {
     private JButton connectBtn = new JButton("Connect");
     private JButton millionaireBtn = new JButton("Millionaire");
     private JButton typingBtn = new JButton("Typing");
+    private JButton backBtn = new JButton("Wróć");
 
     public LearningSessionPanel() {
-        setLayout(new GridLayout(4, 1, 10, 10));
+        setLayout(new BorderLayout(10, 10));
+        setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        add(flashCardBtn);
-        add(connectBtn);
-        add(millionaireBtn);
-        add(typingBtn);
+        JPanel modes = new JPanel(new GridLayout(4, 1, 10,10));
+        modes.add(flashCardBtn);
+        modes.add(connectBtn);
+        modes.add(millionaireBtn);
+        modes.add(typingBtn);
+
+        backBtn.setPreferredSize(new Dimension(90, 30));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(backBtn);
+
+        add(buttonPanel, BorderLayout.SOUTH);
+        add(modes, BorderLayout.CENTER);
     }
 
 
@@ -36,6 +46,8 @@ public class LearningSessionPanel extends JPanel {
     public void onTyping(Runnable action) {
         typingBtn.addActionListener(e -> action.run());
     }
+
+    public void onBack(Runnable action) {backBtn.addActionListener(e -> action.run());}
 }
 
 

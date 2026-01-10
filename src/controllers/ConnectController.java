@@ -14,13 +14,15 @@ public class ConnectController {
     private final MainFrame frame;
     private final LearningSession session;
     private final ConnectMode mode;
+    private final Runnable onFinish;
 
     public ConnectController(MainFrame frame,
                              LearningSession session,
-                             WordSet wordSet) {
+                             WordSet wordSet, Runnable onFinish) {
         this.frame = frame;
         this.session = session;
         this.mode = new ConnectMode(wordSet);
+        this.onFinish = onFinish;
     }
 
     public void start() {

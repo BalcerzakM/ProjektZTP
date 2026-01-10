@@ -53,10 +53,10 @@ public class DataInputController implements Controller {
 
     private void handleReview(AppContext context) {
 
-        if (context.getReviewScheduler().getReviewWords().isEmpty()) {
+        if (context.getReviewScheduler().getReviewWords().size() < 5) {
             JOptionPane.showMessageDialog(
                     frame,
-                    "Brak słów do powtórzenia!",
+                    "Za mało słów do powtórzenia!",
                     "Review",
                     JOptionPane.INFORMATION_MESSAGE
             );
@@ -65,9 +65,10 @@ public class DataInputController implements Controller {
 
         WordSet review = new WordSet(
                 "review",
-                context.getReviewScheduler().getReviewWords(),
+                context.getReviewScheduler().loadReviewWords(),
                 "review"
         );
+        System.out.println(review.getWords().size());
 
         context.setCurrentWordSet(review);
         frame.switchState(AppState.LearningSession);

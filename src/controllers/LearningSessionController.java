@@ -1,14 +1,15 @@
 package controllers;
 
-import LearningModes.*;
 import app.AppContext;
 import app.AppState;
 import observers.SessionStatistics;
 import models.LearningSession;
 import views.MainFrame;
 import views.LearningSessionPanel;
+import views.SessionStatisticsPanel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class LearningSessionController implements Controller {
 
@@ -38,12 +39,9 @@ public class LearningSessionController implements Controller {
                     context.getCurrentWordSet(),
                     () -> {
                         model.unregisterObserver(stats);
-                        JOptionPane.showMessageDialog(
-                                frame,
-                                stats.showStatistics(),
-                                "Session summary",
-                                JOptionPane.INFORMATION_MESSAGE
-                        );
+                        SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
+                        sessionStatsPanel.setStatistics(stats);
+                        sessionStatsPanel.showInDialog(frame);
                         frame.setView(panel,"MENU");
                     }
             ).start();
@@ -52,12 +50,19 @@ public class LearningSessionController implements Controller {
         panel.onConnect(() -> {
             SessionStatistics stats = new SessionStatistics();
             model.registerObserver(stats);
-                    new ConnectController(
-                            frame,
-                            model,
-                            context.getCurrentWordSet()
-                    ).start();
-                });
+            new ConnectController(
+                    frame,
+                    model,  //w ConnectController dodalem onFinish ale nie dalem nigdzie wywolywania bo nie chce tam szponcic pozdro
+                    context.getCurrentWordSet(),
+                    () -> {
+                        model.unregisterObserver(stats);
+                        SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
+                        sessionStatsPanel.setStatistics(stats);
+                        sessionStatsPanel.showInDialog(frame);
+                        frame.setView(panel,"MENU");
+                    }
+            ).start();
+        });
 
         panel.onMillionaire(() -> {
             SessionStatistics stats = new SessionStatistics();
@@ -69,15 +74,12 @@ public class LearningSessionController implements Controller {
                     4,
                     () -> {
                         model.unregisterObserver(stats);
-                        JOptionPane.showMessageDialog(
-                                frame,
-                                stats.showStatistics(),
-                                "Session summary",
-                                JOptionPane.INFORMATION_MESSAGE
-                        );
+                        SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
+                        sessionStatsPanel.setStatistics(stats);
+                        sessionStatsPanel.showInDialog(frame);
                         frame.setView(panel,"MENU");
                     }
-                    ).start();
+            ).start();
         });
 
         panel.onTyping(() ->{
@@ -89,15 +91,17 @@ public class LearningSessionController implements Controller {
                 context.getCurrentWordSet(), 4,
                 () -> {
                     model.unregisterObserver(stats);
-                    JOptionPane.showMessageDialog(
-                            frame,
-                            stats.showStatistics(),
-                            "Session summary",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
+                    SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
+                    sessionStatsPanel.setStatistics(stats);
+                    sessionStatsPanel.showInDialog(frame);
                     frame.setView(panel,"MENU");
                 }
-        ).start();});
+            ).start();
+        });
+
+        panel.onBack(() -> {
+            frame.switchState(AppState.ChoosingDatabase);
+        });
 
 
         frame.setView(panel, "LEARNING_SESSION");
