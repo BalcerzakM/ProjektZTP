@@ -44,10 +44,24 @@ public class SessionStatisticsPanel extends JPanel {
     public void showInDialog(JFrame parent) {
         JDialog dialog = new JDialog(parent, "Podsumowanie lekcji", true);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.add(this);
+
+        JPanel content = new JPanel(new BorderLayout());
+        content.add(this, BorderLayout.CENTER);
+
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(e -> dialog.dispose());
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(okButton);
+
+        content.add(buttonPanel, BorderLayout.SOUTH);
+
+        dialog.setContentPane(content);
         dialog.pack();
-        dialog.setBounds(0, 0, parent.getWidth()-100, parent.getHeight()-100);
+        dialog.setBounds(0, 0, parent.getWidth()-200, parent.getHeight()-200);
         dialog.setLocationRelativeTo(parent);
+        dialog.getRootPane().setDefaultButton(okButton);
         dialog.setVisible(true);
     }
+
 }

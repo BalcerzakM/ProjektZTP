@@ -99,6 +99,10 @@ public class LearningSessionController implements Controller {
             ).start();
         });
 
+        panel.onBack(() -> {
+            frame.switchState(AppState.ChoosingDatabase);
+        });
+
 
         frame.setView(panel, "LEARNING_SESSION");
         return null;
