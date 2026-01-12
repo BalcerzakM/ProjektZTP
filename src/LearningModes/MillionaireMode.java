@@ -52,4 +52,13 @@ public class MillionaireMode {
     public boolean checkAnswer(String selected) {
         return selected.equals(currentWord.getTarget());
     }
+
+    public int getCurrentQuestionIndex() {
+        return currentQuestion;
+    }
+
+    public int getTotalQuestions() {
+        return totalQuestions;
+    }
+
 }

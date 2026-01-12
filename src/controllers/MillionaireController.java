@@ -48,6 +48,13 @@ public class MillionaireController {
 
         panel.setOptions(mode.getOptions(), this::handleAnswer);
 
+        panel.setProgress(
+                mode.getCurrentQuestionIndex(),
+                mode.getTotalQuestions()
+        );
+
+        panel.setOnBack(this::saveAndExit);
+
         frame.setView(panel, "MILLIONAIRE");
     }
 
@@ -65,5 +72,10 @@ public class MillionaireController {
         );
 
         showNext();
+    }
+
+    private void saveAndExit() {
+        session.saveMemento(mode.getCurrentQuestionIndex());
+        onFinish.run();
     }
 }
