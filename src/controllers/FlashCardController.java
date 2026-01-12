@@ -37,6 +37,7 @@ public class FlashCardController {
         }
 
         panel.setOnClick(this::handleClick);
+        panel.setOnBack(this::saveAndExit);
 
         showFront();
         frame.setView(panel, "FLASHCARD");
@@ -58,6 +59,7 @@ public class FlashCardController {
 
         side = Side.FRONT;
         panel.setText(wordSet.getWords().get(index).getSource());
+        updateProgress();
     }
 
     private void showBack() {
@@ -69,5 +71,17 @@ public class FlashCardController {
     private void nextCard() {
         index++;
         showFront();
+    }
+
+    private void saveAndExit() {
+        session.saveMemento(index);
+        onFinish.run();
+    }
+
+    /**
+     * Metoda do aktualizowania numeru fiszki w naszym widoku
+     */
+    private void updateProgress() {
+        panel.setProgress(index, wordSet.getWords().size());
     }
 }

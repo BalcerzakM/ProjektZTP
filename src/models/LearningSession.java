@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LearningSession {
     private List<AnswerObserver> observers = new ArrayList<>();
-    private WordSet wordSet;
+    //private WordSet wordSet;
     private LearningMode mode;
     private SessionMemento memento;
 
@@ -36,13 +36,13 @@ public class LearningSession {
         }
     }
 
-    public WordSet getWordSet() {
-        return wordSet;
-    }
+//    public WordSet getWordSet() {
+//        return wordSet;
+//    }
 
-    public void setWordSet(WordSet wordSet) {
-        this.wordSet = wordSet;
-    }
+//    public void setWordSet(WordSet wordSet) {
+//        this.wordSet = wordSet;
+//    }
 
     public SessionMemento getMemento() {
         return memento;

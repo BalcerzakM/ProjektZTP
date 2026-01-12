@@ -1,6 +1,5 @@
 package LearningModes;
 
-import models.LearningSession;
 import models.Word;
 import models.WordSet;
 
