@@ -17,14 +17,13 @@ public class MainFrame extends JFrame {
 
     public MainFrame(String title) {
         super(title);
-        setTitle("ZTP Learning App");
         setSize(800, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         add(root);
     }
 
-    public void setView(JPanel panel, String name) {
+    public void showView(JPanel panel, String name) {
         root.removeAll();
         root.add(panel, name);
         layout.show(root, name);

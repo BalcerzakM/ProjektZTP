@@ -13,18 +13,21 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 public class DataInputController implements Controller {
+    AppRouter router;
 
+    public DataInputController(AppRouter router) {
+        this.router = router;
+    }
 
     @Override
-    public void run(AppContext context, AppRouter router) {
+    public void run(AppContext context) {
 
         DataInputPanel panel = new DataInputPanel(readFileList());
 
         panel.onLoad(e -> handleLoad(context, panel));
         panel.onReview(e -> handleReview(context));
 
-        frame.setView(panel, "DATA_INPUT");
-        return null;
+        router.setView(panel, "DATA_INPUT");
     }
 
     private void handleLoad(AppContext context, DataInputPanel panel) {
@@ -40,7 +43,7 @@ public class DataInputController implements Controller {
         try {
             WordSet ws = Connector.getInstance().readWordSetFromFile(path);
             context.setCurrentWordSet(ws);
-            frame.switchState(AppState.LearningSession);
+            router.switchState(AppState.LearningSession);
 
         } catch (FileNotFoundException e) {
             panel.showError("Nie znaleziono pliku: " + selected);

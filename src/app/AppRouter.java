@@ -17,12 +17,12 @@ public class AppRouter {
     public AppRouter(MainFrame mainFrame, AppContext context) {
         this.mainFrame = mainFrame;
         this.context = context;
-        //this.controllers.put(AppState.MainMenu, new MainMenuController());
-        this.controllers.put(AppState.LoadWordSet, new DataInputController());
-        this.controllers.put(AppState.LearningSession, new LearningSessionController());
-        //this.controllers.put(AppState.WordSetCreator, new WordSetCreatorController());
-        //this.controllers.put(AppState.User, new UserController());
-        //this.controllers.put(AppState.Statistics, new StatisticsController());
+        //this.controllers.put(AppState.MainMenu, new MainMenuController(this));
+        this.controllers.put(AppState.LoadWordSet, new DataInputController(this));
+        this.controllers.put(AppState.LearningSession, new LearningSessionController(this));
+        //this.controllers.put(AppState.WordSetCreator, new WordSetCreatorController(this));
+        //this.controllers.put(AppState.User, new UserController(this));
+        //this.controllers.put(AppState.Statistics, new StatisticsController(this));
     }
 
     public void start() {
@@ -39,11 +39,11 @@ public class AppRouter {
         }
 
         if (controller != null) {
-            controller.run(context, this);
+            controller.run(context);
         }
     }
 
-    public void setView(JPanel panel) {
-        mainFrame.showView(view);
+    public void setView(JPanel panel, String name) {
+        mainFrame.showView(panel, name);
     }
 }

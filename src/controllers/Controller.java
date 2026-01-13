@@ -5,5 +5,5 @@ import app.AppRouter;
 import app.AppState;
 
 public interface Controller {
-    public void run(AppContext context, AppRouter router);
+    public void run(AppContext context);
 }

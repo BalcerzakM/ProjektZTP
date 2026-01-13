@@ -16,9 +16,14 @@ public class LearningSessionController implements Controller {
 
     private LearningSession model = new LearningSession();
     //private LearningSessionView view;
+    AppRouter router;
+
+    public LearningSessionController(AppRouter router) {
+        this.router = router;
+    }
 
     @Override
-    public void run(AppContext context, AppRouter router) {
+    public void run(AppContext context) {
 
         model.registerObserver(context.getReviewScheduler());
 
