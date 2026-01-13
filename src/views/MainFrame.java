@@ -38,9 +38,6 @@ public class MainFrame extends JFrame {
     }
 
     public void start() {
-        root.add(new JLabel("TEST – UI DZIAŁA"));
-        layout.show(root, "TEST");
-        setVisible(true);
         switchState(currentState);
         setVisible(true);
     }

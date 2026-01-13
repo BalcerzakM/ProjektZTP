@@ -16,7 +16,6 @@ public class ConnectMode implements LearningMode {
     private final List<String> right = new ArrayList<>();
 
     private Random rand;
-    private int progress = 0;
 
     public ConnectMode(WordSet wordSet) {
         this.baseWords = new ArrayList<>(wordSet.getWords());
@@ -24,13 +23,11 @@ public class ConnectMode implements LearningMode {
 
     public void startNew(long seed) {
         this.rand = new Random(seed);
-        this.progress = 0;
         generateInitialState();
     }
 
     public void restore(int progress, long seed) {
         this.rand = new Random(seed);
-        this.progress = progress;
         generateInitialState();
 
         // odtwórz usunięte pary
@@ -77,10 +74,6 @@ public class ConnectMode implements LearningMode {
 
     public List<String> getRightTargets() {
         return new ArrayList<>(right);
-    }
-
-    public int getProgress() {
-        return progress;
     }
 
     @Override

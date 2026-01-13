@@ -11,7 +11,7 @@ import java.util.Random;
 public class MillionaireMode {
 
     private final List<Word> words;
-    //private final int totalQuestions;
+    private final int totalQuestions;
     private int currentQuestion = 0;
     private Random rand = new Random();
     private Word currentWord;
@@ -19,11 +19,11 @@ public class MillionaireMode {
 
     public MillionaireMode(WordSet wordSet, int totalQuestions) {
         this.words = wordSet.getWords();
-        //this.totalQuestions = totalQuestions;
+        this.totalQuestions = totalQuestions;
     }
 
     public boolean hasNext() {
-        return currentQuestion < words.size();
+        return currentQuestion < totalQuestions;
     }
 
     public void nextQuestion() {
@@ -82,7 +82,7 @@ public class MillionaireMode {
     }
 
     public int getTotalQuestions() {
-        return words.size();
+        return totalQuestions;
     }
 
 }

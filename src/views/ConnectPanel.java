@@ -44,12 +44,6 @@ public class ConnectPanel extends JPanel {
 
         add(btnPanel, BorderLayout.SOUTH);
 
-//        JPanel bottom = new JPanel();
-//        bottom.setOpaque(false);
-//        bottom.add(backBtn);
-//
-//        add(bottom, BorderLayout.SOUTH);
-//
         backBtn.addActionListener(e -> {
             if (onBack != null) onBack.run();
         });

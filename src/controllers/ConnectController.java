@@ -90,8 +90,6 @@ public class ConnectController {
     }
 
     private void saveAndExit() {
-        session.setCurrentIndex(mode.getProgress());
-        //session.setAnswers(mode.getOptions());
         session.saveMemento(ModeType.CONNECT);
         onFinish.run();
     }

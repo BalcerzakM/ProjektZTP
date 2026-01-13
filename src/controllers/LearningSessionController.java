@@ -71,7 +71,7 @@ public class LearningSessionController implements Controller {
                     frame,
                     model,
                     context.getCurrentWordSet(),
-                    4,
+                    10,
                     () -> {
                         model.unregisterObserver(stats);
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
