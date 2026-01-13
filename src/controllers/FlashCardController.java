@@ -7,8 +7,9 @@ import views.FlashCardPanel;
 
 public class FlashCardController {
 
-    private enum Side { FRONT, BACK }
+    private static final ModeType MODE_KEY = ModeType.FLASHCARD;
 
+    private enum Side { FRONT, BACK }
     private final MainFrame frame;
     private final LearningSession session;
     private final WordSet wordSet;
@@ -18,7 +19,6 @@ public class FlashCardController {
     private int index = 0;
     private Side side = Side.FRONT;
 
-    private final ModeType enumMode = ModeType.FLASHCARD;
 
     public FlashCardController(
             MainFrame frame,
@@ -35,8 +35,8 @@ public class FlashCardController {
     public void start() {
         panel = new FlashCardPanel();
 
-        if (session.hasMemento(enumMode)) {
-            session.restore(enumMode);
+        if (session.hasMemento(MODE_KEY)) {
+            session.restore(MODE_KEY);
             index = session.getCurrentIndex();
         }
 
@@ -82,7 +82,7 @@ public class FlashCardController {
      */
     private void saveAndExit() {
         session.setCurrentIndex(index);
-        session.saveMemento(enumMode);
+        session.saveMemento(MODE_KEY);
         onFinish.run();
     }
 

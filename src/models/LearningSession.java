@@ -1,6 +1,6 @@
 package models;
 
-import LearningModes.LearningMode;
+
 import LearningModes.ModeType;
 import observers.AnswerObserver;
 import observers.SessionStatistics;
@@ -62,9 +62,6 @@ public class LearningSession {
 //        return currentAnswers;
 //    }
 
-//    public void setSeed(long seed) {
-//        this.seed = seed;
-//    }
 
     public void saveMemento(ModeType mode) {
         mementos.put(mode, createMemento());
@@ -88,13 +85,12 @@ public class LearningSession {
         this.seed = m.getSeed();
     }
 
+    public void removeMemento(ModeType mode) {
+        mementos.remove(mode);
+    }
 
-//    public SessionMemento getMemento() {
-//        return memento;
-//    }
-
-//    public void saveMemento(int questionIndex) {
-//        this.memento = new SessionMemento(questionIndex);
-//    }
+    public void resetSeed() {
+        this.seed = 0;
+    }
 
 }

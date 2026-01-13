@@ -10,6 +10,9 @@ public class ConnectPanel extends JPanel {
     private final JList<String> leftList;
     private final JList<String> rightList;
     private final JButton checkBtn = new JButton("Połącz");
+    private JButton backBtn = new JButton("Wróć");
+    private final JLabel progressLabel = new JLabel();
+    private Runnable onBack;
 
     public ConnectPanel(List<String> left, List<String> right) {
 
@@ -35,9 +38,21 @@ public class ConnectPanel extends JPanel {
         // ===== PRZYCISK =====
         checkBtn.setFont(checkBtn.getFont().deriveFont(Font.BOLD));
         JPanel btnPanel = new JPanel();
+        btnPanel.add(backBtn);
         btnPanel.add(checkBtn);
 
+
         add(btnPanel, BorderLayout.SOUTH);
+
+//        JPanel bottom = new JPanel();
+//        bottom.setOpaque(false);
+//        bottom.add(backBtn);
+//
+//        add(bottom, BorderLayout.SOUTH);
+//
+        backBtn.addActionListener(e -> {
+            if (onBack != null) onBack.run();
+        });
     }
 
     // ===== POMOCNICZE =====
@@ -77,5 +92,11 @@ public class ConnectPanel extends JPanel {
         leftList.setListData(left.toArray(new String[0]));
         rightList.setListData(right.toArray(new String[0]));
     }
+
+    /**
+     * Metoda Powrotu do ostatniego widoku i zapisania Memnto
+     * @param action
+     */
+    public void setOnBack(Runnable action) {backBtn.addActionListener(e -> action.run());}
 }
 

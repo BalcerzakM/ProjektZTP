@@ -7,23 +7,54 @@ import models.WordSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class ConnectMode implements LearningMode {
 
-    private final List<Word> left;
-    private final List<String> right;
+    private final List<Word> baseWords;
+    private final List<Word> left = new ArrayList<>();
+    private final List<String> right = new ArrayList<>();
+
+    private Random rand;
+    private int progress = 0;
 
     public ConnectMode(WordSet wordSet) {
-        List<Word> ws = wordSet.getWords();
-        left = new ArrayList<>();
-        right = new ArrayList<>();
+        this.baseWords = new ArrayList<>(wordSet.getWords());
+    }
 
-        Collections.shuffle(ws);
-        for (int i = 0; i < Math.min(8, ws.size()); i++) {
-            left.add(ws.get(i));
-            right.add(ws.get(i).getTarget());
+    public void startNew(long seed) {
+        this.rand = new Random(seed);
+        this.progress = 0;
+        generateInitialState();
+    }
+
+    public void restore(int progress, long seed) {
+        this.rand = new Random(seed);
+        this.progress = progress;
+        generateInitialState();
+
+        // odtwórz usunięte pary
+        for (int i = 0; i < progress; i++) {
+            left.remove(0);
+            right.remove(0);
         }
-        Collections.shuffle(right);
+    }
+
+    /* ===== LOGIKA ===== */
+
+    private void generateInitialState() {
+        left.clear();
+        right.clear();
+
+        List<Word> shuffled = new ArrayList<>(baseWords);
+        Collections.shuffle(shuffled, rand);
+
+        for (int i = 0; i < Math.min(8, shuffled.size()); i++) {
+            left.add(shuffled.get(i));
+            right.add(shuffled.get(i).getTarget());
+        }
+
+        Collections.shuffle(right, rand);
     }
 
     public boolean check(int leftIndex, int rightIndex) {
@@ -46,6 +77,10 @@ public class ConnectMode implements LearningMode {
 
     public List<String> getRightTargets() {
         return new ArrayList<>(right);
+    }
+
+    public int getProgress() {
+        return progress;
     }
 
     @Override

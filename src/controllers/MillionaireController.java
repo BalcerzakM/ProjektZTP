@@ -10,11 +10,12 @@ import views.MillionairePanel;
 import javax.swing.*;
 
 public class MillionaireController {
+    private static final ModeType MODE_KEY = ModeType.MILLIONAIRE;
 
     private final MainFrame frame;
     private final LearningSession session;
     private final MillionaireMode mode;
-    private final ModeType enumMode = ModeType.MILLIONAIRE;
+
     private final Runnable onFinish;
 
     public MillionaireController(
@@ -31,8 +32,8 @@ public class MillionaireController {
     }
 
     public void start() {
-        if (session.hasMemento(enumMode)) {
-            session.restore(enumMode);
+        if (session.hasMemento(MODE_KEY)) {
+            session.restore(MODE_KEY);
             mode.restore(
                     session.getCurrentIndex(),
                     session.getSeed()
