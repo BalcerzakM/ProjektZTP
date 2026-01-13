@@ -2,6 +2,7 @@ package controllers;
 
 import LearningModes.MillionaireMode;
 import LearningModes.ModeType;
+import app.AppRouter;
 import models.LearningSession;
 import models.WordSet;
 import views.MainFrame;
@@ -12,20 +13,20 @@ import javax.swing.*;
 public class MillionaireController {
     private static final ModeType MODE_KEY = ModeType.MILLIONAIRE;
 
-    private final MainFrame frame;
+    private final AppRouter router;
     private final LearningSession session;
     private final MillionaireMode mode;
 
     private final Runnable onFinish;
 
     public MillionaireController(
-            MainFrame frame,
+            AppRouter router,
             LearningSession session,
             WordSet wordSet,
             int questions,
             Runnable onFinish
     ) {
-        this.frame = frame;
+        this.router = router;
         this.session = session;
         this.mode = new MillionaireMode(wordSet, questions);
         this.onFinish = onFinish;
@@ -69,7 +70,7 @@ public class MillionaireController {
 
         panel.setOnBack(this::saveAndExit);
 
-        frame.setView(panel, "MILLIONAIRE");
+        router.setView(panel, "MILLIONAIRE");
     }
 
     private void handleAnswer(String selected) {
@@ -77,7 +78,7 @@ public class MillionaireController {
         session.notifyObservers(mode.getWord(), correct);
 
         JOptionPane.showMessageDialog(
-                frame,
+                router.getMainFrame(),
                 correct ? "Dobrze!" : "Źle!",
                 "Odpowiedź",
                 correct

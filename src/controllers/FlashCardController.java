@@ -1,5 +1,6 @@
 package controllers;
 import LearningModes.ModeType;
+import app.AppRouter;
 import models.LearningSession;
 import models.WordSet;
 import views.MainFrame;
@@ -10,7 +11,7 @@ public class FlashCardController {
     private static final ModeType MODE_KEY = ModeType.FLASHCARD;
 
     private enum Side { FRONT, BACK }
-    private final MainFrame frame;
+    private final AppRouter router;
     private final LearningSession session;
     private final WordSet wordSet;
     private final Runnable onFinish;
@@ -21,12 +22,12 @@ public class FlashCardController {
 
 
     public FlashCardController(
-            MainFrame frame,
+            AppRouter router,
             LearningSession session,
             WordSet wordSet,
             Runnable onFinish
     ) {
-        this.frame = frame;
+        this.router = router;
         this.session = session;
         this.wordSet = wordSet;
         this.onFinish = onFinish;
@@ -44,7 +45,7 @@ public class FlashCardController {
         panel.setOnBack(this::saveAndExit);
 
         showFront();
-        frame.setView(panel, "FLASHCARD");
+        router.setView(panel, "FLASHCARD");
     }
 
     private void handleClick() {

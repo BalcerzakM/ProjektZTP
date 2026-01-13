@@ -15,7 +15,6 @@ import java.awt.*;
 public class LearningSessionController implements Controller {
 
     private LearningSession model = new LearningSession();
-    //private LearningSessionView view;
     AppRouter router;
 
     public LearningSessionController(AppRouter router) {
@@ -27,7 +26,6 @@ public class LearningSessionController implements Controller {
 
         model.registerObserver(context.getReviewScheduler());
 
-        //view = new LearningSessionView(context.getCurrentWordSet().getName());
 
         LearningSessionPanel panel = new LearningSessionPanel();
 
@@ -35,15 +33,15 @@ public class LearningSessionController implements Controller {
             SessionStatistics stats = new SessionStatistics();
             model.registerObserver(stats);
             new FlashCardController(
-                    frame,
+                    router,
                     model,
                     context.getCurrentWordSet(),
                     () -> {
                         model.unregisterObserver(stats);
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                         sessionStatsPanel.setStatistics(stats);
-                        sessionStatsPanel.showInDialog(frame);
-                        frame.setView(panel,"MENU");
+                        sessionStatsPanel.showInDialog(router.getMainFrame());
+                        router.setView(panel,"CHOSING LEARNING MODE");
                     }
             ).start();
         });
@@ -52,15 +50,15 @@ public class LearningSessionController implements Controller {
             SessionStatistics stats = new SessionStatistics();
             model.registerObserver(stats);
             new ConnectController(
-                    frame,
+                    router,
                     model,
                     context.getCurrentWordSet(),
                     () -> {
                         model.unregisterObserver(stats);
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                         sessionStatsPanel.setStatistics(stats);
-                        sessionStatsPanel.showInDialog(frame);
-                        frame.setView(panel,"MENU");
+                        sessionStatsPanel.showInDialog(router.getMainFrame());
+                        router.setView(panel,"CHOSING LEARNING MODE");
                     }
             ).start();
         });
@@ -69,7 +67,7 @@ public class LearningSessionController implements Controller {
             SessionStatistics stats = new SessionStatistics();
             model.registerObserver(stats);
             new MillionaireController(
-                    frame,
+                    router,
                     model,
                     context.getCurrentWordSet(),
                     10,
@@ -77,8 +75,8 @@ public class LearningSessionController implements Controller {
                         model.unregisterObserver(stats);
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                         sessionStatsPanel.setStatistics(stats);
-                        sessionStatsPanel.showInDialog(frame);
-                        frame.setView(panel,"MENU");
+                        sessionStatsPanel.showInDialog(router.getMainFrame());
+                        router.setView(panel,"MENU");
                     }
             ).start();
         });
@@ -87,29 +85,25 @@ public class LearningSessionController implements Controller {
             SessionStatistics stats = new SessionStatistics();
             model.registerObserver(stats);
             new TypingController(
-                frame,
+                router,
                 model,
                 context.getCurrentWordSet(), 4,
                 () -> {
                     model.unregisterObserver(stats);
                     SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                     sessionStatsPanel.setStatistics(stats);
-                    sessionStatsPanel.showInDialog(frame);
-                    frame.setView(panel,"MENU");
+                    sessionStatsPanel.showInDialog(router.getMainFrame());
+                    router.setView(panel,"MENU");
                 }
             ).start();
         });
 
         panel.onBack(() -> {
-            frame.switchState(AppState.ChoosingDatabase);
+            router.switchState(AppState.LoadWordSet);
         });
 
 
-        frame.setView(panel, "LEARNING_SESSION");
-        return null;
-        //return AppState.LearningSession; // GUI steruje dalej
+        router.setView(panel, "LEARNING_SESSION");
     }
-
-
 }
 

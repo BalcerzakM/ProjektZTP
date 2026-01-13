@@ -9,6 +9,7 @@ import views.MainFrame;
 import views.DataInputPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class DataInputController implements Controller {
         DataInputPanel panel = new DataInputPanel(readFileList());
 
         panel.onLoad(e -> handleLoad(context, panel));
-        panel.onReview(e -> handleReview(context));
+        panel.onReview(e -> handleReview(context, panel));
 
         router.setView(panel, "DATA_INPUT");
     }
@@ -50,11 +51,11 @@ public class DataInputController implements Controller {
         }
     }
 
-    private void handleReview(AppContext context) {
+    private void handleReview(AppContext context, Component parentComponent) {
 
         if (context.getReviewScheduler().getReviewWords().size() < 5) {
             JOptionPane.showMessageDialog(
-                    frame,
+                    parentComponent,
                     "Za mało słów do powtórzenia!",
                     "Review",
                     JOptionPane.INFORMATION_MESSAGE
@@ -70,7 +71,7 @@ public class DataInputController implements Controller {
         System.out.println(review.getWords().size());
 
         context.setCurrentWordSet(review);
-        frame.switchState(AppState.LearningSession);
+        router.switchState(AppState.LearningSession);
     }
 
     private List<String> readFileList() {

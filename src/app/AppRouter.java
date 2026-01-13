@@ -46,4 +46,8 @@ public class AppRouter {
     public void setView(JPanel panel, String name) {
         mainFrame.showView(panel, name);
     }
+
+    public MainFrame getMainFrame() {
+        return mainFrame;
+    }
 }
