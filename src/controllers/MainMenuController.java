@@ -16,9 +16,7 @@ public class MainMenuController implements Controller{
     }
 
     private void initListeners() {
-        panel.onLearningSessionBtn(() -> {
-            router.switchState(AppState.LearningSession);
-        });
+        panel.onLearningSessionBtn(() -> router.switchState(AppState.LearningSession));
 
     }
 

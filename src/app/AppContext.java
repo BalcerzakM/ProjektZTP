@@ -6,7 +6,7 @@ import observers.ReviewScheduler;
 public class AppContext {
     private String CurrentUser = "user";
     private WordSet CurrentWordSet;
-    private ReviewScheduler reviewScheduler = new ReviewScheduler();
+    private final ReviewScheduler reviewScheduler = new ReviewScheduler();
 
     public String getCurrentUser() {
         return CurrentUser;

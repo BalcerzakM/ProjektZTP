@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainMenuPanel extends JPanel {
-    private JButton learningSessionBtn = new JButton("UCZ SIĘ!");
-    private JButton wordSetCreatorBtn = new JButton("UTWÓRZ NOWY ZESTAW SŁÓWEK.");
-    private JButton userBtn = new JButton("ZARZĄDZAJ SWOIM KONTEM URZTKOWNIKA");
-    private JButton statisticsBtn = new JButton("ZOBACZ STATYSTYKI");
-    private JButton changeWordSetBtn = new JButton("ZMIEŃ ZESTAW SŁÓWEK");
-    private JButton logOutBtn = new JButton("WYLOGUJ SIĘ");
+    private final JButton learningSessionBtn = new JButton("UCZ SIĘ!");
+    private final JButton wordSetCreatorBtn = new JButton("UTWÓRZ NOWY ZESTAW SŁÓWEK.");
+    private final JButton userBtn = new JButton("ZARZĄDZAJ SWOIM KONTEM URZTKOWNIKA");
+    private final JButton statisticsBtn = new JButton("ZOBACZ STATYSTYKI");
+    private final JButton changeWordSetBtn = new JButton("ZMIEŃ ZESTAW SŁÓWEK");
+    private final JButton logOutBtn = new JButton("WYLOGUJ SIĘ");
 
     public MainMenuPanel() {
         setLayout(new BorderLayout(10, 10));
