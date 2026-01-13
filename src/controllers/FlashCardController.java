@@ -1,4 +1,5 @@
 package controllers;
+import LearningModes.ModeType;
 import models.LearningSession;
 import models.WordSet;
 import views.MainFrame;
@@ -17,6 +18,8 @@ public class FlashCardController {
     private int index = 0;
     private Side side = Side.FRONT;
 
+    private final ModeType enumMode = ModeType.FLASHCARD;
+
     public FlashCardController(
             MainFrame frame,
             LearningSession session,
@@ -32,8 +35,9 @@ public class FlashCardController {
     public void start() {
         panel = new FlashCardPanel();
 
-        if (session.getMemento() != null) {
-            index = session.getMemento().getQuestionIndex();
+        if (session.hasMemento(enumMode)) {
+            session.restore(enumMode);
+            index = session.getCurrentIndex();
         }
 
         panel.setOnClick(this::handleClick);
@@ -73,8 +77,12 @@ public class FlashCardController {
         showFront();
     }
 
+    /**
+     * Metoda do powrotu i zapisania Memento
+     */
     private void saveAndExit() {
-        session.saveMemento(index);
+        session.setCurrentIndex(index);
+        session.saveMemento(enumMode);
         onFinish.run();
     }
 

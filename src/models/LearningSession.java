@@ -1,25 +1,21 @@
 package models;
 
 import LearningModes.LearningMode;
+import LearningModes.ModeType;
 import observers.AnswerObserver;
 import observers.SessionStatistics;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class LearningSession {
     private List<AnswerObserver> observers = new ArrayList<>();
-    //private WordSet wordSet;
-    private LearningMode mode;
-    private SessionMemento memento;
-
-    public void setMode(LearningMode mode) {
-        this.mode = mode;
-    }
-
-    public LearningMode getMode() {
-        return mode;
-    }
+    private final Map<ModeType, SessionMemento> mementos = new EnumMap<>(ModeType.class);
+    private int currentIndex;
+    private List<String> currentAnswers = new ArrayList<>();
+    private long seed;
 
 
     public void registerObserver(AnswerObserver observer) {
@@ -36,20 +32,55 @@ public class LearningSession {
         }
     }
 
-//    public WordSet getWordSet() {
-//        return wordSet;
-//    }
-
-//    public void setWordSet(WordSet wordSet) {
-//        this.wordSet = wordSet;
-//    }
-
-    public SessionMemento getMemento() {
-        return memento;
+    public void setCurrentIndex(int index) {
+        this.currentIndex = index;
     }
 
-    public void saveMemento(int questionIndex) {
-        this.memento = new SessionMemento(questionIndex);
+    public int getCurrentIndex() {
+        return currentIndex;
     }
+
+    public void setAnswers(List<String> answers) {
+        this.currentAnswers = answers;
+    }
+
+    public List<String> getAnswers() {
+        return currentAnswers;
+    }
+
+    public void setSeed(long seed) {
+        this.seed = seed;
+    }
+
+    public void saveMemento(ModeType mode) {
+        mementos.put(mode, createMemento());
+    }
+
+    public boolean hasMemento(ModeType mode) {
+        return mementos.containsKey(mode);
+    }
+
+    public void restore(ModeType mode) {
+        SessionMemento m = mementos.get(mode);
+        if (m != null) {
+            restoreFrom(m);
+        }
+    }
+
+    private SessionMemento createMemento() { return new SessionMemento(this.currentIndex,this.currentAnswers,this.seed); }
+    private void restoreFrom(SessionMemento m) {
+        this.currentIndex = m.getQuestionIndex();
+        this.currentAnswers = new ArrayList<>(m.getAnswersSnapshot());
+        this.seed = m.getSeed();
+    }
+
+
+//    public SessionMemento getMemento() {
+//        return memento;
+//    }
+
+//    public void saveMemento(int questionIndex) {
+//        this.memento = new SessionMemento(questionIndex);
+//    }
 
 }

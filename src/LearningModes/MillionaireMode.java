@@ -6,6 +6,7 @@ import models.WordSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class MillionaireMode {
 
@@ -26,8 +27,6 @@ public class MillionaireMode {
     }
 
     public void nextQuestion() {
-        currentQuestion++;
-
         currentWord = words.get((int) (Math.random() * words.size()));
         options = new ArrayList<>();
         options.add(currentWord.getTarget());
@@ -39,6 +38,7 @@ public class MillionaireMode {
             }
         }
         Collections.shuffle(options);
+        currentQuestion++;
     }
 
     public Word getWord() {
@@ -49,12 +49,20 @@ public class MillionaireMode {
         return options;
     }
 
+    public void setOptions(List<String> options) {
+        this.options = options;
+    }
+
     public boolean checkAnswer(String selected) {
         return selected.equals(currentWord.getTarget());
     }
 
     public int getCurrentQuestionIndex() {
         return currentQuestion;
+    }
+
+    public void setCurrentQuestionIndex(int currentQuestion) {
+        this.currentQuestion = currentQuestion;
     }
 
     public int getTotalQuestions() {

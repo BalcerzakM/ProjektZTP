@@ -1,6 +1,7 @@
 package controllers;
 
 import LearningModes.MillionaireMode;
+import LearningModes.ModeType;
 import models.LearningSession;
 import models.WordSet;
 import views.MainFrame;
@@ -13,6 +14,7 @@ public class MillionaireController {
     private final MainFrame frame;
     private final LearningSession session;
     private final MillionaireMode mode;
+    private final ModeType enumMode = ModeType.MILLIONAIRE;
     private final Runnable onFinish;
 
     public MillionaireController(
@@ -29,6 +31,11 @@ public class MillionaireController {
     }
 
     public void start() {
+        if (session.hasMemento(enumMode)) {
+            session.restore(enumMode);
+            mode.setCurrentQuestionIndex(session.getCurrentIndex());
+            mode.setOptions(session.getAnswers());
+        }
         showNext();
     }
 
@@ -75,7 +82,9 @@ public class MillionaireController {
     }
 
     private void saveAndExit() {
-        session.saveMemento(mode.getCurrentQuestionIndex());
+        session.setCurrentIndex(mode.getCurrentQuestionIndex());
+        session.setAnswers(mode.getOptions());
+        session.saveMemento(ModeType.MILLIONAIRE);
         onFinish.run();
     }
 }
