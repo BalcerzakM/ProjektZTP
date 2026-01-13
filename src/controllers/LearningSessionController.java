@@ -1,6 +1,7 @@
 package controllers;
 
 import app.AppContext;
+import app.AppRouter;
 import app.AppState;
 import observers.SessionStatistics;
 import models.LearningSession;
@@ -15,14 +16,9 @@ public class LearningSessionController implements Controller {
 
     private LearningSession model = new LearningSession();
     //private LearningSessionView view;
-    private final MainFrame frame;
-
-    public LearningSessionController(MainFrame frame) {
-        this.frame = frame;
-    }
 
     @Override
-    public AppState run(AppContext context) {
+    public void run(AppContext context, AppRouter router) {
 
         model.registerObserver(context.getReviewScheduler());
 

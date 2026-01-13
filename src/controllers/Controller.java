@@ -1,8 +1,9 @@
 package controllers;
 
 import app.AppContext;
+import app.AppRouter;
 import app.AppState;
 
 public interface Controller {
-    public AppState run(AppContext context);
+    public void run(AppContext context, AppRouter router);
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import app.AppContext;
+import app.AppRouter;
 import app.AppState;
 import models.Connector;
 import models.WordSet;
@@ -13,14 +14,9 @@ import java.util.List;
 
 public class DataInputController implements Controller {
 
-    private final MainFrame frame;
-
-    public DataInputController(MainFrame frame) {
-        this.frame = frame;
-    }
 
     @Override
-    public AppState run(AppContext context) {
+    public void run(AppContext context, AppRouter router) {
 
         DataInputPanel panel = new DataInputPanel(readFileList());
 
