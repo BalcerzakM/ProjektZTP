@@ -13,9 +13,9 @@ import java.util.Map;
 public class LearningSession {
     private List<AnswerObserver> observers = new ArrayList<>();
     private final Map<ModeType, SessionMemento> mementos = new EnumMap<>(ModeType.class);
-    private int currentIndex;
+    private int currentIndex = 0;
     private List<String> currentAnswers = new ArrayList<>();
-    private long seed;
+    private long seed = 0;
 
 
     public void registerObserver(AnswerObserver observer) {
@@ -40,17 +40,31 @@ public class LearningSession {
         return currentIndex;
     }
 
-    public void setAnswers(List<String> answers) {
-        this.currentAnswers = answers;
+    public long getSeed() {
+        return seed;
     }
 
-    public List<String> getAnswers() {
-        return currentAnswers;
+    /**
+     * Inicjalizacja Seedu
+     */
+    public void initSeedIfNeeded() {
+        if (seed == 0) {
+            seed = System.currentTimeMillis();
+        }
     }
 
-    public void setSeed(long seed) {
-        this.seed = seed;
-    }
+
+//    public void setAnswers(List<String> answers) {
+//        this.currentAnswers = answers;
+//    }
+//
+//    public List<String> getAnswers() {
+//        return currentAnswers;
+//    }
+
+//    public void setSeed(long seed) {
+//        this.seed = seed;
+//    }
 
     public void saveMemento(ModeType mode) {
         mementos.put(mode, createMemento());

@@ -33,9 +33,15 @@ public class MillionaireController {
     public void start() {
         if (session.hasMemento(enumMode)) {
             session.restore(enumMode);
-            mode.setCurrentQuestionIndex(session.getCurrentIndex());
-            mode.setOptions(session.getAnswers());
+            mode.restore(
+                    session.getCurrentIndex(),
+                    session.getSeed()
+            );
+        } else {
+            session.initSeedIfNeeded();
+            mode.startNew(session.getSeed());
         }
+
         showNext();
     }
 
@@ -77,13 +83,13 @@ public class MillionaireController {
                         ? JOptionPane.INFORMATION_MESSAGE
                         : JOptionPane.ERROR_MESSAGE
         );
-
+        mode.advance();
         showNext();
     }
 
     private void saveAndExit() {
         session.setCurrentIndex(mode.getCurrentQuestionIndex());
-        session.setAnswers(mode.getOptions());
+        //session.setAnswers(mode.getOptions());
         session.saveMemento(ModeType.MILLIONAIRE);
         onFinish.run();
     }
