@@ -3,6 +3,7 @@ package app;
 import controllers.Controller;
 import controllers.DataInputController;
 import controllers.LearningSessionController;
+import controllers.MainMenuController;
 import views.MainFrame;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class AppRouter {
     public AppRouter(MainFrame mainFrame, AppContext context) {
         this.mainFrame = mainFrame;
         this.context = context;
-        //this.controllers.put(AppState.MainMenu, new MainMenuController(this));
+        this.controllers.put(AppState.MainMenu, new MainMenuController(this));
         this.controllers.put(AppState.LoadWordSet, new DataInputController(this));
         this.controllers.put(AppState.LearningSession, new LearningSessionController(this));
         //this.controllers.put(AppState.WordSetCreator, new WordSetCreatorController(this));
@@ -27,7 +28,7 @@ public class AppRouter {
 
     public void start() {
         mainFrame.setVisible(true);
-        switchState(AppState.LoadWordSet);
+        switchState(AppState.MainMenu);
     }
 
     public void switchState(AppState state) {
