@@ -15,6 +15,9 @@ public class ReviewScheduler implements AnswerObserver {
         if (!correct && !reviewWords.contains(w)) {
             reviewWords.add(w);
         }
+        else if (!correct && reviewWords.contains(w)) {
+            reviewWords.remove(w);
+        }
 
         if (!correct && wasAlertShown) {
             wasAlertShown = false;
@@ -27,7 +30,11 @@ public class ReviewScheduler implements AnswerObserver {
     }
 
     public List<Word> getReviewWords() {
-        List<Word> reviewWordsCopy = reviewWords;
+        return reviewWords;
+    }
+
+    public List<Word> loadReviewWords() {
+        List<Word> reviewWordsCopy = new ArrayList<>(reviewWords);
         reviewWords.clear();
         wasAlertShown = false;
         return reviewWordsCopy;

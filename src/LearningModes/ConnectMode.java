@@ -7,71 +7,78 @@ import models.WordSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
+import java.util.Random;
 
 public class ConnectMode implements LearningMode {
+
+    private final List<Word> baseWords;
+    private final List<Word> left = new ArrayList<>();
+    private final List<String> right = new ArrayList<>();
+
+    private Random rand;
+
+    public ConnectMode(WordSet wordSet) {
+        this.baseWords = new ArrayList<>(wordSet.getWords());
+    }
+
+    public void startNew(long seed) {
+        this.rand = new Random(seed);
+        generateInitialState();
+    }
+
+    public void restore(int progress, long seed) {
+        this.rand = new Random(seed);
+        generateInitialState();
+
+        // odtwórz usunięte pary
+        for (int i = 0; i < progress; i++) {
+            left.remove(0);
+            right.remove(0);
+        }
+    }
+
+    /* ===== LOGIKA ===== */
+
+    private void generateInitialState() {
+        left.clear();
+        right.clear();
+
+        List<Word> shuffled = new ArrayList<>(baseWords);
+        Collections.shuffle(shuffled, rand);
+
+        for (int i = 0; i < Math.min(8, shuffled.size()); i++) {
+            left.add(shuffled.get(i));
+            right.add(shuffled.get(i).getTarget());
+        }
+
+        Collections.shuffle(right, rand);
+    }
+
+    public boolean check(int leftIndex, int rightIndex) {
+        return left.get(leftIndex).getTarget().equals(right.get(rightIndex));
+    }
+
+    public Word removePair(int leftIndex, int rightIndex) {
+        Word w = left.remove(leftIndex);
+        right.remove(rightIndex);
+        return w;
+    }
+
+    public boolean isFinished() {
+        return left.isEmpty();
+    }
+
+    public List<Word> getLeftSources() {
+        return left.stream().toList();
+    }
+
+    public List<String> getRightTargets() {
+        return new ArrayList<>(right);
+    }
+
     @Override
     public void start(WordSet wordSet, LearningSession learningSession) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("*******************************");
-        System.out.println("          Tryb Łączenia!");
-        System.out.println("*******************************");
-        System.out.println();
 
-        List<Word> ws = wordSet.getWords();
-        List<Word> tab1 = new ArrayList<Word>();
-        List<String> tab2 = new ArrayList<String>();
-
-        if (ws.size() > 3) {
-            while (tab1.size() < 4 && tab2.size() < 4) {
-                Word option = ws.get((int) (Math.random() * ws.size()));
-                if (!tab1.contains(option)) {
-                    tab1.add(option);
-                    tab2.add(option.getTarget());
-                }
-            }
-        }
-        else {
-            System.out.println("models.WordSet nie posiada wystarczająco wyrazów");
-        }
-
-        Collections.shuffle(tab2);
-
-
-        while (!tab1.isEmpty()) {
-
-            connectPrint(tab2, tab1);
-
-            System.out.println("Wybierz element z lewej kolumny (1-" + tab1.size() + "): ");
-            int left = scanner.nextInt()-1;
-
-            System.out.println("Wybierz element z prawej kolumny (1-" + tab2.size() + "): ");
-            int right = scanner.nextInt()-1;
-
-            if (tab1.get(left).getTarget().equals(tab2.get(right))) {
-                System.out.println("            Dobrze!");
-                learningSession.notifyObservers(tab1.get(left), true);
-                tab1.remove(left);
-                tab2.remove(right);
-
-            } else {
-                System.out.println("            Źle! Spróbuj ponownie.");
-                learningSession.notifyObservers(tab1.get(left), false);
-            }
-        }
-
-        System.out.println("Wszystkie połączone! Gratulacje!");
     }
-
-    private static void connectPrint(List<String> tab2, List<Word> tab1) {
-        System.out.println("*******************************");
-        for (int i = 0; i < tab2.size(); i++) {
-            System.out.println();
-            System.out.println(i+1+"  "+ tab1.get(i).getSource() + "  |  " + tab2.get(i));
-            System.out.println();
-        }
-        System.out.println("*******************************");
-    }
-
-
 }
+

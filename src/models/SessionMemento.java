@@ -4,18 +4,28 @@ import java.util.List;
 public class SessionMemento {
 
     private final int questionIndex;
+    private final List<String> answersSnapshot;
+    private final long randomSeed;
 
-    //private final List<String> rightWords;
-
-    public SessionMemento(int questionIndex) {
-        this.questionIndex = questionIndex;
-        //this.rightWords = rightWords;
+    public SessionMemento(
+            int index,
+            List<String> answersSnapshot,
+            long randomSeed
+    ) {
+        this.questionIndex = index;
+        this.answersSnapshot = List.copyOf(answersSnapshot);
+        this.randomSeed = randomSeed;
     }
+
     public int getQuestionIndex() {
         return questionIndex;
     }
 
-//   public List<String> getRightWords() {
-//        return rightWords;
-//    }
+    public List<String> getAnswersSnapshot() {
+        return answersSnapshot;
+    }
+
+    public long getSeed() {
+        return randomSeed;
+    }
 }

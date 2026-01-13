@@ -1,74 +1,88 @@
 package LearningModes;
 
-import models.LearningSession;
 import models.Word;
 import models.WordSet;
-import observers.SessionStatistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;//jeszcze nie wiem gdzie go zostawie
+import java.util.Random;
 
-public class MillionaireMode implements LearningMode {
-    @Override
-    public void start(WordSet wordSet, LearningSession learningSession) {
-        Scanner scanner = new Scanner(System.in);
-        List<Word> ws = wordSet.getWords();
-        List<String> options = new ArrayList<String>();
+public class MillionaireMode {
 
-        System.out.println("*******************************");
-        System.out.println("          Tryb Milionerów!");
-        System.out.println("*******************************");
-        System.out.println();
+    private final List<Word> words;
+    private final int totalQuestions;
+    private int currentQuestion = 0;
+    private Random rand = new Random();
+    private Word currentWord;
+    private List<String> options;
 
-        System.out.println("Ile pytań chcesz przerobić?");
-        int ile = scanner.nextInt();
+    public MillionaireMode(WordSet wordSet, int totalQuestions) {
+        this.words = wordSet.getWords();
+        this.totalQuestions = totalQuestions;
+    }
 
-        for(int i=0;i<ile;i++) {
-            System.out.println();
-            System.out.println("*******************************");
+    public boolean hasNext() {
+        return currentQuestion < totalQuestions;
+    }
 
-        Word w = ws.get((int) (Math.random() * ws.size()));
+    public void nextQuestion() {
+        generateQuestion();
+    }
 
-        options.add(w.getTarget());
+    public void restore(int index, long seed) {
+        this.currentQuestion = index;
+        this.rand = new Random(seed);
 
-        if (ws.size() > 3) {
-            while (options.size() < 4) {
-                Word option = ws.get((int) (Math.random() * ws.size()));
-                if (!options.contains(option.getTarget())) {
-                    options.add(option.getTarget());
-                }
-            }
-        }
-        else {
-            System.out.println("models.WordSet nie posiada wystarczająco wyrazów");
-        }
-
-        Collections.shuffle(options);
-
-
-        System.out.println("Jakie jest poprawne tłumaczenie słowa: \"" + w.getSource() +"\"");
-        int k=1;
-        for (String option : options) {
-            System.out.println(k+") " + option);
-            k++;
-        }
-        int odp = scanner.nextInt() - 1;
-
-        if (options.get(odp).equals(w.getTarget())) {
-            System.out.println("            Dobrze! ");
-            learningSession.notifyObservers(w, true);
-        }
-
-        else {
-            System.out.println("            Źle! ");
-            learningSession.notifyObservers(w, false);
-        }
-        options.clear();
-        System.out.println("*******************************");
-        String placeholder= scanner.nextLine();;
-        placeholder = scanner.nextLine();
+        for (int i = 0; i < index; i++) {
+            generateQuestion();
         }
     }
+
+    public void startNew(long seed) {
+        this.currentQuestion = 0;
+        this.rand = new Random(seed);
+    }
+
+    private void generateQuestion() {
+        currentWord = words.get(rand.nextInt(words.size()));
+
+        options = new ArrayList<>();
+        options.add(currentWord.getTarget());
+
+        while (options.size() < 4) {
+            Word w = words.get(rand.nextInt(words.size()));
+            if (!options.contains(w.getTarget())) {
+                options.add(w.getTarget());
+            }
+        }
+
+        Collections.shuffle(options, rand);
+    }
+
+    public Word getWord() {
+        return currentWord;
+    }
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+
+    public boolean checkAnswer(String selected) {
+        return selected.equals(currentWord.getTarget());
+    }
+
+    public int getCurrentQuestionIndex() {
+        return currentQuestion;
+    }
+
+    public void advance(){
+        currentQuestion++;
+    }
+
+    public int getTotalQuestions() {
+        return totalQuestions;
+    }
+
 }
