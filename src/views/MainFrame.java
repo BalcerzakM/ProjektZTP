@@ -1,15 +1,7 @@
 package views;
 
-import app.AppContext;
-import app.AppState;
-import controllers.Controller;
-import controllers.DataInputController;
-import controllers.LearningSessionController;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainFrame extends JFrame {
     private final CardLayout layout = new CardLayout();

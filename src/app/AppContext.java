@@ -27,5 +27,13 @@ public class AppContext {
     public ReviewScheduler getReviewScheduler() {
         return reviewScheduler;
     }
+
+    public boolean isUserLoggedIn() {
+        return CurrentUser != null;
+    }
+
+    public boolean isDatabaseSelected() {
+        return CurrentWordSet != null;
+    }
 }
 
