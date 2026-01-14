@@ -1,6 +1,8 @@
 package app;
 
 import models.Connector;
+import models.LanguageCERFLevel;
+import models.User;
 import models.WordSet;
 import observers.ReviewScheduler;
 
@@ -9,15 +11,15 @@ import java.io.IOException;
 import java.util.List;
 
 public class AppContext {
-    private String CurrentUser = "user";
+    private User CurrentUser = new User("maciek1234", "MaciekZKlanu4321", LanguageCERFLevel.A1);
     private WordSet CurrentWordSet;
     private final ReviewScheduler reviewScheduler = new ReviewScheduler();
 
-    public String getCurrentUser() {
+    public User getCurrentUser() {
         return CurrentUser;
     }
 
-    public void setCurrentUser(String currentUser) {
+    public void setCurrentUser(User currentUser) {
         CurrentUser = currentUser;
     }
 

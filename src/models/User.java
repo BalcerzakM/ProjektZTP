@@ -1,24 +1,39 @@
 package models;
 
 public class User {
-    private String username;
-    private String langCEFRLevel;
+    private final String username;
+    private String password;
+    private LanguageCERFLevel langLevel;
 
-    public User(String username, String languageLevel) {
+    public User(String username, String password, LanguageCERFLevel langLevel) {
         this.username = username;
-        this.languageLevel = languageLevel;
+        this.password = password;
+        this.langLevel = langLevel;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public String getLanguageLevel() {
-        return languageLevel;
+    public LanguageCERFLevel getLanguageLevel() {
+        return langLevel;
     }
 
-    public void setLanguageLevel(String languageLevel) {
-        this.languageLevel = languageLevel;
+    public void setLanguageLevel(LanguageCERFLevel languageLevel) {
+        this.langLevel = languageLevel;
+    }
+
+    public boolean isCorrectPassword(String password) {
+        return this.password.equals(password);
+    }
+
+    public boolean changePassword(String oldPassword, String newPassword) {
+        if(isCorrectPassword(oldPassword)) {
+            this.password = newPassword;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
