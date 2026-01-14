@@ -1,0 +1,6 @@
+----USER----
+username: maciek1234
+password: MaciekZKlanu4321
+langLevel: A1
+----STATS----
+completedLessons: 0

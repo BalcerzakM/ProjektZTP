@@ -1,7 +1,6 @@
 package app;
 
-import models.Connector;
-import models.WordSet;
+import models.*;
 import observers.ReviewScheduler;
 
 import java.io.FileNotFoundException;
@@ -9,24 +8,25 @@ import java.io.IOException;
 import java.util.List;
 
 public class AppContext {
-    private String CurrentUser = "user";
-    private WordSet CurrentWordSet;
+    private User currentUser = new User("maciek1234", "MaciekZKlanu4321", LanguageCERFLevel.A1);
+    private Statistics currentUsersStatistics = new Statistics();
+    private WordSet currentWordSet;
     private final ReviewScheduler reviewScheduler = new ReviewScheduler();
 
-    public String getCurrentUser() {
-        return CurrentUser;
+    public User getCurrentUser() {
+        return currentUser;
     }
 
-    public void setCurrentUser(String currentUser) {
-        CurrentUser = currentUser;
+    public void setCurrentUser(User currentUser) {
+        currentUser = currentUser;
     }
 
     public WordSet getCurrentWordSet() {
-        return CurrentWordSet;
+        return currentWordSet;
     }
 
     public void setCurrentWordSet(WordSet currentWordSet) {
-        CurrentWordSet = currentWordSet;
+        currentWordSet = currentWordSet;
     }
 
     public ReviewScheduler getReviewScheduler() {
@@ -34,11 +34,11 @@ public class AppContext {
     }
 
     public boolean isUserLoggedIn() {
-        return CurrentUser != null;
+        return currentUser != null;
     }
 
     public boolean isDatabaseSelected() {
-        return CurrentWordSet != null;
+        return currentWordSet != null;
     }
 
     public List<String> getDatabaseList() {
