@@ -70,7 +70,7 @@ public class MillionaireController {
 
         panel.setOnBack(this::saveAndExit);
 
-        router.setView(panel, "MILLIONAIRE");
+        router.setPanel(panel, "MILLIONAIRE");
     }
 
     private void handleAnswer(String selected) {

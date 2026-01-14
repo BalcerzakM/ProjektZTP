@@ -52,7 +52,7 @@ public class ConnectController {
 
         panel.onCheck(() -> handleCheck(panel));
         panel.setOnBack(this::saveAndExit);
-        router.setView(panel, "CONNECT");
+        router.setPanel(panel, "CONNECT");
     }
 
     private void handleCheck(ConnectPanel panel) {

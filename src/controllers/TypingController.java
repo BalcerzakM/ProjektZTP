@@ -49,7 +49,7 @@ public class TypingController {
 
         panel.onCheck(() -> handleAnswer(panel));
 
-        router.setView(panel, "TYPING");
+        router.setPanel(panel, "TYPING");
     }
 
     private void handleAnswer(TypingPanel panel) {

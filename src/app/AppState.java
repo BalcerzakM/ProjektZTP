@@ -1,7 +1,7 @@
 package app;
 
 public enum AppState {
-    MainMenu,
+    StartMenu,
     LoadWordSet,
     LearningSession,
     WordSetCreator,

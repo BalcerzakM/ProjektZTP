@@ -2,11 +2,10 @@ package app;
 
 import controllers.Controller;
 import controllers.LearningSessionController;
-import controllers.MainMenuController;
+import controllers.StartMenuController;
 import views.MainFrame;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public class AppRouter {
 
     public AppRouter(MainFrame mainFrame, AppContext context) {
         this.mainFrame = mainFrame;
-        this.controllers.put(AppState.MainMenu, new MainMenuController(this, context));
+        this.controllers.put(AppState.StartMenu, new StartMenuController(this, context));
         this.controllers.put(AppState.LearningSession, new LearningSessionController(this, context));
         //this.controllers.put(AppState.WordSetCreator, new WordSetCreatorController(this));
         //this.controllers.put(AppState.User, new UserController(this));
@@ -25,7 +24,7 @@ public class AppRouter {
 
     public void start() {
         mainFrame.setVisible(true);
-        switchState(AppState.MainMenu);
+        switchState(AppState.StartMenu);
     }
 
     public void switchState(AppState state) {
@@ -41,7 +40,7 @@ public class AppRouter {
         }
     }
 
-    public void setView(JPanel panel, String name) {
+    public void setPanel(JPanel panel, String name) {
         mainFrame.showView(panel, name);
     }
 
