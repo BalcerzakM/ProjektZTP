@@ -11,6 +11,7 @@ import views.MainMenuPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class MainMenuController implements Controller{
@@ -23,7 +24,7 @@ public class MainMenuController implements Controller{
         this.router = router;
         this.context = context;
         this.mainMenuPanel = new MainMenuPanel();
-        this.dbSelectionPanel = new DatabaseSelectionPanel(readFileList());
+        this.dbSelectionPanel = new DatabaseSelectionPanel(this.context.getDatabaseList());
         initDbSelectionLogic();
         initMainMenuLogic();
 
@@ -59,16 +60,9 @@ public class MainMenuController implements Controller{
             return;
         }
 
-        String path = "resources/wordSets/" + selected + ".txt";
-
-        try {
-            WordSet ws = Connector.getInstance().readWordSetFromFile(path);
+            WordSet ws = context.getWordSet(selected);
             context.setCurrentWordSet(ws);
             router.switchState(AppState.LearningSession);
-
-        } catch (FileNotFoundException e) {
-            dbSelectionPanel.showError("Nie znaleziono pliku: " + selected);
-        }
     }
 
     private void handleReview() {
@@ -92,9 +86,5 @@ public class MainMenuController implements Controller{
 
         context.setCurrentWordSet(review);
         router.switchState(AppState.LearningSession);
-    }
-
-    private List<String> readFileList() {
-        return List.of("default"); // później: skan katalogu
     }
 }

@@ -3,6 +3,7 @@ import app.AppRouter;
 import views.MainFrame;
 
 import javax.swing.*;
+import java.io.IOException;
 //import com.formdev.flatlaf.*;
 
 public class Main {
@@ -13,7 +14,8 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             AppContext context = new AppContext();
             MainFrame frame = new MainFrame(appName + " " + appVersion);
-            AppRouter router = new AppRouter(frame, context);
+            AppRouter router = null;
+            router = new AppRouter(frame, context);
             router.start();
         });
     }
