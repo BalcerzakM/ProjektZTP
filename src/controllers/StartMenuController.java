@@ -3,24 +3,19 @@ package controllers;
 import app.AppContext;
 import app.AppRouter;
 import app.AppState;
-import models.Connector;
 import models.WordSet;
 import views.DatabaseSelectionPanel;
 import views.MainMenuPanel;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.List;
 
-public class MainMenuController implements Controller{
+public class StartMenuController implements Controller{
     private final AppRouter router;
     private final AppContext context;
     private final MainMenuPanel mainMenuPanel;
     private final DatabaseSelectionPanel dbSelectionPanel;
 
-    public MainMenuController(AppRouter router, AppContext context) {
+    public StartMenuController(AppRouter router, AppContext context) {
         this.router = router;
         this.context = context;
         this.mainMenuPanel = new MainMenuPanel();
@@ -37,18 +32,18 @@ public class MainMenuController implements Controller{
 
     private void initMainMenuLogic() {
         mainMenuPanel.onLearningSessionBtn(() -> router.switchState(AppState.LearningSession));
-        mainMenuPanel.onChangeWordSetBtn(() -> router.setView(dbSelectionPanel, "DB_SELECTION"));
+        mainMenuPanel.onChangeWordSetBtn(() -> router.setPanel(dbSelectionPanel, "DB_SELECTION"));
 
     }
 
     @Override
     public void run() {
         if (context.isUserLoggedIn() && context.isDatabaseSelected()) {
-            router.setView(mainMenuPanel, "MENU");
+            router.setPanel(mainMenuPanel, "MENU");
         } else if (context.isUserLoggedIn()) {
-            router.setView(dbSelectionPanel, "DB_SELECTION");
+            router.setPanel(dbSelectionPanel, "DB_SELECTION");
         } else {
-            router.setView(dbSelectionPanel, "DB_SELECTION");
+            router.setPanel(dbSelectionPanel, "DB_SELECTION");
         }
     }
 
@@ -62,7 +57,7 @@ public class MainMenuController implements Controller{
 
             WordSet ws = context.getWordSet(selected);
             context.setCurrentWordSet(ws);
-            router.switchState(AppState.LearningSession);
+            router.setPanel(mainMenuPanel, "MENU");;
     }
 
     private void handleReview() {

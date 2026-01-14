@@ -22,8 +22,4 @@ public class MainFrame extends JFrame {
         revalidate();
         repaint();
     }
-
-    public void quit() {
-        dispose();
-    }
 }

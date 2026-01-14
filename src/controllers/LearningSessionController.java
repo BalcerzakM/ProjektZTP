@@ -43,7 +43,7 @@ public class LearningSessionController implements Controller {
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                         sessionStatsPanel.setStatistics(stats);
                         sessionStatsPanel.showInDialog(router.getMainFrame());
-                        router.setView(panel,"CHOSING LEARNING MODE");
+                        router.setPanel(panel,"LEARNING_SESSION");
                     }
             ).start();
         });
@@ -60,7 +60,7 @@ public class LearningSessionController implements Controller {
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                         sessionStatsPanel.setStatistics(stats);
                         sessionStatsPanel.showInDialog(router.getMainFrame());
-                        router.setView(panel,"CHOSING LEARNING MODE");
+                        router.setPanel(panel,"LEARNING_SESSION");
                     }
             ).start();
         });
@@ -78,7 +78,7 @@ public class LearningSessionController implements Controller {
                         SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                         sessionStatsPanel.setStatistics(stats);
                         sessionStatsPanel.showInDialog(router.getMainFrame());
-                        router.setView(panel,"MENU");
+                        router.setPanel(panel,"LEARNING_SESSION");
                     }
             ).start();
         });
@@ -95,17 +95,17 @@ public class LearningSessionController implements Controller {
                     SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                     sessionStatsPanel.setStatistics(stats);
                     sessionStatsPanel.showInDialog(router.getMainFrame());
-                    router.setView(panel,"MENU");
+                    router.setPanel(panel,"LEARNING_SESSION");
                 }
             ).start();
         });
 
         panel.onBack(() -> {
-            router.switchState(AppState.MainMenu);
+            router.switchState(AppState.StartMenu);
         });
 
 
-        router.setView(panel, "LEARNING_SESSION");
+        router.setPanel(panel, "LEARNING_SESSION");
     }
 }
 

@@ -45,7 +45,7 @@ public class FlashCardController {
         panel.setOnBack(this::saveAndExit);
 
         showFront();
-        router.setView(panel, "FLASHCARD");
+        router.setPanel(panel, "FLASHCARD");
     }
 
     private void handleClick() {
