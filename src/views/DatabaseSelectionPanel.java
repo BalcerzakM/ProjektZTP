@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class DataInputPanel extends JPanel {
+public class DatabaseSelectionPanel extends JPanel {
 
     private final JList<String> fileList;
     private final JButton loadButton = new JButton("Załaduj");
     private final JButton reviewButton = new JButton("Review");
 
-    public DataInputPanel(List<String> files) {
+    public DatabaseSelectionPanel(List<String> files) {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
@@ -40,11 +40,11 @@ public class DataInputPanel extends JPanel {
     }
 
     // 🔽 rejestracja listenerów
-    public void onLoad(ActionListener l) {
+    public void onLoadBtn(ActionListener l) {
         loadButton.addActionListener(l);
     }
 
-    public void onReview(ActionListener l) {
+    public void onReviewBtn(ActionListener l) {
         reviewButton.addActionListener(l);
     }
 }

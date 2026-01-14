@@ -1,8 +1,10 @@
 package app;
 
 public enum AppState {
-    Login,
-    ChoosingDatabase,
+    MainMenu,
+    LoadWordSet,
     LearningSession,
-    Quit
+    WordSetCreator,
+    User,
+    Statistics
 }

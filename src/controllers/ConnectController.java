@@ -1,6 +1,7 @@
 package controllers;
 
 import LearningModes.ModeType;
+import app.AppRouter;
 import app.AppState;
 import models.LearningSession;
 import models.*;
@@ -12,15 +13,15 @@ import javax.swing.*;
 
 public class ConnectController {
     private static final ModeType MODE_KEY = ModeType.CONNECT;
-    private final MainFrame frame;
+    private final AppRouter router;
     private final LearningSession session;
     private final ConnectMode mode;
     private final Runnable onFinish;
 
-    public ConnectController(MainFrame frame,
+    public ConnectController(AppRouter router,
                              LearningSession session,
                              WordSet wordSet, Runnable onFinish) {
-        this.frame = frame;
+        this.router = router;
         this.session = session;
         this.mode = new ConnectMode(wordSet);
         this.onFinish = onFinish;
@@ -51,7 +52,7 @@ public class ConnectController {
 
         panel.onCheck(() -> handleCheck(panel));
         panel.setOnBack(this::saveAndExit);
-        frame.setView(panel, "CONNECT");
+        router.setView(panel, "CONNECT");
     }
 
     private void handleCheck(ConnectPanel panel) {
@@ -66,7 +67,7 @@ public class ConnectController {
 
             if (mode.isFinished()) {
                 JOptionPane.showMessageDialog(
-                        frame,
+                        panel,
                         "Wszystkie połączone!",
                         "Koniec",
                         JOptionPane.INFORMATION_MESSAGE
@@ -79,7 +80,7 @@ public class ConnectController {
         } else {
             session.notifyObservers(
                     mode.getLeftSources().get(l), false);
-            JOptionPane.showMessageDialog(frame,
+            JOptionPane.showMessageDialog(panel,
                     "Źle, spróbuj ponownie");
         }
 

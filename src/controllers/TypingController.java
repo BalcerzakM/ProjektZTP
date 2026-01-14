@@ -1,6 +1,7 @@
 package controllers;
 
 import LearningModes.TypingMode;
+import app.AppRouter;
 import models.LearningSession;
 import models.Word;
 import models.WordSet;
@@ -11,7 +12,7 @@ import javax.swing.*;
 
 public class TypingController {
 
-    private final MainFrame frame;
+    private final AppRouter router;
     private final LearningSession session;
     private final TypingMode mode;
     private final Runnable onFinish;
@@ -19,13 +20,13 @@ public class TypingController {
     private Word currentWord;
 
     public TypingController(
-            MainFrame frame,
+            AppRouter router,
             LearningSession session,
             WordSet wordSet,
             int questions,
             Runnable onFinish
     ) {
-        this.frame = frame;
+        this.router = router;
         this.session = session;
         this.mode = new TypingMode(wordSet, questions);
         this.onFinish = onFinish;
@@ -48,7 +49,7 @@ public class TypingController {
 
         panel.onCheck(() -> handleAnswer(panel));
 
-        frame.setView(panel, "TYPING");
+        router.setView(panel, "TYPING");
     }
 
     private void handleAnswer(TypingPanel panel) {
@@ -56,7 +57,7 @@ public class TypingController {
         session.notifyObservers(currentWord, correct);
 
         JOptionPane.showMessageDialog(
-                frame,
+                panel,
                 correct ? "Dobrze!" : "Źle!",
                 "Odpowiedź",
                 correct
