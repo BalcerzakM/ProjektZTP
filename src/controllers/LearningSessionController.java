@@ -101,7 +101,7 @@ public class LearningSessionController implements Controller {
         });
 
         panel.onBack(() -> {
-            router.switchState(AppState.StartMenu);
+            router.switchState(AppState.MainMenu);
         });
 
 

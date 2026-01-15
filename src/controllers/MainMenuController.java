@@ -9,13 +9,13 @@ import views.MainMenuPanel;
 
 import javax.swing.*;
 
-public class StartMenuController implements Controller{
+public class MainMenuController implements Controller{
     private final AppRouter router;
     private final AppContext context;
     private final MainMenuPanel mainMenuPanel;
     private final DatabaseSelectionPanel dbSelectionPanel;
 
-    public StartMenuController(AppRouter router, AppContext context) {
+    public MainMenuController(AppRouter router, AppContext context) {
         this.router = router;
         this.context = context;
         this.mainMenuPanel = new MainMenuPanel();
@@ -38,10 +38,10 @@ public class StartMenuController implements Controller{
 
     @Override
     public void run() {
-        if (context.isUserLoggedIn() && context.isDatabaseSelected()) {
+        String userName = context.getCurrentUser().getUsername();
+        mainMenuPanel.setWelcomeMessage(userName);
+        if (context.isDatabaseSelected()) {
             router.setPanel(mainMenuPanel, "MENU");
-        } else if (context.isUserLoggedIn()) {
-            router.setPanel(dbSelectionPanel, "DB_SELECTION");
         } else {
             router.setPanel(dbSelectionPanel, "DB_SELECTION");
         }
@@ -57,7 +57,7 @@ public class StartMenuController implements Controller{
 
             WordSet ws = context.getNewWordSet(selected);
             context.setCurrentWordSet(ws);
-            router.setPanel(mainMenuPanel, "MENU");;
+            router.setPanel(mainMenuPanel, "MENU");
     }
 
     private void handleReview() {

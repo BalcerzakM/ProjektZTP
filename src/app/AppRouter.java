@@ -1,8 +1,9 @@
 package app;
 
+import controllers.AuthenticationController;
 import controllers.Controller;
 import controllers.LearningSessionController;
-import controllers.StartMenuController;
+import controllers.MainMenuController;
 import views.MainFrame;
 
 import javax.swing.*;
@@ -15,7 +16,8 @@ public class AppRouter {
 
     public AppRouter(MainFrame mainFrame, AppContext context) {
         this.mainFrame = mainFrame;
-        this.controllers.put(AppState.StartMenu, new StartMenuController(this, context));
+        this.controllers.put(AppState.Authentication, new AuthenticationController(this, context));
+        this.controllers.put(AppState.MainMenu, new MainMenuController(this, context));
         this.controllers.put(AppState.LearningSession, new LearningSessionController(this, context));
         //this.controllers.put(AppState.WordSetCreator, new WordSetCreatorController(this));
         //this.controllers.put(AppState.User, new UserController(this));
@@ -24,7 +26,7 @@ public class AppRouter {
 
     public void start() {
         mainFrame.setVisible(true);
-        switchState(AppState.StartMenu);
+        switchState(AppState.Authentication);
     }
 
     public void switchState(AppState state) {

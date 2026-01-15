@@ -1,7 +1,8 @@
 package app;
 
 public enum AppState {
-    StartMenu,
+    Authentication,
+    MainMenu,
     LoadWordSet,
     LearningSession,
     User,
