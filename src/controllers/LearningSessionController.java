@@ -35,6 +35,8 @@ public class LearningSessionController implements Controller {
 
         Runnable onFinishSession = () -> {
             if (stats.hasAnyData()) {
+                context.getCurrentUserStatistics().addToStatistics(stats);
+
                 SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                 sessionStatsPanel.setStatistics(stats);
                 sessionStatsPanel.showInDialog(router.getMainFrame());

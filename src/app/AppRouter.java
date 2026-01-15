@@ -3,6 +3,7 @@ package app;
 import controllers.Controller;
 import controllers.LearningSessionController;
 import controllers.StartMenuController;
+import controllers.StatisticsController;
 import views.MainFrame;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class AppRouter {
         this.controllers.put(AppState.LearningSession, new LearningSessionController(this, context));
         //this.controllers.put(AppState.WordSetCreator, new WordSetCreatorController(this));
         //this.controllers.put(AppState.User, new UserController(this));
-        //this.controllers.put(AppState.Statistics, new StatisticsController(this));
+        this.controllers.put(AppState.Statistics, new StatisticsController(this, context));
     }
 
     public void start() {
