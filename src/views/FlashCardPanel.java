@@ -8,30 +8,35 @@ public class FlashCardPanel extends JPanel {
 
     private final JLabel card = new JLabel("", SwingConstants.CENTER);
     private JButton backBtn = new JButton("Wróć");
+    private final JButton prevBtn = new JButton("⬅");
+    private final JButton nextBtn = new JButton("➡");
     private Runnable onClick;
     private Runnable onBack;
     private final JLabel progressLabel = new JLabel();
 
     public FlashCardPanel()  {
         setLayout(new BorderLayout());
-        setBackground(new Color(30, 30, 30));
+        setBackground(Color.WHITE);
 
         card.setPreferredSize(new Dimension(500, 300));
         card.setOpaque(true);
-        card.setBackground(new Color(50, 50, 50));
-        card.setForeground(Color.WHITE);
+        card.setBackground(Color.LIGHT_GRAY);
+        card.setForeground(Color.BLACK);
         card.setFont(new Font("Arial", Font.BOLD, 32));
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 
         JPanel center = new JPanel(new GridBagLayout());
         center.setOpaque(false);
         center.add(card);
+        add(center, BorderLayout.CENTER);
 
         JPanel bottom = new JPanel();
         bottom.setOpaque(false);
-        bottom.add(backBtn);
 
-        add(center, BorderLayout.CENTER);
+        bottom.add(prevBtn, BorderLayout.WEST);
+        bottom.add(backBtn, BorderLayout.CENTER);
+        bottom.add(nextBtn, BorderLayout.EAST);
+
         add(bottom, BorderLayout.SOUTH);
 
         progressLabel.setForeground(Color.LIGHT_GRAY);
@@ -61,6 +66,14 @@ public class FlashCardPanel extends JPanel {
 
     public void setOnClick(Runnable action) {
         this.onClick = action;
+    }
+
+    public void setOnNext(Runnable action) {
+        nextBtn.addActionListener(e -> action.run());
+    }
+
+    public void setOnPrev(Runnable action) {
+        prevBtn.addActionListener(e -> action.run());
     }
 
     /**
