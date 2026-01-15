@@ -5,7 +5,6 @@ import LearningModes.ModeType;
 import app.AppRouter;
 import models.LearningSession;
 import models.WordSet;
-import views.MainFrame;
 import views.MillionairePanel;
 
 import javax.swing.*;
@@ -49,6 +48,8 @@ public class MillionaireController {
 
     private void showNext() {
         if (!mode.hasNext()) {
+            session.removeMemento(MODE_KEY);
+            session.resetSeed();
             onFinish.run();
             return;
         }
@@ -79,7 +80,7 @@ public class MillionaireController {
 
         JOptionPane.showMessageDialog(
                 router.getMainFrame(),
-                correct ? "Dobrze!" : "Źle!",
+                correct ? "Dobrze!" : "Źle! \n Poprawna Odpowiedź to: "+ mode.getWord().getTarget(),
                 "Odpowiedź",
                 correct
                         ? JOptionPane.INFORMATION_MESSAGE
@@ -91,8 +92,7 @@ public class MillionaireController {
 
     private void saveAndExit() {
         session.setCurrentIndex(mode.getCurrentQuestionIndex());
-        //session.setAnswers(mode.getOptions());
-        session.saveMemento(ModeType.MILLIONAIRE);
+        session.saveMemento(MODE_KEY);
         onFinish.run();
     }
 }

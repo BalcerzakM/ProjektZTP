@@ -5,16 +5,14 @@ import app.AppRouter;
 import app.AppState;
 import observers.SessionStatistics;
 import models.LearningSession;
-import views.MainFrame;
 import views.LearningSessionPanel;
 import views.SessionStatisticsPanel;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class LearningSessionController implements Controller {
 
-    private LearningSession model = new LearningSession();
+    private final LearningSession model = new LearningSession();
     AppRouter router;
     AppContext context;
 
@@ -81,14 +79,28 @@ public class LearningSessionController implements Controller {
                 router,
                 model,
                 context.getCurrentWordSet(),
-                4,
+                10,
                 onFinishSession
             ).start();
         });
 
         panel.onBack(() -> {
             model.unregisterObserver(stats);
-            router.switchState(AppState.StartMenu);
+            int result = JOptionPane.showOptionDialog(
+                    router.getMainFrame(),
+                    "Czy na pewno chcesz skończyć lekcję?",
+                    "Zakończyć lekcję?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    new Object[]{"TAK", "NIE"},
+                    "NIE"
+            );
+
+            if (result == JOptionPane.YES_OPTION) {
+                model.flushMementos();
+                router.switchState(AppState.StartMenu);
+            }
         });
 
 

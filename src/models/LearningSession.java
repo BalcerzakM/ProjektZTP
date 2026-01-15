@@ -54,15 +54,6 @@ public class LearningSession {
     }
 
 
-//    public void setAnswers(List<String> answers) {
-//        this.currentAnswers = answers;
-//    }
-//
-//    public List<String> getAnswers() {
-//        return currentAnswers;
-//    }
-
-
     public void saveMemento(ModeType mode) {
         mementos.put(mode, createMemento());
     }
@@ -79,6 +70,7 @@ public class LearningSession {
     }
 
     private SessionMemento createMemento() { return new SessionMemento(this.currentIndex,this.currentAnswers,this.seed); }
+
     private void restoreFrom(SessionMemento m) {
         this.currentIndex = m.getQuestionIndex();
         this.currentAnswers = new ArrayList<>(m.getAnswersSnapshot());
@@ -87,6 +79,11 @@ public class LearningSession {
 
     public void removeMemento(ModeType mode) {
         mementos.remove(mode);
+    }
+
+    public void flushMementos() {
+        this.mementos.clear();
+        resetSeed();
     }
 
     public void resetSeed() {

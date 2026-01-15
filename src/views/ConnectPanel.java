@@ -10,8 +10,7 @@ public class ConnectPanel extends JPanel {
     private final JList<String> leftList;
     private final JList<String> rightList;
     private final JButton checkBtn = new JButton("Połącz");
-    private JButton backBtn = new JButton("Wróć");
-    private final JLabel progressLabel = new JLabel();
+    private final JButton backBtn = new JButton("Wróć");
     private Runnable onBack;
 
     public ConnectPanel(List<String> left, List<String> right) {
@@ -88,7 +87,7 @@ public class ConnectPanel extends JPanel {
     }
 
     /**
-     * Metoda Powrotu do ostatniego widoku i zapisania Memnto
+     * Metoda Powrotu do ostatniego widoku i zapisania Memento
      * @param action
      */
     public void setOnBack(Runnable action) {backBtn.addActionListener(e -> action.run());}

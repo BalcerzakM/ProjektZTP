@@ -1,16 +1,18 @@
 package controllers;
 
+import LearningModes.ModeType;
 import LearningModes.TypingMode;
 import app.AppRouter;
 import models.LearningSession;
 import models.Word;
 import models.WordSet;
-import views.MainFrame;
 import views.TypingPanel;
 
 import javax.swing.*;
 
 public class TypingController {
+
+    private static final ModeType MODE_KEY = ModeType.TYPING;
 
     private final AppRouter router;
     private final LearningSession session;
@@ -33,11 +35,25 @@ public class TypingController {
     }
 
     public void start() {
+
+        if (session.hasMemento(MODE_KEY)) {
+            session.restore(MODE_KEY);
+            mode.restore(
+                    session.getCurrentIndex(),
+                    session.getSeed()
+            );
+        } else {
+            session.initSeedIfNeeded();
+            mode.startNew(session.getSeed());
+        }
+
         showNext();
     }
 
     private void showNext() {
         if (!mode.hasNext()) {
+            session.removeMemento(MODE_KEY);
+            session.resetSeed();
             onFinish.run();
             return;
         }
@@ -46,8 +62,13 @@ public class TypingController {
 
         TypingPanel panel = new TypingPanel();
         panel.setWord(currentWord.getSource());
+        panel.setProgress(
+                mode.getIndex() ,
+                mode.getTotalQuestions()
+        );
 
         panel.onCheck(() -> handleAnswer(panel));
+        panel.setOnBack(this::saveAndExit);
 
         router.setPanel(panel, "TYPING");
     }
@@ -58,13 +79,20 @@ public class TypingController {
 
         JOptionPane.showMessageDialog(
                 panel,
-                correct ? "Dobrze!" : "Źle!",
+                correct ? "Dobrze!" : "Źle! \n Poprawna Odpowiedź to: "+ currentWord.getTarget(),
                 "Odpowiedź",
                 correct
                         ? JOptionPane.INFORMATION_MESSAGE
                         : JOptionPane.ERROR_MESSAGE
         );
+        mode.advance();
 
         showNext();
+    }
+
+    private void saveAndExit() {
+        session.setCurrentIndex(mode.getIndex());
+        session.saveMemento(MODE_KEY);
+        onFinish.run();
     }
 }
