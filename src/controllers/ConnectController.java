@@ -2,10 +2,8 @@ package controllers;
 
 import LearningModes.ModeType;
 import app.AppRouter;
-import app.AppState;
 import models.LearningSession;
 import models.*;
-import views.MainFrame;
 import views.ConnectPanel;
 import LearningModes.ConnectMode;
 

@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 public class FlashCardPanel extends JPanel {
 
     private final JLabel card = new JLabel("", SwingConstants.CENTER);
-    private JButton backBtn = new JButton("Wróć");
+    private final JButton backBtn = new JButton("Wróć");
     private final JButton prevBtn = new JButton("⬅");
     private final JButton nextBtn = new JButton("➡");
     private Runnable onClick;

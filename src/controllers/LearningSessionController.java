@@ -5,16 +5,14 @@ import app.AppRouter;
 import app.AppState;
 import observers.SessionStatistics;
 import models.LearningSession;
-import views.MainFrame;
 import views.LearningSessionPanel;
 import views.SessionStatisticsPanel;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class LearningSessionController implements Controller {
 
-    private LearningSession model = new LearningSession();
+    private final LearningSession model = new LearningSession();
     AppRouter router;
     AppContext context;
 

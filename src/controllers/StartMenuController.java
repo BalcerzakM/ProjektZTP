@@ -57,7 +57,7 @@ public class StartMenuController implements Controller{
 
             WordSet ws = context.getNewWordSet(selected);
             context.setCurrentWordSet(ws);
-            router.setPanel(mainMenuPanel, "MENU");;
+            router.setPanel(mainMenuPanel, "MENU");
     }
 
     private void handleReview() {

@@ -3,7 +3,6 @@ import LearningModes.ModeType;
 import app.AppRouter;
 import models.LearningSession;
 import models.WordSet;
-import views.MainFrame;
 import views.FlashCardPanel;
 
 public class FlashCardController {

@@ -6,7 +6,6 @@ import app.AppRouter;
 import models.LearningSession;
 import models.Word;
 import models.WordSet;
-import views.MainFrame;
 import views.TypingPanel;
 
 import javax.swing.*;
