@@ -89,7 +89,7 @@ public class LearningSessionController implements Controller {
             new TypingController(
                 router,
                 model,
-                context.getCurrentWordSet(), 4,
+                context.getCurrentWordSet(), 10,
                 () -> {
                     model.unregisterObserver(stats);
                     SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
