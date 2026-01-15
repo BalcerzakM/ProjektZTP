@@ -15,8 +15,8 @@ public class FlashCardPanel extends JPanel {
     private final JLabel progressLabel = new JLabel();
 
     public FlashCardPanel()  {
-        setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+        setLayout(new BorderLayout(20, 20));
+        setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
         card.setPreferredSize(new Dimension(500, 300));
         card.setOpaque(true);
@@ -39,7 +39,7 @@ public class FlashCardPanel extends JPanel {
 
         add(bottom, BorderLayout.SOUTH);
 
-        progressLabel.setForeground(Color.LIGHT_GRAY);
+        progressLabel.setForeground(Color.GRAY);
         progressLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 
         JPanel top = new JPanel(new BorderLayout());

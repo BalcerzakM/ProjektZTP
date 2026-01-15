@@ -101,7 +101,22 @@ public class LearningSessionController implements Controller {
         });
 
         panel.onBack(() -> {
-            router.switchState(AppState.StartMenu);
+
+            int result = JOptionPane.showOptionDialog(
+                    router.getMainFrame(),
+                    "Czy na pewno chcesz skończyć lekcję?",
+                    "Zakończyć lekcję?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    new Object[]{"TAK", "NIE"},
+                    "NIE"
+            );
+
+            if (result == JOptionPane.YES_OPTION) {
+                model.flushMementos();
+                router.switchState(AppState.StartMenu);
+            }
         });
 
 
