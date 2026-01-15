@@ -55,7 +55,7 @@ public class StartMenuController implements Controller{
             return;
         }
 
-            WordSet ws = context.getWordSet(selected);
+            WordSet ws = context.getNewWordSet(selected);
             context.setCurrentWordSet(ws);
             router.setPanel(mainMenuPanel, "MENU");;
     }

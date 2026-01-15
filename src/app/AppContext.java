@@ -26,7 +26,7 @@ public class AppContext {
     }
 
     public void setCurrentWordSet(WordSet currentWordSet) {
-        currentWordSet = currentWordSet;
+        this.currentWordSet = currentWordSet;
     }
 
     public ReviewScheduler getReviewScheduler() {
@@ -49,7 +49,7 @@ public class AppContext {
         }
     }
 
-    public WordSet getWordSet(String fileName) {
+    public WordSet getNewWordSet(String fileName) {
         try {
             return Connector.getInstance().readWordSetFromFile(fileName);
         } catch (FileNotFoundException e) {
