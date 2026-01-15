@@ -1,5 +1,6 @@
 package views;
 
+import models.LanguageCERFLevel;
 import models.Statistics;
 import models.User;
 
@@ -14,7 +15,7 @@ public class StatisticsPanel extends JPanel {
     private JLabel levelLabel = new JLabel();
 
     private JProgressBar levelProgressBar = new JProgressBar(0, 100);
-    private JLabel levelProgress = new JLabel();
+    private JLabel progressLabel = new JLabel();
 
     private JLabel completedLessons = new JLabel();
     private JLabel correctAnswers = new JLabel();
@@ -38,6 +39,7 @@ public class StatisticsPanel extends JPanel {
     public void setUser(User user) {
         usernameLabel.setText("Użytkownik: " + user.getUsername());
         levelLabel.setText("Poziom języka: " + user.getLanguageLevel());
+        progressLabel.setText("Postęp do następnego poziomu: ");
     }
 
     public void setStatistics(Statistics stats) {
@@ -48,6 +50,15 @@ public class StatisticsPanel extends JPanel {
         learnedWords.setText(String.valueOf(stats.getLearnedWordsAmount()));
         perfectLessons.setText(String.valueOf(stats.getPerfectLessons()));
         totalFlashcards.setText(String.valueOf(stats.getTotalFlashCards()));
+
+    }
+
+    public void setProgressBar(int percent) {
+        levelProgressBar.setMinimum(0);
+        levelProgressBar.setMaximum(100);
+        levelProgressBar.setValue(percent);
+        levelProgressBar.setString(percent + "%");
+        levelProgressBar.setStringPainted(true);
     }
 
     public void onBack(Runnable action) {
@@ -64,13 +75,6 @@ public class StatisticsPanel extends JPanel {
 
         JPanel rightPanel = new JPanel(new BorderLayout(5, 5));
 
-        levelProgressBar.setMinimum(0);
-        levelProgressBar.setMaximum(100);
-        levelProgressBar.setValue((int) (Math.random() * 100)); //temp
-        levelProgressBar.setStringPainted(true);
-
-        JLabel progressLabel = new JLabel("Postęp do następnego poziomu:");
-
         rightPanel.add(progressLabel, BorderLayout.NORTH);
         rightPanel.add(levelProgressBar, BorderLayout.CENTER);
 
@@ -82,27 +86,27 @@ public class StatisticsPanel extends JPanel {
 
     private JPanel buildStatsPanel() {
         JPanel panel = new JPanel(new GridLayout(0, 2, 10, 10));
-        panel.setBorder(new TitledBorder("Statistyki ogólne"));
+        panel.setBorder(new TitledBorder("Statystyki ogólne"));
 
         panel.add(new JLabel("Ukończone lekcje:"));
         panel.add(completedLessons);
 
-        panel.add(new Label("Poprawne odpowiedzi:"));
+        panel.add(new JLabel("Poprawne odpowiedzi:"));
         panel.add(correctAnswers);
 
-        panel.add(new Label("Niepoprawne odpowiedzi:"));
+        panel.add(new JLabel("Niepoprawne odpowiedzi:"));
         panel.add(incorrectAnswers);
 
-        panel.add(new Label("Idealne lekcje:"));
+        panel.add(new JLabel("Idealne lekcje:"));
         panel.add(perfectLessons);
 
-        panel.add(new Label("Przerobione słowa:"));
+        panel.add(new JLabel("Przerobione słowa:"));
         panel.add(learnedWords);
 
-        panel.add(new Label("Przejrzane fiszki:"));
+        panel.add(new JLabel("Przejrzane fiszki:"));
         panel.add(totalFlashcards);
 
-        panel.add(new Label("Najlepszy streak:"));
+        panel.add(new JLabel("Najlepszy streak:"));
         panel.add(longestStreak);
 
         return panel;

@@ -54,4 +54,18 @@ public class Statistics {
     public int getTotalFlashCards() {
         return totalFlashCards;
     }
+
+    public int calculateLevelProgress() {
+        return completedLessons + correctOverall/2 + longestStreak*3 + perfectLessons*2;
+    }
+
+    public int getLevelProgressPercent(LanguageCERFLevel level) {
+        int levelMin = level.getMinPoints();
+        int levelRange = level.getPointsRange();
+
+        int currentLevelProgress = Math.max(0, calculateLevelProgress() - levelMin);
+        int percent = (int) ((currentLevelProgress / (double) levelRange) * 100);
+
+        return Math.min(percent, 100);
+    }
 }

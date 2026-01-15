@@ -3,6 +3,8 @@ package controllers;
 import app.AppContext;
 import app.AppRouter;
 import app.AppState;
+import models.Statistics;
+import models.User;
 import views.StatisticsPanel;
 
 public class StatisticsController implements Controller {
@@ -16,9 +18,14 @@ public class StatisticsController implements Controller {
 
     @Override
     public void run() {
+        User currentUser = context.getCurrentUser();
+        Statistics stats = context.getCurrentUserStatistics();
+
         StatisticsPanel statisticsPanel = new StatisticsPanel();
-        statisticsPanel.setUser(context.getCurrentUser());
-        statisticsPanel.setStatistics(context.getCurrentUserStatistics());
+
+        statisticsPanel.setUser(currentUser);
+        statisticsPanel.setStatistics(stats);
+        statisticsPanel.setProgressBar(stats.getLevelProgressPercent(currentUser.getLanguageLevel()));
 
         statisticsPanel.onBack(() ->
             router.switchState(AppState.StartMenu)

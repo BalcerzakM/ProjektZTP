@@ -37,6 +37,9 @@ public class LearningSessionController implements Controller {
             if (stats.hasAnyData()) {
                 context.getCurrentUserStatistics().addToStatistics(stats);
 
+                int progress = context.getCurrentUserStatistics().calculateLevelProgress();
+                context.getCurrentUser().updateLanguageLevel(progress);
+
                 SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
                 sessionStatsPanel.setStatistics(stats);
                 sessionStatsPanel.showInDialog(router.getMainFrame());

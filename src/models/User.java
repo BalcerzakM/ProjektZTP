@@ -36,4 +36,12 @@ public class User {
         }
     }
 
+    public void updateLanguageLevel(int levelProgress) {
+        for (LanguageCERFLevel languageLevel : LanguageCERFLevel.values()) {
+            if (levelProgress >= languageLevel.getMinPoints()) {
+                this.langLevel = languageLevel;
+            }
+        }
+    }
+
 }
