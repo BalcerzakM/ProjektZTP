@@ -6,13 +6,23 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Statistics {
-    private int completedLessons = 0;
-    private int correctOverall = 0;
-    private int incorrectOverall = 0;
-    private int longestStreak = 0;
-    private Set<Word> learnedWords = new HashSet<Word>();
-    private int perfectLessons = 0;
-    private int totalFlashCards = 0;
+    private int completedLessons;
+    private int correctOverall;
+    private int incorrectOverall;
+    private int longestStreak;
+    private int learnedWords;
+    private int perfectLessons;
+    private int totalFlashCards;
+
+    public Statistics(int completedLessons, int correctOverall, int incorrectOverall, int longestStreak, int learnedWords, int perfectLessons, int totalFlashCards) {
+        this.completedLessons = completedLessons;
+        this.correctOverall = correctOverall;
+        this.incorrectOverall = incorrectOverall;
+        this.longestStreak = longestStreak;
+        this.learnedWords = learnedWords;
+        this.perfectLessons = perfectLessons;
+        this.totalFlashCards = totalFlashCards;
+    }
 
     public void addToStatistics(SessionStatistics sessionStats) {
         completedLessons++;
@@ -22,7 +32,7 @@ public class Statistics {
             perfectLessons++;
         }
         longestStreak = Math.max(sessionStats.getMaxSessionStreak(), longestStreak);
-        learnedWords.addAll(sessionStats.getLearnedWords());
+        learnedWords += (sessionStats.getLearnedWords().size());
         totalFlashCards += sessionStats.getFlashCardCount();
         System.out.println(completedLessons);
     }
@@ -44,7 +54,7 @@ public class Statistics {
     }
 
     public int getLearnedWordsAmount() {
-        return learnedWords.size();
+        return learnedWords;
     }
 
     public int getPerfectLessons() {

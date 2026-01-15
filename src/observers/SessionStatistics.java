@@ -74,22 +74,4 @@ public class SessionStatistics implements AnswerObserver {
         flashCardCount = 0;
         learnedWords.clear();
     }
-
-    //konsolowa wersja
-    public StringBuilder showStatistics() {
-        StringBuilder sb = new StringBuilder();
-        String perfect = (correctPercent == 100) ? " IDEALNIE!" : "";
-        sb.append("\n===========STATYSTYKI=============\n");
-        if (flashCardCount > 0) {
-            sb.append("Przejrzane fiszki: " + flashCardCount + "\n");
-        }
-        else {
-            sb.append("Poprawne odpowiedzi: " + correctCount + "\n")
-                    .append("Niepoprawne odpowiedzi: " + incorrectCount + "\n")
-                    .append("Streak: " + maxSessionStreak + "\n")
-                    .append("Skuteczność: " + correctPercent + "% " + perfect + "\n");
-        }
-
-        return sb.append("==================================\n");
-    }
 }
