@@ -5,10 +5,10 @@ import java.awt.*;
 
 public class LearningSessionPanel extends JPanel {
 
-    private JButton flashCardBtn = new JButton("Flashcards");
-    private JButton connectBtn = new JButton("Connect");
-    private JButton millionaireBtn = new JButton("Millionaire");
-    private JButton typingBtn = new JButton("Typing");
+    private JButton flashCardBtn = new JButton("Fiszki");
+    private JButton connectBtn = new JButton("Łączenie");
+    private JButton millionaireBtn = new JButton("Milionerzy");
+    private JButton typingBtn = new JButton("Wpisywanie");
     private JButton backBtn = new JButton("Wróć");
 
     public LearningSessionPanel() {
