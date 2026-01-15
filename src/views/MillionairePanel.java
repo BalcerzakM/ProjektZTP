@@ -9,7 +9,7 @@ public class MillionairePanel extends JPanel {
 
     private final JLabel questionLabel = new JLabel("", SwingConstants.CENTER);
     private final JButton[] optionButtons = new JButton[4];
-    private JButton backBtn = new JButton("Wróć");
+    private final JButton backBtn = new JButton("Wróć");
     private final JLabel progressLabel = new JLabel();
     private Runnable onBack;
 

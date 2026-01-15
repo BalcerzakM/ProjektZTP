@@ -3,7 +3,6 @@ import LearningModes.ModeType;
 import app.AppRouter;
 import models.LearningSession;
 import models.WordSet;
-import views.MainFrame;
 import views.FlashCardPanel;
 
 public class FlashCardController {
@@ -44,6 +43,9 @@ public class FlashCardController {
         panel.setOnClick(this::handleClick);
         panel.setOnBack(this::saveAndExit);
 
+        panel.setOnNext(this::nextCard);
+        panel.setOnPrev(this::prevCard);
+
         showFront();
         router.setPanel(panel, "FLASHCARD");
     }
@@ -52,7 +54,7 @@ public class FlashCardController {
         if (side == Side.FRONT) {
             showBack();
         } else {
-            nextCard();
+            showFront();
         }
     }
 
@@ -74,8 +76,17 @@ public class FlashCardController {
     }
 
     private void nextCard() {
-        index++;
-        showFront();
+        if (index < wordSet.getWords().size() - 1) {
+            index++;
+            showFront();
+        }
+    }
+
+    private void prevCard() {
+        if (index > 0) {
+            index--;
+            showFront();
+        }
     }
 
     /**

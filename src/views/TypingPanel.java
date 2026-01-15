@@ -19,7 +19,7 @@ public class TypingPanel extends JPanel {
         JPanel top = new JPanel(new BorderLayout());
         top.setOpaque(false);
 
-        wordLabel.setFont(wordLabel.getFont().deriveFont(Font.BOLD, 20f));
+        wordLabel.setFont(wordLabel.getFont().deriveFont(Font.BOLD, 40f));
         top.add(wordLabel, BorderLayout.CENTER);
 
         progressLabel.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -29,18 +29,26 @@ public class TypingPanel extends JPanel {
         add(top, BorderLayout.NORTH);
 
         // ===== CENTER =====
-        inputField.setFont(inputField.getFont().deriveFont(16f));
+        JPanel inputWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        inputField.setFont(inputField.getFont().deriveFont(26f));
 
         JPanel center = new JPanel(new BorderLayout(10, 10));
+        inputWrapper.setOpaque(false);
+        inputField.setPreferredSize(new Dimension(300, 100));
+        inputWrapper.add(inputField);
+
+        center.add(inputWrapper, BorderLayout.CENTER);
         center.add(new JLabel("Wpisz tłumaczenie:"), BorderLayout.NORTH);
-        center.add(inputField, BorderLayout.CENTER);
+        center.add(inputWrapper, BorderLayout.CENTER);
 
         add(center, BorderLayout.CENTER);
 
         // ===== BOTTOM =====
-        JPanel bottom = new JPanel(new BorderLayout());
+        JPanel bottom = new JPanel();
+        bottom.add(backBtn, BorderLayout.SOUTH);
         bottom.add(checkButton, BorderLayout.CENTER);
-        bottom.add(backBtn, BorderLayout.WEST);
+        bottom.setOpaque(false);
+
 
         add(bottom, BorderLayout.SOUTH);
     }

@@ -3,8 +3,7 @@ package LearningModes;
 import models.Word;
 import models.WordSet;
 
-import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +11,7 @@ public class TypingMode {
 
     private final List<Word> words;
     private int index = 0;
-    private int totalQuestions;
+    private final int totalQuestions;
     private Random rand = new Random();
     private Word currentWord;
 

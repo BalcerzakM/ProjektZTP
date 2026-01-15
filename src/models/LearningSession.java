@@ -81,6 +81,11 @@ public class LearningSession {
         mementos.remove(mode);
     }
 
+    public void flushMementos() {
+        this.mementos.clear();
+        resetSeed();
+    }
+
     public void resetSeed() {
         this.seed = 0;
     }
