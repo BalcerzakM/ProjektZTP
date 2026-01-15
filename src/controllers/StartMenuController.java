@@ -6,6 +6,7 @@ import app.AppState;
 import models.WordSet;
 import views.DatabaseSelectionPanel;
 import views.MainMenuPanel;
+import views.StatisticsPanel;
 
 import javax.swing.*;
 
@@ -33,7 +34,7 @@ public class StartMenuController implements Controller{
     private void initMainMenuLogic() {
         mainMenuPanel.onLearningSessionBtn(() -> router.switchState(AppState.LearningSession));
         mainMenuPanel.onChangeWordSetBtn(() -> router.setPanel(dbSelectionPanel, "DB_SELECTION"));
-
+        mainMenuPanel.onStatisticsBtn(() -> router.switchState(AppState.Statistics));
     }
 
     @Override

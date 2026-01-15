@@ -26,80 +26,66 @@ public class LearningSessionController implements Controller {
 
         model.registerObserver(context.getReviewScheduler());
 
+        SessionStatistics stats = new SessionStatistics();
+        model.registerObserver(stats);
 
         LearningSessionPanel panel = new LearningSessionPanel();
 
+        Runnable onFinishSession = () -> {
+            if (stats.hasAnyData()) {
+                context.getCurrentUserStatistics().addToStatistics(stats);
+
+                int progress = context.getCurrentUserStatistics().calculateLevelProgress();
+                context.getCurrentUser().updateLanguageLevel(progress);
+
+                SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
+                sessionStatsPanel.setStatistics(stats);
+                sessionStatsPanel.showInDialog(router.getMainFrame());
+                stats.resetStatistics();
+            }
+            router.setPanel(panel,"LEARNING_SESSION");
+        };
+
         panel.onFlashCard(() -> {
-            SessionStatistics stats = new SessionStatistics();
-            model.registerObserver(stats);
             new FlashCardController(
                     router,
                     model,
                     context.getCurrentWordSet(),
-                    () -> {
-                        model.unregisterObserver(stats);
-                        SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
-                        sessionStatsPanel.setStatistics(stats);
-                        sessionStatsPanel.showInDialog(router.getMainFrame());
-                        router.setPanel(panel,"LEARNING_SESSION");
-                    }
+                    onFinishSession
             ).start();
         });
 
         panel.onConnect(() -> {
-            SessionStatistics stats = new SessionStatistics();
-            model.registerObserver(stats);
             new ConnectController(
                     router,
                     model,
                     context.getCurrentWordSet(),
-                    () -> {
-                        model.unregisterObserver(stats);
-                        SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
-                        sessionStatsPanel.setStatistics(stats);
-                        sessionStatsPanel.showInDialog(router.getMainFrame());
-                        router.setPanel(panel,"LEARNING_SESSION");
-                    }
+                    onFinishSession
             ).start();
         });
 
         panel.onMillionaire(() -> {
-            SessionStatistics stats = new SessionStatistics();
-            model.registerObserver(stats);
             new MillionaireController(
                     router,
                     model,
                     context.getCurrentWordSet(),
                     10,
-                    () -> {
-                        model.unregisterObserver(stats);
-                        SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
-                        sessionStatsPanel.setStatistics(stats);
-                        sessionStatsPanel.showInDialog(router.getMainFrame());
-                        router.setPanel(panel,"LEARNING_SESSION");
-                    }
+                    onFinishSession
             ).start();
         });
 
         panel.onTyping(() ->{
-            SessionStatistics stats = new SessionStatistics();
-            model.registerObserver(stats);
             new TypingController(
                 router,
                 model,
-                context.getCurrentWordSet(), 10,
-                () -> {
-                    model.unregisterObserver(stats);
-                    SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
-                    sessionStatsPanel.setStatistics(stats);
-                    sessionStatsPanel.showInDialog(router.getMainFrame());
-                    router.setPanel(panel,"LEARNING_SESSION");
-                }
+                context.getCurrentWordSet(),
+                10,
+                onFinishSession
             ).start();
         });
 
         panel.onBack(() -> {
-
+            model.unregisterObserver(stats);
             int result = JOptionPane.showOptionDialog(
                     router.getMainFrame(),
                     "Czy na pewno chcesz skończyć lekcję?",

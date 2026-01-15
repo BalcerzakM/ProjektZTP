@@ -61,29 +61,17 @@ public class SessionStatistics implements AnswerObserver {
         return correctPercent == 100;
     }
 
-    public StringBuilder showStatistics() {
-        StringBuilder sb = new StringBuilder();
-        String perfect = (correctPercent == 100) ? " IDEALNIE!" : "";
-        sb.append("\n===========STATYSTYKI=============\n");
-        if (flashCardCount > 0) {
-            sb.append("Przejrzane fiszki: " + flashCardCount + "\n");
-        }
-        else {
-            sb.append("Poprawne odpowiedzi: " + correctCount + "\n")
-                    .append("Niepoprawne odpowiedzi: " + incorrectCount + "\n")
-                    .append("Streak: " + maxSessionStreak + "\n")
-                    .append("Skuteczność: " + correctPercent + "% " + perfect + "\n");
-        }
-
-        return sb.append("==================================\n");
+    public boolean hasAnyData() {
+        return getCorrectCount() != 0 || getIncorrectCount() != 0 || getFlashCardCount() != 0;
     }
 
-//    public void resetStatistics() {
-//        correctCount = 0;
-//        incorrectCount = 0;
-//        streak = 0;
-//        maxSessionStreak = 0;
-//        correctPercent = 0;
-//        flashCardCount = 0;
-//    }
+    public void resetStatistics() {
+        correctCount = 0;
+        incorrectCount = 0;
+        streak = 0;
+        maxSessionStreak = 0;
+        correctPercent = 0;
+        flashCardCount = 0;
+        learnedWords.clear();
+    }
 }
