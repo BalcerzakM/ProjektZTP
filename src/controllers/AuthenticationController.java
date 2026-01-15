@@ -30,7 +30,8 @@ public class AuthenticationController implements Controller {
     }
 
     private void initRegisterLogic() {
-
+        registerPanel.onRegisterBtn(this::handleRegister);
+        registerPanel.onGoToLoginPanelBtn(() -> router.setPanel(loginPanel, "LOGIN"));
     }
 
     @Override
@@ -39,10 +40,19 @@ public class AuthenticationController implements Controller {
     }
 
     private void handleLogin() {
-              String username = loginPanel.getUsername();
-              String password = loginPanel.getPassword();
-              User user = new User(username, password, LanguageCERFLevel.A1);
-              context.setCurrentUser(user);
-              router.switchState(AppState.MainMenu);
+          String username = loginPanel.getUsername();
+          String password = loginPanel.getPassword();
+          User user = new User(username, password, LanguageCERFLevel.A1);
+          context.setCurrentUser(user);
+          router.switchState(AppState.MainMenu);
+    }
+
+    private void handleRegister() {
+        String username = registerPanel.getUsername();
+        String password = registerPanel.getPassword();
+        String repeatedPassword = registerPanel.getRepeatedPassword();
+        User user = new User(username, password, LanguageCERFLevel.A1);
+        context.setCurrentUser(user);
+        router.switchState(AppState.MainMenu);
     }
 }

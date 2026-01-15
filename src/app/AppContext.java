@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class AppContext {
-    private User currentUser = new User("maciek1234", "MaciekZKlanu4321", LanguageCERFLevel.A1);
+    private User currentUser;
     private Statistics currentUsersStatistics = new Statistics();
     private WordSet currentWordSet;
     private final ReviewScheduler reviewScheduler = new ReviewScheduler();
@@ -18,7 +18,7 @@ public class AppContext {
     }
 
     public void setCurrentUser(User currentUser) {
-        currentUser = currentUser;
+        this.currentUser = currentUser;
     }
 
     public WordSet getCurrentWordSet() {
