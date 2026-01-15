@@ -61,6 +61,21 @@ public class SessionStatistics implements AnswerObserver {
         return correctPercent == 100;
     }
 
+    public boolean hasAnyData() {
+        return getCorrectCount() != 0 || getIncorrectCount() != 0 || getFlashCardCount() != 0;
+    }
+
+    public void resetStatistics() {
+        correctCount = 0;
+        incorrectCount = 0;
+        streak = 0;
+        maxSessionStreak = 0;
+        correctPercent = 0;
+        flashCardCount = 0;
+        learnedWords.clear();
+    }
+
+    //konsolowa wersja
     public StringBuilder showStatistics() {
         StringBuilder sb = new StringBuilder();
         String perfect = (correctPercent == 100) ? " IDEALNIE!" : "";
@@ -77,13 +92,4 @@ public class SessionStatistics implements AnswerObserver {
 
         return sb.append("==================================\n");
     }
-
-//    public void resetStatistics() {
-//        correctCount = 0;
-//        incorrectCount = 0;
-//        streak = 0;
-//        maxSessionStreak = 0;
-//        correctPercent = 0;
-//        flashCardCount = 0;
-//    }
 }
