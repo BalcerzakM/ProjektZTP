@@ -10,7 +10,6 @@ public class MainMenuPanel extends JPanel {
     private final JButton wordSetCreatorBtn;
     private final JButton userBtn;
     private final JButton statisticsBtn;
-    private final JButton changeWordSetBtn;
     private final JButton logOutBtn;
 
     public MainMenuPanel() {
@@ -24,15 +23,13 @@ public class MainMenuPanel extends JPanel {
         this.wordSetCreatorBtn = new JButton("UTWÓRZ NOWY ZESTAW SŁÓWEK.");
         this.userBtn = new JButton("ZARZĄDZAJ SWOIM KONTEM UŻTKOWNIKA");
         this.statisticsBtn = new JButton("ZOBACZ STATYSTYKI");
-        this.changeWordSetBtn = new JButton("ZMIEŃ ZESTAW SŁÓWEK");
         this.logOutBtn = new JButton("WYLOGUJ SIĘ");
 
-        JPanel buttonsGrid = new JPanel(new GridLayout(6, 1, 10,10));
+        JPanel buttonsGrid = new JPanel(new GridLayout(5, 1, 10,10));
         buttonsGrid.add(learningSessionBtn);
         buttonsGrid.add(wordSetCreatorBtn);
         buttonsGrid.add(userBtn);
         buttonsGrid.add(statisticsBtn);
-        buttonsGrid.add(changeWordSetBtn);
         buttonsGrid.add(logOutBtn);
 
         JPanel centerWrapper = new JPanel(new GridBagLayout());
@@ -44,6 +41,15 @@ public class MainMenuPanel extends JPanel {
 
     public void setWelcomeMessage(String username) {
         loggedUserLabel.setText("Zalogowano jako: " + username);
+    }
+
+    public void showLogOutMessage() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Wylogowano cię pomyślnie.",
+                "Informacja",
+                JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     public void onLearningSessionBtn(Runnable action) {
@@ -60,10 +66,6 @@ public class MainMenuPanel extends JPanel {
 
     public void onStatisticsBtn(Runnable action) {
         statisticsBtn.addActionListener(e -> action.run());
-    }
-
-    public void onChangeWordSetBtn(Runnable action) {
-        changeWordSetBtn.addActionListener(e -> action.run());
     }
 
     public void onLogOutBtn(Runnable action) {
