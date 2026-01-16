@@ -34,6 +34,7 @@ public class MainMenuController implements Controller{
     }
 
     private void handleLogOut() {
+        context.saveToDbAndExit();
         context.setCurrentUser(null);
         context.setUserStatistics(null);
         mainMenuPanel.showLogOutMessage();

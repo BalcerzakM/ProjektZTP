@@ -1,12 +1,12 @@
 ----USER----
 username: sigmaPeter
 password: Rizzman67
-languageCEFRLevel: C2
+languageCEFRLevel: A1
 ----STATS----
-completedLessons: 0
-correctOverall: 0
-incorrectOverall: 0
-longestStreak: 0
-learnedWordsAmount: 0
-perfectLessons: 0
-totalFlashCards: 0
+completedLessons: 7
+correctOverall: 53
+incorrectOverall: 5
+longestStreak: 10
+learnedWordsAmount: 46
+perfectLessons: 3
+totalFlashCards: 11

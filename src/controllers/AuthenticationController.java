@@ -61,7 +61,7 @@ public class AuthenticationController implements Controller {
         User user = context.getNewUserFromDb(username);
         Statistics statistics = context.getNewStatisticsFromDb(username);
         context.setCurrentUser(user);
-        //context.setUserStatistics(statistics);
+        context.setUserStatistics(statistics);
         loginPanel.showSuccessMessage();
         router.switchState(AppState.MainMenu);
     }

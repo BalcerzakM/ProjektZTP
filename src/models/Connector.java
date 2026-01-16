@@ -133,15 +133,21 @@ public class Connector {
 
     public Statistics readStatisticsFromFile(String fileName) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("resources/users/" + fileName));
-        Statistics statistics = null;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (line.equals("----STATS----")) {
                 break;
             }
         }
-        //statistics.setCompletedLessonsAmount(Integer.parseInt(scanner.nextLine().strip().replace("completedLessons: ", "")));
+        int completedLessonsAmount = Integer.parseInt(scanner.nextLine().strip().replace("completedLessons: ", ""));
+        int correctOverall = Integer.parseInt(scanner.nextLine().strip().replace("correctOverall: ", ""));
+        int incorrectOverall = Integer.parseInt(scanner.nextLine().strip().replace("incorrectOverall: ", ""));
+        int longestStreak = Integer.parseInt(scanner.nextLine().strip().replace("longestStreak: ", ""));
+        int learnedWords = Integer.parseInt(scanner.nextLine().strip().replace("learnedWordsAmount: ", ""));
+        int perfectLessons = Integer.parseInt(scanner.nextLine().strip().replace("perfectLessons: ", ""));
+        int totalFlashCard = Integer.parseInt(scanner.nextLine().strip().replace("totalFlashCards: " , ""));
         scanner.close();
+        Statistics statistics = new Statistics(completedLessonsAmount, correctOverall, incorrectOverall, longestStreak, learnedWords, perfectLessons, totalFlashCard);
         return statistics;
     }
 }

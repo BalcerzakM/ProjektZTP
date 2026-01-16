@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AppContext {
     private User currentUser;
-    private Statistics currentUsersStatistics = new Statistics(0, 0, 0, 0, 0, 0, 0);
+    private Statistics currentUsersStatistics;
     private WordSet currentWordSet;
     private final ReviewScheduler reviewScheduler = new ReviewScheduler();
     private final WordsetProvider wordSetProvider;
