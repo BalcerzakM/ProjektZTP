@@ -1,6 +1,6 @@
 ----USER----
 username: janek420
 password: JungleBoy2137
-langLevel: B1
+languageCEFRLevel: B1
 ----STATS----
 completedLessons: 0

@@ -48,6 +48,30 @@ public class LoginPanel extends JPanel {
 
     }
 
+    public void showWrongPasswordError() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Nieprawidłowe hasło użytkownika. Spróbuj ponownie",
+                "Błąd",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showNoUserExistError() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Nie znaleziono użytkownika o podanej nazwie. Zarejestruj się lub spróbuj ponownie.",
+                "Błąd",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showEmptyFieldsError() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Wprowadź login i hasło.",
+                "Błąd",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
     public String getUsername() {
         return usernameField.getText();
     }

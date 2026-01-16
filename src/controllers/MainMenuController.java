@@ -19,7 +19,7 @@ public class MainMenuController implements Controller{
         this.router = router;
         this.context = context;
         this.mainMenuPanel = new MainMenuPanel();
-        this.dbSelectionPanel = new DatabaseSelectionPanel(this.context.getDatabaseList());
+        this.dbSelectionPanel = new DatabaseSelectionPanel(this.context.getDatabaseNamesList());
         initDbSelectionLogic();
         initMainMenuLogic();
 
@@ -55,7 +55,7 @@ public class MainMenuController implements Controller{
             return;
         }
 
-            WordSet ws = context.getNewWordSet(selected);
+            WordSet ws = context.getNewWordSetFromDb(selected);
             context.setCurrentWordSet(ws);
             router.setPanel(mainMenuPanel, "MENU");
     }
