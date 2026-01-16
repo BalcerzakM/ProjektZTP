@@ -3,10 +3,10 @@ username: janek420
 password: JungleBoy2137
 languageCEFRLevel: A1
 ----STATS----
-completedLessons: 0
-correctOverall: 0
-incorrectOverall: 0
-longestStreak: 0
-learnedWordsAmount: 0
-perfectLessons: 0
+completedLessons: 3
+correctOverall: 16
+incorrectOverall: 10
+longestStreak: 10
+learnedWordsAmount: 16
+perfectLessons: 1
 totalFlashCards: 0

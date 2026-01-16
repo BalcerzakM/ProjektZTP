@@ -16,7 +16,7 @@ public class SessionStatistics implements AnswerObserver {
     private int flashCardCount = 0;
     private final Set<Word> learnedWords = new HashSet<>();
 
-    private SessionEventBus eventBus = new SessionEventBus();
+    private SessionEventBus eventBus;
 
 
     @Override

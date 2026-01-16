@@ -22,6 +22,7 @@ public class LearningSessionController implements Controller {
     private final DatabaseSelectionPanel dbSelectionPanel;
     private final LearningSessionPanel learningSessionPanel;
     private final SessionStatistics stats = new SessionStatistics();
+    private final SessionEventBus eventBus =  new SessionEventBus();
 
     public LearningSessionController(AppRouter router, AppContext context) {
         this.router = router;
@@ -51,7 +52,7 @@ public class LearningSessionController implements Controller {
                 model,
                 context.getCurrentWordSet(),
                 onFinishSession(),
-                stats.getEventBus()
+                eventBus
         ).start());
 
         learningSessionPanel.onMillionaire(() -> new MillionaireController(
@@ -60,7 +61,7 @@ public class LearningSessionController implements Controller {
                 context.getCurrentWordSet(),
                 10,
                 onFinishSession(),
-                stats.getEventBus()
+                eventBus
         ).start());
 
         learningSessionPanel.onTyping(() -> new TypingController(
@@ -69,13 +70,13 @@ public class LearningSessionController implements Controller {
                 context.getCurrentWordSet(),
                 10,
                 onFinishSession(),
-                stats.getEventBus()
+                eventBus
 
         ).start());
 
         learningSessionPanel.onBack(() -> {
             model.unregisterObserver(stats);
-            context.getReviewScheduler().detachEventBus(stats.getEventBus());
+            context.getReviewScheduler().detachEventBus(eventBus);
 
             int result = learningSessionPanel.showQuestionMessage();
 
@@ -108,11 +109,12 @@ public class LearningSessionController implements Controller {
     @Override
     public void run() {
             ReviewScheduler reviewScheduler = context.getReviewScheduler();
-            SessionEventBus eventBus = new SessionEventBus();
             reviewScheduler.attachEventBus(eventBus);
-            model.registerObserver(reviewScheduler);
+            stats.setEventBus(eventBus);
 
+            model.registerObserver(reviewScheduler);
             model.registerObserver(stats);
+
             router.setPanel(dbSelectionPanel, "DB_SELECTION");
     }
 

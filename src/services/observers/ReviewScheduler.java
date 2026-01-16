@@ -22,20 +22,20 @@ public class ReviewScheduler implements AnswerObserver {
 
     @Override
     public void onAnswer(Word w, boolean correct) {
+
         if (!correct && !reviewWords.contains(w)) {
             reviewWords.add(w);
         }
-        else if (!correct) {
-            reviewWords.remove(w);
-        }
-
-        if (!correct && wasAlertShown) {
-            wasAlertShown = false;
-        }
 
         if (reviewWords.size() % 5 == 0 && !reviewWords.isEmpty() && !wasAlertShown) {
-            eventBus.reviewFeedback(reviewWords.size());
+            if (eventBus != null) {
+                eventBus.reviewFeedback(reviewWords.size());
+            }
             wasAlertShown = true;
+        }
+
+        if (reviewWords.size() % 5 != 0) {
+            wasAlertShown = false;
         }
     }
 
