@@ -21,8 +21,8 @@ public class LearningSessionController implements Controller {
     private final LearningSession model;
     private final DatabaseSelectionPanel dbSelectionPanel;
     private final LearningSessionPanel learningSessionPanel;
-    private final SessionStatistics stats = new SessionStatistics();
-    private final SessionEventBus eventBus =  new SessionEventBus();
+    private SessionStatistics stats;
+    private SessionEventBus eventBus;
 
     public LearningSessionController(AppRouter router, AppContext context) {
         this.router = router;
@@ -30,6 +30,9 @@ public class LearningSessionController implements Controller {
         this.model = new LearningSession();
         this.dbSelectionPanel = new DatabaseSelectionPanel(this.context.getDatabaseNamesList());
         this.learningSessionPanel = new LearningSessionPanel();
+
+        model.registerObserver(context.getReviewScheduler());
+
         initDbSelectionLogic();
         initLearningSessionLogic();
     }
@@ -75,12 +78,14 @@ public class LearningSessionController implements Controller {
         ).start());
 
         learningSessionPanel.onBack(() -> {
-            model.unregisterObserver(stats);
-            context.getReviewScheduler().detachEventBus(eventBus);
-
             int result = learningSessionPanel.showQuestionMessage();
 
             if (result == JOptionPane.YES_OPTION) {
+                if (stats != null) {
+                    model.unregisterObserver(stats);
+                    stats = null;
+                }
+
                 model.flushMementos();
                 context.setCurrentWordSet(null);
                 router.switchState(AppState.MainMenu);
@@ -108,14 +113,16 @@ public class LearningSessionController implements Controller {
 
     @Override
     public void run() {
-            ReviewScheduler reviewScheduler = context.getReviewScheduler();
-            reviewScheduler.attachEventBus(eventBus);
-            stats.setEventBus(eventBus);
+        eventBus = new SessionEventBus();
 
-            model.registerObserver(reviewScheduler);
-            model.registerObserver(stats);
+        ReviewScheduler reviewScheduler = context.getReviewScheduler();
+        reviewScheduler.attachEventBus(eventBus);
 
-            router.setPanel(dbSelectionPanel, "DB_SELECTION");
+        stats = new SessionStatistics();
+        stats.setEventBus(eventBus);
+        model.registerObserver(stats);
+
+        router.setPanel(dbSelectionPanel, "DB_SELECTION");
     }
 
     private void handleLoad() {
@@ -137,7 +144,7 @@ public class LearningSessionController implements Controller {
 
     private void handleReview() {
 
-        if (context.getReviewScheduler().getReviewWords().size() < 5) {
+        if (context.getReviewScheduler().getReviewWords().size() < 10) {
             JOptionPane.showMessageDialog(
                     dbSelectionPanel,
                     "Za mało słów do powtórzenia!",

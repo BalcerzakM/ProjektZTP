@@ -8,7 +8,20 @@ public class SessionFeedbackBuffer implements SessionFeedbackListener {
 
     @Override
     public void onStreak(int streak) {
-        messages.add("🔥 " + streak + " poprawnych odpowiedzi z rzędu!\nDobra robota!");
+        switch(streak) {
+            case 5,6:
+                messages.add("🔥 " + streak + " poprawnych odpowiedzi z rzędu!\nDobra robota!");
+                break;
+            case 7,8,9:
+                messages.add("🔥 " + streak + " poprawnych odpowiedzi z rzędu!\nŚwietnie!");
+                break;
+            case 10:
+                messages.add("🔥 " + streak + " poprawnych odpowiedzi z rzędu!\nDOSKONALE!");
+                break;
+            default:
+                messages.add("🔥 " + streak + " poprawnych odpowiedzi z rzędu!\nNIEMOŻLIWE!!!");
+                break;
+        }
     }
 
     @Override

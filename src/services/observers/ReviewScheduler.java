@@ -16,10 +16,6 @@ public class ReviewScheduler implements AnswerObserver {
         this.eventBus = eventBus;
     }
 
-    public void detachEventBus(SessionEventBus eventBus) {
-        this.eventBus = null;
-    }
-
     @Override
     public void onAnswer(Word w, boolean correct) {
 
@@ -34,7 +30,7 @@ public class ReviewScheduler implements AnswerObserver {
             wasAlertShown = true;
         }
 
-        if (reviewWords.size() % 5 != 0) {
+        if (reviewWords.size() % 5 != 0 && reviewWords.size() > 10) {
             wasAlertShown = false;
         }
     }

@@ -1,12 +1,12 @@
 ----USER----
 username: janek420
 password: JungleBoy2137
-languageCEFRLevel: A1
+languageCEFRLevel: A2
 ----STATS----
-completedLessons: 3
-correctOverall: 16
-incorrectOverall: 10
+completedLessons: 47
+correctOverall: 174
+incorrectOverall: 146
 longestStreak: 10
-learnedWordsAmount: 16
-perfectLessons: 1
-totalFlashCards: 0
+learnedWordsAmount: 161
+perfectLessons: 17
+totalFlashCards: 2

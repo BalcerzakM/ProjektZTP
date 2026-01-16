@@ -49,3 +49,53 @@ miasto - city
 sklep - shop
 pieniądze - money
 czas - time
+jedzenie - food
+napój - drink
+woda mineralna - mineral water
+cukier - sugar
+sól - salt
+śniadanie - breakfast
+obiad - lunch
+kolacja - dinner
+owoc - fruit
+warzywo - vegetable
+jajko - egg
+ser - cheese
+masło - butter
+ciasto - cake
+cukierek - candy
+twarz - face
+głowa - head
+ręka - hand
+noga - leg
+oko - eye
+ucho - ear
+nos - nose
+usta - mouth
+ciało - body
+ubranie - clothes
+koszulka - t-shirt
+spodnie - trousers
+buty - shoes
+kurtka - jacket
+czapka - hat
+domowy - home
+praca domowa - homework
+lekcja - lesson
+pytanie - question
+odpowiedź - answer
+imię - name
+nazwisko - surname
+wiek - age
+adres - address
+miłość - love
+dzień dobry - good morning
+do widzenia - goodbye
+proszę - please
+dziękuję - thank you
+tak - yes
+nie - no
+dobry - good
+zły - bad
+duży - big
+mały - small

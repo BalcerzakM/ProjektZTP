@@ -7,8 +7,6 @@ public class MainMenuPanel extends JPanel {
     private final JLabel loggedUserLabel;
 
     private final JButton learningSessionBtn;
-    private final JButton wordSetCreatorBtn;
-    private final JButton userBtn;
     private final JButton statisticsBtn;
     private final JButton logOutBtn;
 
@@ -20,15 +18,11 @@ public class MainMenuPanel extends JPanel {
         this.loggedUserLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
         this.learningSessionBtn = new JButton("UCZ SIĘ!");
-        this.wordSetCreatorBtn = new JButton("UTWÓRZ NOWY ZESTAW SŁÓWEK.");
-        this.userBtn = new JButton("ZARZĄDZAJ SWOIM KONTEM UŻTKOWNIKA");
         this.statisticsBtn = new JButton("ZOBACZ STATYSTYKI");
         this.logOutBtn = new JButton("WYLOGUJ SIĘ");
 
         JPanel buttonsGrid = new JPanel(new GridLayout(5, 1, 10,10));
         buttonsGrid.add(learningSessionBtn);
-        buttonsGrid.add(wordSetCreatorBtn);
-        buttonsGrid.add(userBtn);
         buttonsGrid.add(statisticsBtn);
         buttonsGrid.add(logOutBtn);
 
@@ -54,14 +48,6 @@ public class MainMenuPanel extends JPanel {
 
     public void onLearningSessionBtn(Runnable action) {
         learningSessionBtn.addActionListener(e -> action.run());
-    }
-
-    public void onWordSetCreatorBtn(Runnable action) {
-        wordSetCreatorBtn.addActionListener(e -> action.run());
-    }
-
-    public void onUserBtn(Runnable action) {
-        userBtn.addActionListener(e -> action.run());
     }
 
     public void onStatisticsBtn(Runnable action) {

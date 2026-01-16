@@ -41,7 +41,7 @@ public class SessionStatistics implements AnswerObserver {
             correctPercent = (correctCount*100)/(correctCount + incorrectCount);
         }
 
-        if (streak > 0 && streak % 5 == 0) {
+        if (streak > 4) {
             eventBus.streakFeedback(streak);
         }
 
@@ -49,10 +49,6 @@ public class SessionStatistics implements AnswerObserver {
 
     public void setEventBus(SessionEventBus eventBus) {
         this.eventBus = eventBus;
-    }
-
-    public SessionEventBus getEventBus() {
-        return eventBus;
     }
 
     public int getCorrectCount() { return correctCount; }

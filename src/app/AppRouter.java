@@ -20,8 +20,6 @@ public class AppRouter {
         this.controllers.put(AppState.Authentication, new AuthenticationController(this, context));
         this.controllers.put(AppState.MainMenu, new MainMenuController(this, context));
         this.controllers.put(AppState.LearningSession, new LearningSessionController(this, context));
-        //this.controllers.put(AppState.WordSetCreator, new WordSetCreatorController(this));
-        //this.controllers.put(AppState.User, new UserController(this));
         this.controllers.put(AppState.Statistics, new StatisticsController(this, context));
     }
 
