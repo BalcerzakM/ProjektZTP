@@ -83,14 +83,20 @@ public class Connector {
         }
     }
 
-    public void saveNewUserToFile(String username, String password, LanguageCERFLevel level) throws IOException {
-        PrintWriter pw = new PrintWriter("resources/users/" + username + ".txt");
+    public void saveUserToFile(User user, Statistics stats) throws IOException {
+        PrintWriter pw = new PrintWriter("resources/users/" + user.getUsername() + ".txt");
         pw.println("----USER----");
-        pw.println("username: " + username);
-        pw.println("password: " + password);
-        pw.println("languageCEFRLevel: " + level);
+        pw.println("username: " + user.getUsername());
+        pw.println("password: " + user.getPassword());
+        pw.println("languageCEFRLevel: " + user.getLanguageLevel());
         pw.println("----STATS----");
-        pw.println("completedLessons: " + 0);
+        pw.println("completedLessons: " + stats.getCompletedLessons());
+        pw.println("correctOverall: " + stats.getCorrectOverall());
+        pw.println("incorrectOverall: " + stats.getIncorrectOverall());
+        pw.println("longestStreak: " + stats.getLongestStreak());
+        pw.println("learnedWordsAmount: " + stats.getLearnedWordsAmount());
+        pw.println("perfectLessons: " + stats.getPerfectLessons());
+        pw.println("totalFlashCards: " + stats.getTotalFlashCards());
         pw.close();
     }
 
@@ -127,15 +133,21 @@ public class Connector {
 
     public Statistics readStatisticsFromFile(String fileName) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("resources/users/" + fileName));
-        Statistics statistics = null;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (line.equals("----STATS----")) {
                 break;
             }
         }
-        //statistics.setCompletedLessonsAmount(Integer.parseInt(scanner.nextLine().strip().replace("completedLessons: ", "")));
+        int completedLessonsAmount = Integer.parseInt(scanner.nextLine().strip().replace("completedLessons: ", ""));
+        int correctOverall = Integer.parseInt(scanner.nextLine().strip().replace("correctOverall: ", ""));
+        int incorrectOverall = Integer.parseInt(scanner.nextLine().strip().replace("incorrectOverall: ", ""));
+        int longestStreak = Integer.parseInt(scanner.nextLine().strip().replace("longestStreak: ", ""));
+        int learnedWords = Integer.parseInt(scanner.nextLine().strip().replace("learnedWordsAmount: ", ""));
+        int perfectLessons = Integer.parseInt(scanner.nextLine().strip().replace("perfectLessons: ", ""));
+        int totalFlashCard = Integer.parseInt(scanner.nextLine().strip().replace("totalFlashCards: " , ""));
         scanner.close();
+        Statistics statistics = new Statistics(completedLessonsAmount, correctOverall, incorrectOverall, longestStreak, learnedWords, perfectLessons, totalFlashCard);
         return statistics;
     }
 }

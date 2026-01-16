@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AppContext {
     private User currentUser;
-    private Statistics currentUsersStatistics = new Statistics(0, 0, 0, 0, 0, 0, 0);
+    private Statistics currentUsersStatistics;
     private WordSet currentWordSet;
     private final ReviewScheduler reviewScheduler = new ReviewScheduler();
     private final WordsetProvider wordSetProvider;
@@ -106,11 +106,22 @@ public class AppContext {
         }
     }
 
-    public void saveNewUserToDb(String username, String password, LanguageCERFLevel level) {
+    public void saveNewUserToDb(User user) {
+        Statistics stats = new Statistics(0, 0, 0, 0, 0, 0, 0);
         try {
-            Connector.getInstance().saveNewUserToFile(username, password, level);
+            Connector.getInstance().saveUserToFile(user, stats);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void saveToDbAndExit() {
+        if (currentUser != null & currentUsersStatistics != null){
+            try {
+                Connector.getInstance().saveUserToFile(this.currentUser, this.currentUsersStatistics);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

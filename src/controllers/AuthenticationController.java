@@ -61,7 +61,7 @@ public class AuthenticationController implements Controller {
         User user = context.getNewUserFromDb(username);
         Statistics statistics = context.getNewStatisticsFromDb(username);
         context.setCurrentUser(user);
-        //context.setUserStatistics(statistics);
+        context.setUserStatistics(statistics);
         loginPanel.showSuccessMessage();
         router.switchState(AppState.MainMenu);
     }
@@ -86,7 +86,8 @@ public class AuthenticationController implements Controller {
             registerPanel.showTooEasyPasswordError();
             return;
         }
-        context.saveNewUserToDb(username, password, LanguageCERFLevel.A1);
+        User newUser = new User(username, password, LanguageCERFLevel.A1);
+        context.saveNewUserToDb(newUser);
         registerPanel.showSuccessMessage();
         router.setPanel(loginPanel, "LOGIN");
     }

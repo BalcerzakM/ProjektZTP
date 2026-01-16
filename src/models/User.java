@@ -19,21 +19,8 @@ public class User {
         return langLevel;
     }
 
-    public void setLanguageLevel(LanguageCERFLevel languageLevel) {
-        this.langLevel = languageLevel;
-    }
-
-    public boolean isCorrectPassword(String password) {
-        return this.password.equals(password);
-    }
-
-    public boolean changePassword(String oldPassword, String newPassword) {
-        if(isCorrectPassword(oldPassword)) {
-            this.password = newPassword;
-            return true;
-        } else {
-            return false;
-        }
+    public String getPassword() {
+        return password;
     }
 
     public void updateLanguageLevel(int levelProgress) {
