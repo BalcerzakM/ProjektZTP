@@ -29,7 +29,18 @@ public class LearningSessionPanel extends JPanel {
         add(modes, BorderLayout.CENTER);
     }
 
-
+    public int showQuestionMessage() {
+        return JOptionPane.showOptionDialog(
+                this,
+                "Czy na pewno chcesz skończyć lekcję?",
+                "Zakończyć lekcję?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new Object[]{"TAK", "NIE"},
+                "NIE"
+        );
+    }
 
     public void onFlashCard(Runnable action) {
         flashCardBtn.addActionListener(e -> action.run());

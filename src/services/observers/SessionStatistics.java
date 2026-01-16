@@ -16,11 +16,8 @@ public class SessionStatistics implements AnswerObserver {
     private int flashCardCount = 0;
     private final Set<Word> learnedWords = new HashSet<>();
 
-    private final SessionEventBus eventBus;
+    private SessionEventBus eventBus = new SessionEventBus();
 
-    public SessionStatistics(SessionEventBus eventBus) {
-        this.eventBus = eventBus;
-    }
 
     @Override
     public void onAnswer(Word w, boolean correct) {
@@ -48,6 +45,14 @@ public class SessionStatistics implements AnswerObserver {
             eventBus.streakFeedback(streak);
         }
 
+    }
+
+    public void setEventBus(SessionEventBus eventBus) {
+        this.eventBus = eventBus;
+    }
+
+    public SessionEventBus getEventBus() {
+        return eventBus;
     }
 
     public int getCorrectCount() { return correctCount; }

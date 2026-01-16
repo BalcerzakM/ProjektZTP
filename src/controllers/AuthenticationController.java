@@ -78,7 +78,7 @@ public class AuthenticationController implements Controller {
             registerPanel.showUserExistsError();
             return;
         }
-        if (model.isPasswordCorrect(repeatedPassword, password)) {
+        if (!model.isPasswordCorrect(repeatedPassword, password)) {
             registerPanel.showRepeatedPasswordNotEqualError();
             return;
         }
