@@ -86,7 +86,8 @@ public class AuthenticationController implements Controller {
             registerPanel.showTooEasyPasswordError();
             return;
         }
-        context.saveNewUserToDb(username, password, LanguageCERFLevel.A1);
+        User newUser = new User(username, password, LanguageCERFLevel.A1);
+        context.saveNewUserToDb(newUser);
         registerPanel.showSuccessMessage();
         router.setPanel(loginPanel, "LOGIN");
     }

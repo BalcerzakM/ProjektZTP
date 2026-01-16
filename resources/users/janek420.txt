@@ -4,3 +4,9 @@ password: JungleBoy2137
 languageCEFRLevel: B1
 ----STATS----
 completedLessons: 0
+correctOverall: 0
+incorrectOverall: 0
+longestStreak: 0
+learnedWordsAmount: 0
+perfectLessons: 0
+totalFlashCards: 0

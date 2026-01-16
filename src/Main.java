@@ -12,7 +12,7 @@ public class Main {
         //FlatDarculaLaf.setup();
         SwingUtilities.invokeLater(() -> {
             AppContext context = new AppContext();
-            MainFrame frame = new MainFrame(appName + " " + appVersion);
+            MainFrame frame = new MainFrame(appName + " " + appVersion, context);
             AppRouter router = new AppRouter(frame, context);
             router.start();
         });

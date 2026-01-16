@@ -4,3 +4,9 @@ password: Rizzman67
 languageCEFRLevel: C2
 ----STATS----
 completedLessons: 0
+correctOverall: 0
+incorrectOverall: 0
+longestStreak: 0
+learnedWordsAmount: 0
+perfectLessons: 0
+totalFlashCards: 0
