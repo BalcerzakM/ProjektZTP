@@ -3,12 +3,15 @@ package controllers;
 import LearningModes.ModeType;
 import LearningModes.TypingMode;
 import app.AppRouter;
+import events.SessionEventBus;
+import events.SessionFeedbackBuffer;
 import models.LearningSession;
 import models.Word;
 import models.WordSet;
 import views.TypingPanel;
 
 import javax.swing.*;
+import java.util.List;
 
 public class TypingController {
 
@@ -19,6 +22,9 @@ public class TypingController {
     private final TypingMode mode;
     private final Runnable onFinish;
 
+    private final SessionEventBus eventBus;
+    private final SessionFeedbackBuffer feedbackBuffer = new SessionFeedbackBuffer();
+
     private Word currentWord;
 
     public TypingController(
@@ -26,16 +32,17 @@ public class TypingController {
             LearningSession session,
             WordSet wordSet,
             int questions,
-            Runnable onFinish
+            Runnable onFinish,
+            SessionEventBus eventBus
     ) {
         this.router = router;
         this.session = session;
         this.mode = new TypingMode(wordSet, questions);
         this.onFinish = onFinish;
+        this.eventBus = eventBus;
     }
 
     public void start() {
-
         if (session.hasMemento(MODE_KEY)) {
             session.restore(MODE_KEY);
             mode.restore(
@@ -47,11 +54,13 @@ public class TypingController {
             mode.startNew(session.getSeed());
         }
 
+        eventBus.register(feedbackBuffer);
         showNext();
     }
 
     private void showNext() {
         if (!mode.hasNext()) {
+            eventBus.unregister(feedbackBuffer);
             session.removeMemento(MODE_KEY);
             session.resetSeed();
             onFinish.run();
@@ -77,9 +86,25 @@ public class TypingController {
         boolean correct = mode.checkAnswer(currentWord, panel.getInput());
         session.notifyObservers(currentWord, correct);
 
+        StringBuilder message = new StringBuilder();
+
+        if (correct) {
+            message.append("Dobrze!");
+        } else {
+            message.append("Źle! \nPoprawna Odpowiedź to: ")
+                    .append(currentWord.getTarget());
+        }
+
+        List<String> feedback = feedbackBuffer.consumeMessages();
+        if (feedback != null) {
+            for (String f : feedback) {
+                message.append("\n").append(f);
+            }
+        }
+
         JOptionPane.showMessageDialog(
-                panel,
-                correct ? "Dobrze!" : "Źle! \n Poprawna Odpowiedź to: "+ currentWord.getTarget(),
+                router.getMainFrame(),
+                message.toString(),
                 "Odpowiedź",
                 correct
                         ? JOptionPane.INFORMATION_MESSAGE
@@ -91,6 +116,7 @@ public class TypingController {
     }
 
     private void saveAndExit() {
+        eventBus.unregister(feedbackBuffer);
         session.setCurrentIndex(mode.getIndex());
         session.saveMemento(MODE_KEY);
         onFinish.run();

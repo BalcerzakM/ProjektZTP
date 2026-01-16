@@ -3,11 +3,14 @@ package controllers;
 import LearningModes.MillionaireMode;
 import LearningModes.ModeType;
 import app.AppRouter;
+import events.SessionEventBus;
+import events.SessionFeedbackBuffer;
 import models.LearningSession;
 import models.WordSet;
 import views.MillionairePanel;
 
 import javax.swing.*;
+import java.util.List;
 
 public class MillionaireController {
     private static final ModeType MODE_KEY = ModeType.MILLIONAIRE;
@@ -16,6 +19,9 @@ public class MillionaireController {
     private final LearningSession session;
     private final MillionaireMode mode;
 
+    private final SessionEventBus eventBus;
+    private final SessionFeedbackBuffer feedbackBuffer = new SessionFeedbackBuffer();
+
     private final Runnable onFinish;
 
     public MillionaireController(
@@ -23,12 +29,14 @@ public class MillionaireController {
             LearningSession session,
             WordSet wordSet,
             int questions,
-            Runnable onFinish
+            Runnable onFinish,
+            SessionEventBus eventBus
     ) {
         this.router = router;
         this.session = session;
         this.mode = new MillionaireMode(wordSet, questions);
         this.onFinish = onFinish;
+        this.eventBus = eventBus;
     }
 
     public void start() {
@@ -43,11 +51,13 @@ public class MillionaireController {
             mode.startNew(session.getSeed());
         }
 
+        eventBus.register(feedbackBuffer);
         showNext();
     }
 
     private void showNext() {
         if (!mode.hasNext()) {
+            eventBus.unregister(feedbackBuffer);
             session.removeMemento(MODE_KEY);
             session.resetSeed();
             onFinish.run();
@@ -78,9 +88,25 @@ public class MillionaireController {
         boolean correct = mode.checkAnswer(selected);
         session.notifyObservers(mode.getWord(), correct);
 
+        StringBuilder message = new StringBuilder();
+
+        if (correct) {
+            message.append("Dobrze!");
+        } else {
+            message.append("Źle! \nPoprawna Odpowiedź to: ")
+                   .append(mode.getWord().getTarget());
+        }
+
+        List<String> feedback = feedbackBuffer.consumeMessages();
+        if (feedback != null) {
+            for (String f : feedback) {
+                message.append("\n").append(f);
+            }
+        }
+
         JOptionPane.showMessageDialog(
                 router.getMainFrame(),
-                correct ? "Dobrze!" : "Źle! \n Poprawna Odpowiedź to: "+ mode.getWord().getTarget(),
+                message.toString(),
                 "Odpowiedź",
                 correct
                         ? JOptionPane.INFORMATION_MESSAGE
@@ -91,6 +117,7 @@ public class MillionaireController {
     }
 
     private void saveAndExit() {
+        eventBus.unregister(feedbackBuffer);
         session.setCurrentIndex(mode.getCurrentQuestionIndex());
         session.saveMemento(MODE_KEY);
         onFinish.run();

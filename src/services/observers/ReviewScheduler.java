@@ -2,11 +2,23 @@ package services.observers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import events.SessionEventBus;
 import models.Word;
 
 public class ReviewScheduler implements AnswerObserver {
     private final List<Word> reviewWords = new ArrayList<>();
     private boolean wasAlertShown = false;
+
+    private SessionEventBus eventBus;
+
+    public void attachEventBus(SessionEventBus eventBus) {
+        this.eventBus = eventBus;
+    }
+
+    public void detachEventBus(SessionEventBus eventBus) {
+        this.eventBus = null;
+    }
 
     @Override
     public void onAnswer(Word w, boolean correct) {
@@ -22,7 +34,7 @@ public class ReviewScheduler implements AnswerObserver {
         }
 
         if (reviewWords.size() % 5 == 0 && !reviewWords.isEmpty() && !wasAlertShown) {
-            System.out.printf("\n-- Masz już %d słów do powtórki! Sprawdź lekcję powtórzeniową. --\n", reviewWords.size());
+            eventBus.reviewFeedback(reviewWords.size());
             wasAlertShown = true;
         }
     }
