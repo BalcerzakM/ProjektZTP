@@ -3,7 +3,7 @@ package events;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessionFeedbackBuffer implements SessionFeedbackView {
+public class SessionFeedbackBuffer implements SessionFeedbackListener {
     private final List<String> messages = new ArrayList<>();
 
     @Override

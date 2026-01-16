@@ -56,6 +56,7 @@ public class MillionaireController {
 
     private void showNext() {
         if (!mode.hasNext()) {
+            eventBus.unregister(feedbackBuffer);
             session.removeMemento(MODE_KEY);
             session.resetSeed();
             onFinish.run();

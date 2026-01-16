@@ -19,6 +19,8 @@ public class FlashCardController {
     private int index = 0;
     private Side side = Side.FRONT;
 
+    private boolean wasRevealed = false;
+
 
     public FlashCardController(
             AppRouter router,
@@ -72,10 +74,15 @@ public class FlashCardController {
     private void showBack() {
         side = Side.BACK;
         panel.setText(wordSet.getWords().get(index).getTarget());
-        session.notifyObservers(null, true);
+        wasRevealed = true;
     }
 
     private void nextCard() {
+        if (wasRevealed) {
+            session.notifyObservers(null, true);
+        }
+        wasRevealed = false;
+
         if (index < wordSet.getWords().size() - 1) {
             index++;
             showFront();
@@ -93,6 +100,9 @@ public class FlashCardController {
      * Metoda do powrotu i zapisania Memento
      */
     private void saveAndExit() {
+        if (wasRevealed) {
+            session.notifyObservers(null, true);
+        }
         session.setCurrentIndex(index);
         session.saveMemento(MODE_KEY);
         onFinish.run();

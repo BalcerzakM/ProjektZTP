@@ -1,6 +1,6 @@
 package events;
 
-public interface SessionFeedbackView {
+public interface SessionFeedbackListener {
     void onStreak(int streak);
     void onReviewPrepared(int words);
 }

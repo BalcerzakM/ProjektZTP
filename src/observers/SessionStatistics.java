@@ -1,7 +1,6 @@
 package observers;
 
 import events.SessionEventBus;
-import events.SessionFeedbackView;
 import models.Word;
 
 import java.util.HashSet;
@@ -26,6 +25,7 @@ public class SessionStatistics implements AnswerObserver {
     @Override
     public void onAnswer(Word w, boolean correct) {
         if (w == null) {
+            System.out.print(flashCardCount);
             flashCardCount++;
             return;
         }
@@ -44,9 +44,10 @@ public class SessionStatistics implements AnswerObserver {
             correctPercent = (correctCount*100)/(correctCount + incorrectCount);
         }
 
-        if (maxSessionStreak % 5 == 0 && maxSessionStreak > 0) {
-            eventBus.streakFeedback(maxSessionStreak);
+        if (streak > 0 && streak % 5 == 0) {
+            eventBus.streakFeedback(streak);
         }
+
     }
 
     public int getCorrectCount() { return correctCount; }
