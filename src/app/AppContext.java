@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AppContext {
     private User currentUser;
-    private Statistics currentUsersStatistics;
+    private Statistics currentUsersStatistics = new Statistics(0, 0, 0, 0, 0, 0, 0);
     private WordSet currentWordSet;
     private final ReviewScheduler reviewScheduler = new ReviewScheduler();
 

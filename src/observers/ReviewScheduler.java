@@ -3,11 +3,9 @@ package observers;
 import java.util.ArrayList;
 import java.util.List;
 import models.Word;
-import models.WordSet;
-
 
 public class ReviewScheduler implements AnswerObserver {
-    private List<Word> reviewWords = new ArrayList<Word>();
+    private final List<Word> reviewWords = new ArrayList<>();
     private boolean wasAlertShown = false;
 
     @Override
@@ -15,7 +13,7 @@ public class ReviewScheduler implements AnswerObserver {
         if (!correct && !reviewWords.contains(w)) {
             reviewWords.add(w);
         }
-        else if (!correct && reviewWords.contains(w)) {
+        else if (!correct) {
             reviewWords.remove(w);
         }
 

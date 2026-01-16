@@ -3,11 +3,7 @@ package controllers;
 import app.AppContext;
 import app.AppRouter;
 import app.AppState;
-import models.WordSet;
-import views.DatabaseSelectionPanel;
 import views.MainMenuPanel;
-
-import javax.swing.*;
 
 public class MainMenuController implements Controller{
     private final AppRouter router;
@@ -26,6 +22,7 @@ public class MainMenuController implements Controller{
     private void initMainMenuLogic() {
         mainMenuPanel.onLearningSessionBtn(() -> router.switchState(AppState.LearningSession));
         mainMenuPanel.onLogOutBtn(this::handleLogOut);
+        mainMenuPanel.onStatisticsBtn(() -> router.switchState(AppState.Statistics));
 
     }
 

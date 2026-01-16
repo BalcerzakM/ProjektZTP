@@ -12,17 +12,10 @@ public class Authentication {
     }
 
     public boolean isPasswordValidate(String password, String username) {
-        if (password.contains(username)) {
-            return false;
-        }
-        if (password.length() < 6) {
+        if (password.contains(username) || password.length() < 6) {
             return false;
         }
         return true;
-    }
-
-    public void registerNewUser(String username, String password, String langLevel) {
-
     }
 
 }

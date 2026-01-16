@@ -3,7 +3,6 @@ package models;
 
 import LearningModes.ModeType;
 import observers.AnswerObserver;
-import observers.SessionStatistics;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -11,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LearningSession {
-    private List<AnswerObserver> observers = new ArrayList<>();
+    private final List<AnswerObserver> observers = new ArrayList<>();
     private final Map<ModeType, SessionMemento> mementos = new EnumMap<>(ModeType.class);
     private int currentIndex = 0;
     private List<String> currentAnswers = new ArrayList<>();

@@ -79,7 +79,7 @@ public class Connector {
     }
 
     public void saveNewUserToFile(String username, String password, LanguageCERFLevel level) throws IOException {
-        PrintWriter pw = new PrintWriter(new File("resources/users/" + username + ".txt"));
+        PrintWriter pw = new PrintWriter("resources/users/" + username + ".txt");
         pw.println("----USER----");
         pw.println("username: " + username);
         pw.println("password: " + password);
@@ -95,12 +95,7 @@ public class Connector {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (line.startsWith("password:")) {
-                String[] parts = line.split(":");
-
-                if (parts.length > 1) {
-                    userPassword = parts[1].strip();
-                }
-                break;
+                userPassword = line.strip().replace("password: ", "");
             }
         }
         scanner.close();
@@ -135,6 +130,7 @@ public class Connector {
                 break;
             case "C2":
                 languageCEFRLevel = LanguageCERFLevel.C2;
+                break;
             default:
                 languageCEFRLevel = LanguageCERFLevel.A1;
                 break;
@@ -144,14 +140,14 @@ public class Connector {
 
     public Statistics readStatisticsFromFile(String fileName) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("resources/users/" + fileName));
-        Statistics statistics = new Statistics();
+        Statistics statistics = null;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             if (line.equals("----STATS----")) {
                 break;
             }
         }
-        statistics.setCompletedLessonsAmount(Integer.parseInt(scanner.nextLine().strip().replace("completedLessons: ", "")));
+        //statistics.setCompletedLessonsAmount(Integer.parseInt(scanner.nextLine().strip().replace("completedLessons: ", "")));
         scanner.close();
         return statistics;
     }

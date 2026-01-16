@@ -13,7 +13,7 @@ public class SessionStatistics implements AnswerObserver {
     private int maxSessionStreak = 0;
     private int correctPercent = 0;
     private int flashCardCount = 0;
-    private Set<Word> learnedWords = new HashSet<Word>();
+    private final Set<Word> learnedWords = new HashSet<>();
 
     @Override
     public void onAnswer(Word w, boolean correct) {

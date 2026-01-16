@@ -7,27 +7,22 @@ import models.WordSet;
 import observers.SessionStatistics;
 import models.LearningSession;
 import views.DatabaseSelectionPanel;
-import views.MainFrame;
 import views.LearningSessionPanel;
 import views.SessionStatisticsPanel;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class LearningSessionController implements Controller {
     private final AppRouter router;
     private final AppContext context;
-    private final LearningSession model = new LearningSession();
+    private final LearningSession model;
     private final DatabaseSelectionPanel dbSelectionPanel;
     private final LearningSessionPanel learningSessionPanel;
-
-    private LearningSession model = new LearningSession();
-    AppRouter router;
-    AppContext context;
 
     public LearningSessionController(AppRouter router, AppContext context) {
         this.router = router;
         this.context = context;
+        this.model = new LearningSession();
         this.dbSelectionPanel = new DatabaseSelectionPanel(this.context.getDatabaseNamesList());
         this.learningSessionPanel = new LearningSessionPanel();
         initDbSelectionLogic();
@@ -40,89 +35,82 @@ public class LearningSessionController implements Controller {
 
     @Override
     public void run() {
-        router.setPanel(dbSelectionPanel, "DB_SELECTION");
+        if(!context.isDatabaseSelected()) {
+            router.setPanel(dbSelectionPanel, "DB_SELECTION");
+        } else {
 
-        model.registerObserver(context.getReviewScheduler());
+            model.registerObserver(context.getReviewScheduler());
 
-        SessionStatistics stats = new SessionStatistics();
-        model.registerObserver(stats);
+            SessionStatistics stats = new SessionStatistics();
+            model.registerObserver(stats);
 
-        LearningSessionPanel panel = new LearningSessionPanel();
+            Runnable onFinishSession = () -> {
+                if (stats.hasAnyData()) {
+                    context.getCurrentUserStatistics().addToStatistics(stats);
 
-        Runnable onFinishSession = () -> {
-            if (stats.hasAnyData()) {
-                context.getCurrentUserStatistics().addToStatistics(stats);
+                    int progress = context.getCurrentUserStatistics().calculateLevelProgress();
+                    context.getCurrentUser().updateLanguageLevel(progress);
 
-                int progress = context.getCurrentUserStatistics().calculateLevelProgress();
-                context.getCurrentUser().updateLanguageLevel(progress);
+                    SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
+                    sessionStatsPanel.setStatistics(stats);
+                    sessionStatsPanel.showInDialog(router.getMainFrame());
+                    stats.resetStatistics();
+                }
+                router.setPanel(learningSessionPanel, "LEARNING_SESSION");
+            };
 
-                SessionStatisticsPanel sessionStatsPanel = new SessionStatisticsPanel();
-                sessionStatsPanel.setStatistics(stats);
-                sessionStatsPanel.showInDialog(router.getMainFrame());
-                stats.resetStatistics();
-            }
-            router.setPanel(panel,"LEARNING_SESSION");
-        };
-
-        panel.onFlashCard(() -> {
-            new FlashCardController(
+            learningSessionPanel.onFlashCard(() -> new FlashCardController(
                     router,
                     model,
                     context.getCurrentWordSet(),
                     onFinishSession
-            ).start();
-        });
+            ).start());
 
-        panel.onConnect(() -> {
-            new ConnectController(
+            learningSessionPanel.onConnect(() -> new ConnectController(
                     router,
                     model,
                     context.getCurrentWordSet(),
                     onFinishSession
-            ).start();
-        });
+            ).start());
 
-        panel.onMillionaire(() -> {
-            new MillionaireController(
+            learningSessionPanel.onMillionaire(() -> new MillionaireController(
                     router,
                     model,
                     context.getCurrentWordSet(),
                     10,
                     onFinishSession
-            ).start();
-        });
+            ).start());
 
-        panel.onTyping(() ->{
-            new TypingController(
-                router,
-                model,
-                context.getCurrentWordSet(),
-                10,
-                onFinishSession
-            ).start();
-        });
+            learningSessionPanel.onTyping(() -> new TypingController(
+                    router,
+                    model,
+                    context.getCurrentWordSet(),
+                    10,
+                    onFinishSession
+            ).start());
 
-        panel.onBack(() -> {
-            model.unregisterObserver(stats);
-            int result = JOptionPane.showOptionDialog(
-                    router.getMainFrame(),
-                    "Czy na pewno chcesz skończyć lekcję?",
-                    "Zakończyć lekcję?",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE,
-                    null,
-                    new Object[]{"TAK", "NIE"},
-                    "NIE"
-            );
+            learningSessionPanel.onBack(() -> {
+                model.unregisterObserver(stats);
+                int result = JOptionPane.showOptionDialog(
+                        router.getMainFrame(),
+                        "Czy na pewno chcesz skończyć lekcję?",
+                        "Zakończyć lekcję?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        new Object[]{"TAK", "NIE"},
+                        "NIE"
+                );
 
-            if (result == JOptionPane.YES_OPTION) {
-                model.flushMementos();
-                router.switchState(AppState.StartMenu);
-            }
-        });
+                if (result == JOptionPane.YES_OPTION) {
+                    model.flushMementos();
+                    router.switchState(AppState.MainMenu);
+                }
+            });
 
 
-        router.setPanel(learningSessionPanel, "LEARNING_SESSION");
+            router.setPanel(learningSessionPanel, "LEARNING_SESSION");
+        }
     }
 
     private void handleLoad() {
@@ -135,7 +123,7 @@ public class LearningSessionController implements Controller {
 
         WordSet ws = context.getNewWordSetFromDb(selected);
         context.setCurrentWordSet(ws);
-        router.setPanel(learningSessionPanel, "MENU");
+        router.switchState(AppState.LearningSession);
     }
 
     private void handleReview() {
@@ -158,7 +146,7 @@ public class LearningSessionController implements Controller {
         System.out.println(review.getWords().size());
 
         context.setCurrentWordSet(review);
-        router.setPanel(learningSessionPanel, "LEARNING_SESSION");
+        router.switchState(AppState.LearningSession);
     }
 }
 

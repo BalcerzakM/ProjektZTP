@@ -1,31 +1,28 @@
 package views;
 
-import models.LanguageCERFLevel;
 import models.Statistics;
 import models.User;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.util.Set;
 
 public class StatisticsPanel extends JPanel {
-    private JLabel usernameLabel = new JLabel();
-    private JLabel levelLabel = new JLabel();
+    private final JLabel usernameLabel = new JLabel();
+    private final JLabel levelLabel = new JLabel();
 
-    private JProgressBar levelProgressBar = new JProgressBar(0, 100);
-    private JLabel progressLabel = new JLabel();
+    private final JProgressBar levelProgressBar = new JProgressBar(0, 100);
+    private final JLabel progressLabel = new JLabel();
 
-    private JLabel completedLessons = new JLabel();
-    private JLabel correctAnswers = new JLabel();
-    private JLabel incorrectAnswers = new JLabel();
-    private JLabel longestStreak = new JLabel();
-    private JLabel learnedWords = new JLabel();
-    private JLabel perfectLessons = new JLabel();
-    private JLabel totalFlashcards = new JLabel();
+    private final JLabel completedLessons = new JLabel();
+    private final JLabel correctAnswers = new JLabel();
+    private final JLabel incorrectAnswers = new JLabel();
+    private final JLabel longestStreak = new JLabel();
+    private final JLabel learnedWords = new JLabel();
+    private final JLabel perfectLessons = new JLabel();
+    private final JLabel totalFlashcards = new JLabel();
 
-    private JButton backBtn = new JButton("Wróć");
+    private final JButton backBtn = new JButton("Wróć");
 
     public StatisticsPanel() {
         setLayout(new BorderLayout(15, 15));

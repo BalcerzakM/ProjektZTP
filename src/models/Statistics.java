@@ -2,9 +2,6 @@ package models;
 
 import observers.SessionStatistics;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Statistics {
     private int completedLessons;
     private int correctOverall;

@@ -29,11 +29,7 @@ public class Word {
     }
 
     public boolean isAnswerCorrect(String answer) {
-        if (answer.equals(target)) {
-            return true;
-        } else {
-            return false;
-        }
+        return answer.equals(target);
     }
 
 }

@@ -6,7 +6,7 @@ public enum LanguageCERFLevel {
     B1(200, 300),
     B2(300, 400),
     C1(400, 500),
-    C2(500, 600),;
+    C2(500, 600);
 
     private final int minPoints;
     private final int maxPoints;

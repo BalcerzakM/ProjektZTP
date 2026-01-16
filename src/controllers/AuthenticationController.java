@@ -10,8 +10,6 @@ import models.User;
 import views.LoginPanel;
 import views.RegisterPanel;
 
-import javax.swing.*;
-
 public class AuthenticationController implements Controller {
     private final AppRouter router;
     private final AppContext context;
@@ -63,7 +61,7 @@ public class AuthenticationController implements Controller {
         User user = context.getNewUserFromDb(username);
         Statistics statistics = context.getNewStatisticsFromDb(username);
         context.setCurrentUser(user);
-        context.setUserStatistics(statistics);
+        //context.setUserStatistics(statistics);
         loginPanel.showSuccessMessage();
         router.switchState(AppState.MainMenu);
     }
@@ -80,7 +78,7 @@ public class AuthenticationController implements Controller {
             registerPanel.showUserExistsError();
             return;
         }
-        if (!model.isPasswordCorrect(repeatedPassword, password)) {
+        if (model.isPasswordCorrect(repeatedPassword, password)) {
             registerPanel.showRepeatedPasswordNotEqualError();
             return;
         }

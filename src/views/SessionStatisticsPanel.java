@@ -6,11 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SessionStatisticsPanel extends JPanel {
-    private JLabel correctLabel = new JLabel();
-    private JLabel incorrectLabel = new JLabel();
-    private JLabel correctPercentLabel = new JLabel();
-    private JProgressBar accuracyBar = new JProgressBar(0, 100);
-    private JLabel maxSessionStreakLabel = new JLabel();
+    private final JLabel correctLabel = new JLabel();
+    private final JLabel incorrectLabel = new JLabel();
+    private final JLabel correctPercentLabel = new JLabel();
+    private final JProgressBar accuracyBar = new JProgressBar(0, 100);
+    private final JLabel maxSessionStreakLabel = new JLabel();
 
     public SessionStatisticsPanel() {
         setLayout(new GridLayout(0, 1, 5, 5));
