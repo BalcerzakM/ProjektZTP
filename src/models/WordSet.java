@@ -5,12 +5,12 @@ import java.util.List;
 public class WordSet {
     private String name;
     private List<Word> words;
-    private final String difficulty;
+    private final LanguageCERFLevel cerfLevel;
 
-    public WordSet(String name, List<Word> words, String difficulty) {
+    public WordSet(String name, List<Word> words, LanguageCERFLevel cerfLevel) {
         this.name = name;
         this.words = words;
-        this.difficulty = difficulty;
+        this.cerfLevel = cerfLevel;
     }
 
     public String getName() {
@@ -29,7 +29,9 @@ public class WordSet {
         this.words = words;
     }
 
-
+    public LanguageCERFLevel getCERFLevel() {
+        return cerfLevel;
+    }
 
     public void addWord(Word word) {
         words.add(word);

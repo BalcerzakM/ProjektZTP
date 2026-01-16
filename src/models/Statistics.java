@@ -1,6 +1,6 @@
 package models;
 
-import observers.SessionStatistics;
+import services.observers.SessionStatistics;
 
 public class Statistics {
     private int completedLessons;

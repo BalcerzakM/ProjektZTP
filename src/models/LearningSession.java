@@ -2,7 +2,7 @@ package models;
 
 
 import LearningModes.ModeType;
-import observers.AnswerObserver;
+import services.observers.AnswerObserver;
 
 import java.util.ArrayList;
 import java.util.EnumMap;

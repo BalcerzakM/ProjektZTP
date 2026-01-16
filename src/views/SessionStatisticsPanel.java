@@ -1,6 +1,6 @@
 package views;
 
-import observers.SessionStatistics;
+import services.observers.SessionStatistics;
 
 import javax.swing.*;
 import java.awt.*;

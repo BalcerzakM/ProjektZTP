@@ -3,8 +3,9 @@ package controllers;
 import app.AppContext;
 import app.AppRouter;
 import app.AppState;
+import models.LanguageCERFLevel;
 import models.WordSet;
-import observers.SessionStatistics;
+import services.observers.SessionStatistics;
 import models.LearningSession;
 import views.DatabaseSelectionPanel;
 import views.LearningSessionPanel;
@@ -104,6 +105,7 @@ public class LearningSessionController implements Controller {
 
                 if (result == JOptionPane.YES_OPTION) {
                     model.flushMementos();
+                    context.setCurrentWordSet(null);
                     router.switchState(AppState.MainMenu);
                 }
             });
@@ -121,9 +123,13 @@ public class LearningSessionController implements Controller {
             return;
         }
 
-        WordSet ws = context.getNewWordSetFromDb(selected);
-        context.setCurrentWordSet(ws);
-        router.switchState(AppState.LearningSession);
+        try {
+            WordSet ws = context.loadWordSetSecurely(selected);
+            context.setCurrentWordSet(ws);
+            router.switchState(AppState.LearningSession);
+        } catch (Exception e) {
+            dbSelectionPanel.showError(e.getMessage());
+        }
     }
 
     private void handleReview() {
@@ -141,7 +147,7 @@ public class LearningSessionController implements Controller {
         WordSet review = new WordSet(
                 "review",
                 context.getReviewScheduler().loadReviewWords(),
-                "review"
+                LanguageCERFLevel.A1
         );
         System.out.println(review.getWords().size());
 
