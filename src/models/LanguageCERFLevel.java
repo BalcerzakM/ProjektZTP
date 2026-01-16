@@ -27,4 +27,8 @@ public enum LanguageCERFLevel {
     public int getPointsRange() {
         return maxPoints - minPoints;
     }
+
+    public static boolean isAccessAllowed(LanguageCERFLevel wordSetLevel, LanguageCERFLevel userLevel) {
+        return (userLevel.ordinal()) >= wordSetLevel.ordinal();
+    }
 }

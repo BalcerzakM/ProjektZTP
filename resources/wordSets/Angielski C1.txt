@@ -1,4 +1,4 @@
-c1
+C1
 przesłanka - premise
 założenie - assumption
 hipoteza - hypothesis

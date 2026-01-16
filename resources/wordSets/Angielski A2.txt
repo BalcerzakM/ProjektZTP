@@ -1,4 +1,4 @@
-a2
+A2
 miasto - city
 ulica - street
 sklep - shop

@@ -1,4 +1,4 @@
-package observers;
+package services.observers;
 
 import models.Word;
 

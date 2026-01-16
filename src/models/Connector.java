@@ -25,8 +25,13 @@ public class Connector {
 
     public WordSet readWordSetFromFile(String fileName) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("resources/wordSets/" + fileName));
-        String difficulty = scanner.nextLine().strip();
-        WordSet wordSet = new WordSet(fileName, new ArrayList<>(), difficulty);
+        LanguageCERFLevel cerfLevel;
+        try {
+            cerfLevel = LanguageCERFLevel.valueOf(scanner.nextLine().strip());
+        } catch (IllegalArgumentException e) {
+            cerfLevel = LanguageCERFLevel.A1;
+        }
+        WordSet wordSet = new WordSet(fileName, new ArrayList<>(), cerfLevel);
         while (scanner.hasNextLine()) {
             String[] line = scanner.nextLine().split("-");
             String source = line[0].strip();
@@ -112,28 +117,10 @@ public class Connector {
         String password = scanner.nextLine().strip().replace("password: ", "");
         String languageCEFRLevelString = scanner.nextLine().strip().replace("languageCEFRLevel: ", "");
         LanguageCERFLevel languageCEFRLevel;
-        switch(languageCEFRLevelString) {
-            case "A1":
-                languageCEFRLevel = LanguageCERFLevel.A1;
-                break;
-            case "A2":
-                languageCEFRLevel = LanguageCERFLevel.A2;
-                break;
-            case "B1":
-                languageCEFRLevel = LanguageCERFLevel.B1;
-                break;
-            case "B2":
-                languageCEFRLevel = LanguageCERFLevel.B2;
-                break;
-            case "C1":
-                languageCEFRLevel = LanguageCERFLevel.C1;
-                break;
-            case "C2":
-                languageCEFRLevel = LanguageCERFLevel.C2;
-                break;
-            default:
-                languageCEFRLevel = LanguageCERFLevel.A1;
-                break;
+        try {
+            languageCEFRLevel = LanguageCERFLevel.valueOf(languageCEFRLevelString);
+        } catch (IllegalArgumentException e) {
+            languageCEFRLevel = LanguageCERFLevel.A1;
         }
         return new User(username, password, languageCEFRLevel);
     }

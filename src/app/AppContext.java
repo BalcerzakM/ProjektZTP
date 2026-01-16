@@ -1,7 +1,10 @@
 package app;
 
 import models.*;
-import observers.ReviewScheduler;
+import services.WordSetProvider.WordSetLoader;
+import services.WordSetProvider.WordSetLoaderProxy;
+import services.WordSetProvider.WordsetProvider;
+import services.observers.ReviewScheduler;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +15,12 @@ public class AppContext {
     private Statistics currentUsersStatistics = new Statistics(0, 0, 0, 0, 0, 0, 0);
     private WordSet currentWordSet;
     private final ReviewScheduler reviewScheduler = new ReviewScheduler();
+    private final WordsetProvider wordSetProvider;
+
+    public AppContext() {
+        WordSetLoader realLoader = new WordSetLoader(this);
+        this.wordSetProvider = new WordSetLoaderProxy(realLoader);
+    }
 
     public User getCurrentUser() {
         return currentUser;
@@ -39,6 +48,10 @@ public class AppContext {
 
     public ReviewScheduler getReviewScheduler() {
         return reviewScheduler;
+    }
+
+    public WordSet loadWordSetSecurely(String filename) throws Exception {
+        return wordSetProvider.getWordSet(filename, currentUser);
     }
 
     public boolean isDatabaseSelected() {
