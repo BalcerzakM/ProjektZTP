@@ -11,6 +11,16 @@ public class Authentication {
         return realPassword.equals(insertedPassword);
     }
 
+    public boolean isPasswordValidate(String password, String username) {
+        if (password.contains(username)) {
+            return false;
+        }
+        if (password.length() < 6) {
+            return false;
+        }
+        return true;
+    }
+
     public void registerNewUser(String username, String password, String langLevel) {
 
     }

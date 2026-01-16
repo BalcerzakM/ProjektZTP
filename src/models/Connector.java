@@ -78,7 +78,7 @@ public class Connector {
         }
     }
 
-    public void createNewUser(String username, String password, LanguageCERFLevel level) throws IOException {
+    public void saveNewUserToFile(String username, String password, LanguageCERFLevel level) throws IOException {
         PrintWriter pw = new PrintWriter(new File("resources/users/" + username + ".txt"));
         pw.println("----USER----");
         pw.println("username: " + username);

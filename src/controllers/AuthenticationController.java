@@ -50,29 +50,46 @@ public class AuthenticationController implements Controller {
         String password = loginPanel.getPassword();
         if (username.isEmpty() || password.isEmpty()) {
             loginPanel.showEmptyFieldsError();
-        } else {
-            if (model.isUserAlreadyRegistered(username, context.getUserNamesList())) {
-                if (model.isPasswordCorrect(context.getUserPasswordFromDb(username), password)) {
-                    User user = context.getNewUserFromDb(username);
-                    Statistics statistics = context.getNewStatisticsFromDb(username);
-                    context.setCurrentUser(user);
-                    context.setUserStatistics(statistics);
-                    router.switchState(AppState.MainMenu);
-                } else {
-                    loginPanel.showWrongPasswordError();
-                }
-            } else {
-                loginPanel.showNoUserExistError();
-            }
+            return;
         }
+        if (!model.isUserAlreadyRegistered(username, context.getUserNamesList())) {
+            loginPanel.showNoUserExistError();
+            return;
+        }
+        if (!model.isPasswordCorrect(context.getUserPasswordFromDb(username), password)) {
+            loginPanel.showWrongPasswordError();
+            return;
+        }
+        User user = context.getNewUserFromDb(username);
+        Statistics statistics = context.getNewStatisticsFromDb(username);
+        context.setCurrentUser(user);
+        context.setUserStatistics(statistics);
+        loginPanel.showSuccessMessage();
+        router.switchState(AppState.MainMenu);
     }
 
     private void handleRegister() {
         String username = registerPanel.getUsername();
         String password = registerPanel.getPassword();
         String repeatedPassword = registerPanel.getRepeatedPassword();
-        User user = new User(username, password, LanguageCERFLevel.A1);
-        context.setCurrentUser(user);
-        router.switchState(AppState.MainMenu);
+        if (username.isEmpty() || password.isEmpty() || repeatedPassword.isEmpty()) {
+            registerPanel.showEmptyFieldsError();
+            return;
+        }
+        if (model.isUserAlreadyRegistered(username, context.getUserNamesList())) {
+            registerPanel.showUserExistsError();
+            return;
+        }
+        if (!model.isPasswordCorrect(repeatedPassword, password)) {
+            registerPanel.showRepeatedPasswordNotEqualError();
+            return;
+        }
+        if (!model.isPasswordValidate(password, username)) {
+            registerPanel.showTooEasyPasswordError();
+            return;
+        }
+        context.saveNewUserToDb(username, password, LanguageCERFLevel.A1);
+        registerPanel.showSuccessMessage();
+        router.setPanel(loginPanel, "LOGIN");
     }
 }

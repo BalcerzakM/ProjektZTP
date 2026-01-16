@@ -66,6 +66,46 @@ public class RegisterPanel extends JPanel {
 
     }
 
+    public void showEmptyFieldsError() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Wszystkie pola są wymagane. Wprowadź wszystkie dane.",
+                "Błąd",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showUserExistsError() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Użytkownik o podanej nazwie już istnieje. Wprowadź inną nazwę użytkownika.",
+                "Błąd",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showTooEasyPasswordError() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Ustawione hasło jest zbyt oczywiste. Spróbuj czegoś co nie zawiera loginu i ma więcej niż 6 znaków.",
+                "Błąd",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showRepeatedPasswordNotEqualError() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Hasła nie są identyczne. Popraw hasło.",
+                "Błąd",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void showSuccessMessage() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Zarejestrowano się pomyślnie. Zaloguj się do swojego konta.",
+                "Informacja",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public String getUsername() {
         return usernameField.getText();
     }

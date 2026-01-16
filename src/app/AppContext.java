@@ -92,5 +92,13 @@ public class AppContext {
             throw new RuntimeException(e);
         }
     }
+
+    public void saveNewUserToDb(String username, String password, LanguageCERFLevel level) {
+        try {
+            Connector.getInstance().saveNewUserToFile(username, password, level);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

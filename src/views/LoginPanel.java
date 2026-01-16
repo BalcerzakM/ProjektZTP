@@ -72,6 +72,14 @@ public class LoginPanel extends JPanel {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    public void showSuccessMessage() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Zalogowano się pomyślnie.",
+                "Informacja",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public String getUsername() {
         return usernameField.getText();
     }
