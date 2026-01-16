@@ -66,11 +66,22 @@ public class ConnectController {
 
         if (l == -1 || r == -1) return;
 
-        StringBuilder message = new StringBuilder();
-
         if (mode.check(l, r)) {
             Word w = mode.removePair(l, r);
             session.notifyObservers(w, true);
+
+            StringBuilder message = new StringBuilder("Dobrze!");
+
+            for (String f : feedbackBuffer.consumeMessages()){
+                message.append("\n").append(f);
+            }
+
+            JOptionPane.showMessageDialog(
+                    panel,
+                    message,
+                    "Odpowiedź",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
 
             if (mode.isFinished()) {
                 eventBus.unregister(feedbackBuffer);
@@ -88,8 +99,18 @@ public class ConnectController {
         } else {
             session.notifyObservers(mode.getLeftSources().get(l), false);
 
-            JOptionPane.showMessageDialog(panel,
-                    "Źle, spróbuj ponownie");
+            StringBuilder message = new StringBuilder("Źle, spróbuj ponownie");
+
+            for (String f : feedbackBuffer.consumeMessages()){
+                message.append("\n").append(f);
+            }
+
+            JOptionPane.showMessageDialog(
+                    panel,
+                    message,
+                    "Błąd",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
 
         panel.updateLists(
