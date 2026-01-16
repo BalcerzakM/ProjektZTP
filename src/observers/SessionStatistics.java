@@ -1,5 +1,7 @@
 package observers;
 
+import events.SessionEventBus;
+import events.SessionFeedbackView;
 import models.Word;
 
 import java.util.HashSet;
@@ -14,6 +16,12 @@ public class SessionStatistics implements AnswerObserver {
     private int correctPercent = 0;
     private int flashCardCount = 0;
     private final Set<Word> learnedWords = new HashSet<>();
+
+    private final SessionEventBus eventBus;
+
+    public SessionStatistics(SessionEventBus eventBus) {
+        this.eventBus = eventBus;
+    }
 
     @Override
     public void onAnswer(Word w, boolean correct) {
@@ -37,7 +45,7 @@ public class SessionStatistics implements AnswerObserver {
         }
 
         if (maxSessionStreak % 5 == 0 && maxSessionStreak > 0) {
-            System.out.printf("\n-- %d pod rząd! Dobra robota! --\n", maxSessionStreak);
+            eventBus.streakFeedback(maxSessionStreak);
         }
     }
 

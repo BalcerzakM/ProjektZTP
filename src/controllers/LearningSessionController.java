@@ -3,7 +3,9 @@ package controllers;
 import app.AppContext;
 import app.AppRouter;
 import app.AppState;
+import events.SessionEventBus;
 import models.WordSet;
+import observers.ReviewScheduler;
 import observers.SessionStatistics;
 import models.LearningSession;
 import views.DatabaseSelectionPanel;
@@ -38,10 +40,14 @@ public class LearningSessionController implements Controller {
         if(!context.isDatabaseSelected()) {
             router.setPanel(dbSelectionPanel, "DB_SELECTION");
         } else {
+            SessionEventBus eventBus = new SessionEventBus();
+            ReviewScheduler reviewScheduler = context.getReviewScheduler();
 
-            model.registerObserver(context.getReviewScheduler());
+            reviewScheduler.attachEventBus(eventBus);
+            model.registerObserver(reviewScheduler);
 
-            SessionStatistics stats = new SessionStatistics();
+
+            SessionStatistics stats = new SessionStatistics(eventBus);
             model.registerObserver(stats);
 
             Runnable onFinishSession = () -> {
@@ -78,7 +84,8 @@ public class LearningSessionController implements Controller {
                     model,
                     context.getCurrentWordSet(),
                     10,
-                    onFinishSession
+                    onFinishSession,
+                    eventBus
             ).start());
 
             learningSessionPanel.onTyping(() -> new TypingController(
@@ -91,6 +98,8 @@ public class LearningSessionController implements Controller {
 
             learningSessionPanel.onBack(() -> {
                 model.unregisterObserver(stats);
+                reviewScheduler.detachEventBus(eventBus);
+
                 int result = JOptionPane.showOptionDialog(
                         router.getMainFrame(),
                         "Czy na pewno chcesz skończyć lekcję?",
