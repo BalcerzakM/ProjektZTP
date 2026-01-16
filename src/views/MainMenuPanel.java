@@ -4,32 +4,53 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainMenuPanel extends JPanel {
-    private final JButton learningSessionBtn = new JButton("UCZ SIĘ!");
-    private final JButton wordSetCreatorBtn = new JButton("UTWÓRZ NOWY ZESTAW SŁÓWEK.");
-    private final JButton userBtn = new JButton("ZARZĄDZAJ SWOIM KONTEM URZTKOWNIKA");
-    private final JButton statisticsBtn = new JButton("ZOBACZ STATYSTYKI");
-    private final JButton changeWordSetBtn = new JButton("ZMIEŃ ZESTAW SŁÓWEK");
-    private final JButton logOutBtn = new JButton("WYLOGUJ SIĘ");
+    private final JLabel loggedUserLabel;
+
+    private final JButton learningSessionBtn;
+    private final JButton wordSetCreatorBtn;
+    private final JButton userBtn;
+    private final JButton statisticsBtn;
+    private final JButton logOutBtn;
 
     public MainMenuPanel() {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        JPanel modes = new JPanel(new GridLayout(6, 1, 10,10));
-        modes.add(learningSessionBtn);
-        modes.add(wordSetCreatorBtn);
-        modes.add(userBtn);
-        modes.add(statisticsBtn);
-        modes.add(changeWordSetBtn);
-        modes.add(logOutBtn);
+        this.loggedUserLabel = new JLabel("Zalogowano jako: ...", SwingConstants.CENTER);
+        this.loggedUserLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        this.learningSessionBtn = new JButton("UCZ SIĘ!");
+        this.wordSetCreatorBtn = new JButton("UTWÓRZ NOWY ZESTAW SŁÓWEK.");
+        this.userBtn = new JButton("ZARZĄDZAJ SWOIM KONTEM UŻTKOWNIKA");
+        this.statisticsBtn = new JButton("ZOBACZ STATYSTYKI");
+        this.logOutBtn = new JButton("WYLOGUJ SIĘ");
 
-        add(buttonPanel, BorderLayout.SOUTH);
-        add(modes, BorderLayout.CENTER);
+        JPanel buttonsGrid = new JPanel(new GridLayout(5, 1, 10,10));
+        buttonsGrid.add(learningSessionBtn);
+        buttonsGrid.add(wordSetCreatorBtn);
+        buttonsGrid.add(userBtn);
+        buttonsGrid.add(statisticsBtn);
+        buttonsGrid.add(logOutBtn);
+
+        JPanel centerWrapper = new JPanel(new GridBagLayout());
+        centerWrapper.add(buttonsGrid);
+
+        add(loggedUserLabel, BorderLayout.NORTH);
+        add(centerWrapper, BorderLayout.CENTER);
     }
 
+    public void setWelcomeMessage(String username) {
+        loggedUserLabel.setText("Zalogowano jako: " + username);
+    }
 
+    public void showLogOutMessage() {
+        JOptionPane.showMessageDialog(
+                this,
+                "Wylogowano cię pomyślnie.",
+                "Informacja",
+                JOptionPane.INFORMATION_MESSAGE);
+
+    }
 
     public void onLearningSessionBtn(Runnable action) {
         learningSessionBtn.addActionListener(e -> action.run());
@@ -45,10 +66,6 @@ public class MainMenuPanel extends JPanel {
 
     public void onStatisticsBtn(Runnable action) {
         statisticsBtn.addActionListener(e -> action.run());
-    }
-
-    public void onChangeWordSetBtn(Runnable action) {
-        changeWordSetBtn.addActionListener(e -> action.run());
     }
 
     public void onLogOutBtn(Runnable action) {

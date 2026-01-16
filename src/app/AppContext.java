@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class AppContext {
-    private User currentUser = new User("maciek1234", "MaciekZKlanu4321", LanguageCERFLevel.A1);
-    private Statistics currentUserStatistics = new Statistics(0, 0, 0, 0, 0, 0, 0);
+    private User currentUser;
+    private Statistics currentUsersStatistics;
     private WordSet currentWordSet;
     private final ReviewScheduler reviewScheduler = new ReviewScheduler();
 
@@ -17,8 +17,16 @@ public class AppContext {
         return currentUser;
     }
 
-    public void setCurrentUser(User currentUser) {
-        currentUser = currentUser;
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
+    public Statistics getCurrentUserStatistics() {
+        return currentUsersStatistics;
+    }
+
+    public void setUserStatistics(Statistics statistics) {
+        this.currentUsersStatistics = statistics;
     }
 
     public WordSet getCurrentWordSet() {
@@ -33,32 +41,64 @@ public class AppContext {
         return reviewScheduler;
     }
 
-    public boolean isUserLoggedIn() {
-        return currentUser != null;
-    }
-
     public boolean isDatabaseSelected() {
         return currentWordSet != null;
     }
 
-    public List<String> getDatabaseList() {
+    public List<String> getDatabaseNamesList() {
         try {
-            return Connector.getInstance().getAviableDatabases();
+            return Connector.getInstance().getAviableDatabaseNames();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public WordSet getNewWordSet(String fileName) {
+    public WordSet getNewWordSetFromDb(String fileName) {
         try {
-            return Connector.getInstance().readWordSetFromFile(fileName);
+            return Connector.getInstance().readWordSetFromFile(fileName + ".txt");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Statistics getCurrentUserStatistics() {
-        return currentUserStatistics;
+    public List<String> getUserNamesList() {
+        try {
+            return Connector.getInstance().getUsersList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getUserPasswordFromDb(String username) {
+        try {
+            return Connector.getInstance().readUserPasswordFromFile(username + ".txt");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public User getNewUserFromDb(String username) {
+        try {
+            return Connector.getInstance().readUserFromFile(username + ".txt");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Statistics getNewStatisticsFromDb(String username) {
+        try {
+            return Connector.getInstance().readStatisticsFromFile(username + ".txt");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void saveNewUserToDb(String username, String password, LanguageCERFLevel level) {
+        try {
+            Connector.getInstance().saveNewUserToFile(username, password, level);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
