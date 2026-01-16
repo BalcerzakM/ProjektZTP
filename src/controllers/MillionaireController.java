@@ -50,6 +50,7 @@ public class MillionaireController {
             session.initSeedIfNeeded();
             mode.startNew(session.getSeed());
         }
+
         eventBus.register(feedbackBuffer);
         showNext();
     }

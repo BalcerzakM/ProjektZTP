@@ -76,7 +76,8 @@ public class LearningSessionController implements Controller {
                     router,
                     model,
                     context.getCurrentWordSet(),
-                    onFinishSession
+                    onFinishSession,
+                    eventBus
             ).start());
 
             learningSessionPanel.onMillionaire(() -> new MillionaireController(
@@ -93,7 +94,8 @@ public class LearningSessionController implements Controller {
                     model,
                     context.getCurrentWordSet(),
                     10,
-                    onFinishSession
+                    onFinishSession,
+                    eventBus
             ).start());
 
             learningSessionPanel.onBack(() -> {
