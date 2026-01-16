@@ -2,8 +2,8 @@ package controllers;
 
 import LearningModes.ModeType;
 import app.AppRouter;
-import events.SessionEventBus;
-import events.SessionFeedbackBuffer;
+import services.events.SessionEventBus;
+import services.events.SessionFeedbackBuffer;
 import models.LearningSession;
 import models.*;
 import views.ConnectPanel;

@@ -1,4 +1,4 @@
-package events;
+package services.events;
 
 import java.util.ArrayList;
 import java.util.List;

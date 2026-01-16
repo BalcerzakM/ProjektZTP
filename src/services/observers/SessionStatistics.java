@@ -1,6 +1,6 @@
 package services.observers;
 
-import events.SessionEventBus;
+import services.events.SessionEventBus;
 import models.Word;
 
 import java.util.HashSet;

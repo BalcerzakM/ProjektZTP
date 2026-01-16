@@ -4,7 +4,7 @@ import app.AppContext;
 import app.AppRouter;
 import app.AppState;
 import models.LanguageCERFLevel;
-import events.SessionEventBus;
+import services.events.SessionEventBus;
 import models.WordSet;
 import services.observers.SessionStatistics;
 import services.observers.ReviewScheduler;

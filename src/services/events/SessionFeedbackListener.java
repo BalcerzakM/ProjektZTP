@@ -1,4 +1,4 @@
-package events;
+package services.events;
 
 public interface SessionFeedbackListener {
     void onStreak(int streak);

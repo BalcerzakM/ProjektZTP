@@ -3,7 +3,7 @@ package services.observers;
 import java.util.ArrayList;
 import java.util.List;
 
-import events.SessionEventBus;
+import services.events.SessionEventBus;
 import models.Word;
 
 public class ReviewScheduler implements AnswerObserver {
@@ -23,14 +23,14 @@ public class ReviewScheduler implements AnswerObserver {
             reviewWords.add(w);
         }
 
-        if (reviewWords.size() % 5 == 0 && !reviewWords.isEmpty() && !wasAlertShown) {
+        if (reviewWords.size() % 5 == 0 && reviewWords.size() > 9 && !wasAlertShown) {
             if (eventBus != null) {
                 eventBus.reviewFeedback(reviewWords.size());
             }
             wasAlertShown = true;
         }
 
-        if (reviewWords.size() % 5 != 0 && reviewWords.size() > 10) {
+        if (reviewWords.size() % 5 != 0) {
             wasAlertShown = false;
         }
     }
