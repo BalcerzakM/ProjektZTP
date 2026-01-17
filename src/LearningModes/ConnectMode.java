@@ -1,6 +1,5 @@
 package LearningModes;
 
-import models.LearningSession;
 import models.Word;
 import models.WordSet;
 
@@ -21,6 +20,7 @@ public class ConnectMode implements LearningMode {
         this.baseWords = new ArrayList<>(wordSet.getWords());
     }
 
+    @Override
     public void startNew(long seed) {
         this.rand = new Random(seed);
         generateInitialState();
@@ -71,9 +71,5 @@ public class ConnectMode implements LearningMode {
         return new ArrayList<>(right);
     }
 
-    @Override
-    public void start(WordSet wordSet, LearningSession learningSession) {
-
-    }
 }
 

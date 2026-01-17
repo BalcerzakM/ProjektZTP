@@ -12,7 +12,7 @@ import views.MillionairePanel;
 import javax.swing.*;
 import java.util.List;
 
-public class MillionaireController {
+public class MillionaireController implements Controller {
     private static final ModeType MODE_KEY = ModeType.MILLIONAIRE;
 
     private final AppRouter router;
@@ -39,7 +39,7 @@ public class MillionaireController {
         this.eventBus = eventBus;
     }
 
-    public void start() {
+    public void run() {
         if (session.hasMemento(MODE_KEY)) {
             session.restore(MODE_KEY);
             mode.restore(

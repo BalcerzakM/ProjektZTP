@@ -3,10 +3,10 @@ username: admin
 password: Test123
 languageCEFRLevel: A1
 ----STATS----
-completedLessons: 5
-correctOverall: 15
-incorrectOverall: 7
-longestStreak: 3
-learnedWordsAmount: 15
-perfectLessons: 1
-totalFlashCards: 10
+completedLessons: 0
+correctOverall: 0
+incorrectOverall: 0
+longestStreak: 0
+learnedWordsAmount: 0
+perfectLessons: 0
+totalFlashCards: 0

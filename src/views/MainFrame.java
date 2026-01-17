@@ -1,7 +1,6 @@
 package views;
 
 import app.AppContext;
-import app.AppState;
 
 import javax.swing.*;
 import java.awt.*;

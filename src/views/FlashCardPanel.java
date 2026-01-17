@@ -78,7 +78,6 @@ public class FlashCardPanel extends JPanel {
 
     /**
      * Metoda Powrotu do ostatniego widoku i zapisania Memnto
-     * @param action
      */
     public void setOnBack(Runnable action) {backBtn.addActionListener(e -> action.run());}
 
