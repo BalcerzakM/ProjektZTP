@@ -1,6 +1,6 @@
 ----USER----
-username: maciek1234
-password: MaciekZKlanu4321
+username: admin
+password: Test123
 languageCEFRLevel: A1
 ----STATS----
 completedLessons: 0

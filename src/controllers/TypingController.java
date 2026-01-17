@@ -13,7 +13,7 @@ import views.TypingPanel;
 import javax.swing.*;
 import java.util.List;
 
-public class TypingController {
+public class TypingController implements Controller {
 
     private static final ModeType MODE_KEY = ModeType.TYPING;
 
@@ -42,7 +42,7 @@ public class TypingController {
         this.eventBus = eventBus;
     }
 
-    public void start() {
+    public void run() {
         if (session.hasMemento(MODE_KEY)) {
             session.restore(MODE_KEY);
             mode.restore(

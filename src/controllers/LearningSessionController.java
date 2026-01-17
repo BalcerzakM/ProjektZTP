@@ -48,7 +48,7 @@ public class LearningSessionController implements Controller {
                 model,
                 context.getCurrentWordSet(),
                 onFinishSession()
-        ).start());
+        ).run());
 
         learningSessionPanel.onConnect(() -> new ConnectController(
                 router,
@@ -56,7 +56,7 @@ public class LearningSessionController implements Controller {
                 context.getCurrentWordSet(),
                 onFinishSession(),
                 eventBus
-        ).start());
+        ).run());
 
         learningSessionPanel.onMillionaire(() -> new MillionaireController(
                 router,
@@ -65,7 +65,7 @@ public class LearningSessionController implements Controller {
                 10,
                 onFinishSession(),
                 eventBus
-        ).start());
+        ).run());
 
         learningSessionPanel.onTyping(() -> new TypingController(
                 router,
@@ -75,7 +75,7 @@ public class LearningSessionController implements Controller {
                 onFinishSession(),
                 eventBus
 
-        ).start());
+        ).run());
 
         learningSessionPanel.onBack(() -> {
             int result = learningSessionPanel.showQuestionMessage();

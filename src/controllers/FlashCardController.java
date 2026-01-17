@@ -5,7 +5,7 @@ import models.LearningSession;
 import models.WordSet;
 import views.FlashCardPanel;
 
-public class FlashCardController {
+public class FlashCardController implements Controller {
 
     private static final ModeType MODE_KEY = ModeType.FLASHCARD;
 
@@ -34,7 +34,7 @@ public class FlashCardController {
         this.onFinish = onFinish;
     }
 
-    public void start() {
+    public void run() {
         panel = new FlashCardPanel();
 
         if (session.hasMemento(MODE_KEY)) {

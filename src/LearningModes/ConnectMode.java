@@ -1,6 +1,5 @@
 package LearningModes;
 
-import models.LearningSession;
 import models.Word;
 import models.WordSet;
 
@@ -21,23 +20,19 @@ public class ConnectMode implements LearningMode {
         this.baseWords = new ArrayList<>(wordSet.getWords());
     }
 
+    @Override
     public void startNew(long seed) {
         this.rand = new Random(seed);
         generateInitialState();
     }
 
-    public void restore(int progress, long seed) {
+    public void restore( long seed) {
         this.rand = new Random(seed);
         generateInitialState();
 
-        // odtwórz usunięte pary
-        for (int i = 0; i < progress; i++) {
-            left.remove(0);
-            right.remove(0);
-        }
     }
 
-    /* ===== LOGIKA ===== */
+
 
     private void generateInitialState() {
         left.clear();
@@ -76,9 +71,5 @@ public class ConnectMode implements LearningMode {
         return new ArrayList<>(right);
     }
 
-    @Override
-    public void start(WordSet wordSet, LearningSession learningSession) {
-
-    }
 }
 

@@ -7,7 +7,7 @@ import models.WordSet;
 import java.util.List;
 import java.util.Random;
 
-public class TypingMode {
+public class TypingMode implements LearningMode {
 
     private final List<Word> words;
     private int index = 0;
@@ -30,6 +30,7 @@ public class TypingMode {
         }
     }
 
+    @Override
     public void startNew(long seed) {
         this.index = 0;
         this.rand = new Random(seed);

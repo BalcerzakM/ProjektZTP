@@ -11,7 +11,7 @@ import LearningModes.ConnectMode;
 
 import javax.swing.*;
 
-public class ConnectController {
+public class ConnectController implements Controller {
     private static final ModeType MODE_KEY = ModeType.CONNECT;
     private final AppRouter router;
     private final LearningSession session;
@@ -32,11 +32,10 @@ public class ConnectController {
     }
 
 
-    public void start() {
+    public void run() {
         if (session.hasMemento(MODE_KEY)) {
             session.restore(MODE_KEY);
             mode.restore(
-                    session.getCurrentIndex(),
                     session.getSeed()
             );
         } else {

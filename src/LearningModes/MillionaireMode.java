@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class MillionaireMode {
+public class MillionaireMode implements LearningMode {
 
     private final List<Word> words;
     private final int totalQuestions;
@@ -39,6 +39,7 @@ public class MillionaireMode {
         }
     }
 
+    @Override
     public void startNew(long seed) {
         this.currentQuestion = 0;
         this.rand = new Random(seed);
