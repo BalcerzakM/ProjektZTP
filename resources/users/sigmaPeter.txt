@@ -1,6 +1,6 @@
 ----USER----
 username: sigmaPeter
-password: Rizzman67
+password: Rizzman12
 languageCEFRLevel: A1
 ----STATS----
 completedLessons: 7

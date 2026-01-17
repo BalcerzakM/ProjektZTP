@@ -1,0 +1,12 @@
+----USER----
+username: admin
+password: Test123
+languageCEFRLevel: A1
+----STATS----
+completedLessons: 5
+correctOverall: 15
+incorrectOverall: 7
+longestStreak: 3
+learnedWordsAmount: 15
+perfectLessons: 1
+totalFlashCards: 10

@@ -36,7 +36,6 @@ public class ConnectController {
         if (session.hasMemento(MODE_KEY)) {
             session.restore(MODE_KEY);
             mode.restore(
-                    session.getCurrentIndex(),
                     session.getSeed()
             );
         } else {

@@ -26,18 +26,13 @@ public class ConnectMode implements LearningMode {
         generateInitialState();
     }
 
-    public void restore(int progress, long seed) {
+    public void restore( long seed) {
         this.rand = new Random(seed);
         generateInitialState();
 
-        // odtwórz usunięte pary
-        for (int i = 0; i < progress; i++) {
-            left.remove(0);
-            right.remove(0);
-        }
     }
 
-    /* ===== LOGIKA ===== */
+
 
     private void generateInitialState() {
         left.clear();
