@@ -9,8 +9,24 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Reprezentuje sesję nauki użytkownika.
+ *
+ * Klasa stanowi centralny element logiki aplikacji i:
+ * - zarządza obserwatorami odpowiedzi (Observer),
+ * - przechowuje i odtwarza stan trybów nauki (Memento),
+ * - zapewnia spójność przebiegu sesji pomiędzy widokami.
+ *
+ * LearningSession pełni rolę Modelu w architekturze MVC.
+ */
 public class LearningSession {
+    /**
+     * Lista obserwatorów reagujących na odpowiedzi użytkownika.
+     */
     private final List<AnswerObserver> observers = new ArrayList<>();
+    /**
+     * Zapisane stany poszczególnych trybów nauki.
+     */
     private final Map<ModeType, SessionMemento> mementos = new EnumMap<>(ModeType.class);
     private int currentIndex = 0;
     private List<String> currentAnswers = new ArrayList<>();
@@ -25,6 +41,9 @@ public class LearningSession {
         observers.remove(observer);
     }
 
+    /**
+     * Powiadamia obserwatorów o udzielonej odpowiedzi.
+     */
     public void notifyObservers(Word w, boolean correct) {
         for (AnswerObserver observer : observers) {
             observer.onAnswer(w, correct);
@@ -44,7 +63,9 @@ public class LearningSession {
     }
 
     /**
-     * Inicjalizacja Seedu
+     * Inicjalizuje seed losowości, jeśli nie zostało jeszcze ustawione.
+     *
+     * Zapewnia spójność losowania po przywróceniu stanu trybu.
      */
     public void initSeedIfNeeded() {
         if (seed == 0) {
@@ -52,7 +73,9 @@ public class LearningSession {
         }
     }
 
-
+    /**
+     * Zapisuje aktualny stan sesji dla danego trybu.
+     */
     public void saveMemento(ModeType mode) {
         mementos.put(mode, createMemento());
     }
@@ -61,6 +84,9 @@ public class LearningSession {
         return mementos.containsKey(mode);
     }
 
+    /**
+     * Przywraca zapisany stan sesji dla wskazanego trybu.
+     */
     public void restore(ModeType mode) {
         SessionMemento m = mementos.get(mode);
         if (m != null) {
@@ -80,6 +106,10 @@ public class LearningSession {
         mementos.remove(mode);
     }
 
+    /**
+     * Usuwa wszystkie zapisane stany trybów
+     * i resetuje generator losowości.
+     */
     public void flushMementos() {
         this.mementos.clear();
         resetSeed();

@@ -1,6 +1,19 @@
 package models;
 import java.util.List;
-
+/**
+ * Obiekt przechowujący migawkę stanu sesji nauki.
+ *
+ * Klasa realizuje rolę Memento we wzorcu projektowym Memento
+ * i umożliwia zapis oraz późniejsze odtworzenie stanu
+ * konkretnego trybu nauki.
+ *
+ * Przechowywane dane pozwalają na:
+ * - powrót do aktualnego pytania,
+ * - zachowanie kolejności losowania,
+ * - odtworzenie odpowiedzi użytkownika.
+ *
+ * Obiekt nie jest modyfikowalny po utworzeniu.
+ */
 public class SessionMemento {
 
     private final int questionIndex;

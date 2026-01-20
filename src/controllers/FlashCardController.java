@@ -5,8 +5,23 @@ import models.LearningSession;
 import models.WordSet;
 import views.FlashCardPanel;
 
+/**
+ * Kontroler trybu fiszek.
+ *
+ * Tryb fiszek umożliwia przeglądanie słów w sposób sekwencyjny,
+ * z możliwością odsłonięcia tłumaczenia oraz powrotu do poprzednich kart.
+ *
+ * Klasa pełni rolę Controller we wzorcu MVC i odpowiada za:
+ * - sterowanie widokiem fiszek,
+ * - integrację trybu z sesją nauki,
+ * - zapisywanie i przywracanie stanu (Memento),
+ * - powiadamianie obserwatorów o zapoznaniu się ze słowem.
+ */
 public class FlashCardController implements Controller {
 
+    /**
+     * Klucz identyfikujący tryb fiszek w mechanizmie Memento.
+     */
     private static final ModeType MODE_KEY = ModeType.FLASHCARD;
 
     private enum Side { FRONT, BACK }
@@ -96,9 +111,6 @@ public class FlashCardController implements Controller {
         }
     }
 
-    /**
-     * Metoda do powrotu i zapisania Memento
-     */
     private void saveAndExit() {
         if (wasRevealed) {
             session.notifyObservers(null, true);
@@ -108,9 +120,6 @@ public class FlashCardController implements Controller {
         onFinish.run();
     }
 
-    /**
-     * Metoda do aktualizowania numeru fiszki w naszym widoku
-     */
     private void updateProgress() {
         panel.setProgress(index, wordSet.getWords().size());
     }

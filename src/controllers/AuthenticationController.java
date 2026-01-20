@@ -10,9 +10,26 @@ import models.User;
 import views.LoginPanel;
 import views.RegisterPanel;
 
+/**
+ * Kontroler odpowiedzialny za proces uwierzytelniania użytkownika.
+ *
+ * Obsługuje:
+ * - logowanie istniejących użytkowników,
+ * - rejestrację nowych kont,
+ * - walidację danych wejściowych,
+ * - inicjalizację kontekstu użytkownika po poprawnym logowaniu.
+ *
+ * Klasa pełni rolę Controller we wzorcu MVC i zarządza
+ * przełączaniem widoków pomiędzy ekranem logowania
+ * i rejestracji.
+ */
 public class AuthenticationController implements Controller {
     private final AppRouter router;
     private final AppContext context;
+    /**
+     * Model odpowiedzialny za logikę uwierzytelniania
+     * i walidację danych użytkownika.
+     */
     private final Authentication model;
     private final LoginPanel loginPanel;
     private final RegisterPanel registerPanel;

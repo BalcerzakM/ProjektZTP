@@ -14,7 +14,19 @@ import views.LearningSessionPanel;
 import views.SessionStatisticsPanel;
 
 import javax.swing.*;
-
+/**
+ * Główny kontroler sesji nauki.
+ *
+ * Odpowiada za:
+ * - wybór i załadowanie zestawu słów,
+ * - inicjalizację sesji nauki,
+ * - uruchamianie poszczególnych trybów,
+ * - rejestrację obserwatorów statystyk i powtórek,
+ * - aktualizację poziomu językowego użytkownika.
+ *
+ * Klasa stanowi centralny punkt sterowania przebiegiem nauki
+ * i integruje wzorce MVC, Observer oraz Memento.
+ */
 public class LearningSessionController implements Controller {
     private final AppRouter router;
     private final AppContext context;
