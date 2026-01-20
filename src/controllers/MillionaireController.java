@@ -12,16 +12,40 @@ import views.MillionairePanel;
 import javax.swing.*;
 import java.util.List;
 
+/**
+ * Kontroler trybu „Milionerzy”.
+ *
+ * Odpowiada za:
+ * - inicjalizację i przywracanie stanu trybu,
+ * - prezentację pytań w widoku,
+ * - obsługę odpowiedzi użytkownika,
+ * - komunikację z obserwatorami sesji.
+ *
+ * Klasa pełni rolę Controller we wzorcu MVC
+ * i integruje tryb z mechanizmem Memento oraz Observer.
+ */
 public class MillionaireController implements Controller {
+    /**
+     * Klucz identyfikujący tryb w mechanizmie zapisu stanu.
+     */
     private static final ModeType MODE_KEY = ModeType.MILLIONAIRE;
 
     private final AppRouter router;
     private final LearningSession session;
     private final MillionaireMode mode;
 
+    /**
+     * Magistrala zdarzeń sesji, wykorzystywana do komunikacji
+     * z obserwatorami statystyk.
+     */
     private final SessionEventBus eventBus;
+    /**
+     * Bufor komunikatów zwrotnych generowanych przez obserwatorów.
+     */
     private final SessionFeedbackBuffer feedbackBuffer = new SessionFeedbackBuffer();
-
+    /**
+     * Akcja wykonywana po zakończeniu trybu lub jego opuszczeniu.
+     */
     private final Runnable onFinish;
 
     public MillionaireController(

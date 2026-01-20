@@ -13,6 +13,17 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Klasa odpowiedzialna za dostęp do danych zapisanych w plikach.
+ *
+ * Connector realizuje uproszczoną warstwę dostępu do danych
+ * i odpowiada za:
+ * - wczytywanie zestawów słów,
+ * - obsługę danych użytkowników,
+ * - zapis i odczyt statystyk.
+ *
+ * Klasa zaimplementowana jako Singleton.
+ */
 public class Connector {
     private static Connector instance;
 
@@ -51,6 +62,9 @@ public class Connector {
         }
     }
 
+    /**
+     * Zwraca listę dostępnych baz słów.
+     */
     public List<String> getAviableDatabaseNames() throws IOException {
         try (Stream<Path> stream = Files.list(Paths.get("resources/wordSets/"))) {
             List<String> databaseNames = stream
@@ -67,6 +81,9 @@ public class Connector {
         }
     }
 
+    /**
+     * Zwraca listę zarejestrowanych użytkowników.
+     */
     public List<String> getUsersList() throws IOException {
         try (Stream<Path> stream = Files.list(Paths.get("resources/users/"))) {
              List<String> usernames = stream
@@ -116,6 +133,9 @@ public class Connector {
         return userPassword;
     }
 
+    /**
+     * Odczytuje dane użytkownika z pliku.
+     */
     public User readUserFromFile(String fileName) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("resources/users/" + fileName));
         scanner.nextLine();

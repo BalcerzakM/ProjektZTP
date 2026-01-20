@@ -13,16 +13,38 @@ import views.TypingPanel;
 import javax.swing.*;
 import java.util.List;
 
+/**
+ * Kontroler trybu pisania.
+ *
+ * Odpowiada za prezentację słów do przetłumaczenia,
+ * obsługę odpowiedzi użytkownika oraz integrację trybu
+ * z sesją nauki i systemem statystyk.
+ *
+ * Klasa realizuje rolę Controller we wzorcu MVC
+ * i wykorzystuje mechanizmy Memento oraz Observer.
+ */
 public class TypingController implements Controller {
 
+    /**
+     * Klucz identyfikujący tryb w mechanizmie zapisu stanu.
+     */
     private static final ModeType MODE_KEY = ModeType.TYPING;
 
     private final AppRouter router;
     private final LearningSession session;
     private final TypingMode mode;
+    /**
+     * Akcja wykonywana po zakończeniu trybu.
+     */
     private final Runnable onFinish;
 
+    /**
+     * Magistrala zdarzeń sesji.
+     */
     private final SessionEventBus eventBus;
+    /**
+     * Bufor komunikatów generowanych przez obserwatorów.
+     */
     private final SessionFeedbackBuffer feedbackBuffer = new SessionFeedbackBuffer();
 
     private Word currentWord;

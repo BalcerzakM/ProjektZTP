@@ -11,14 +11,40 @@ import LearningModes.ConnectMode;
 
 import javax.swing.*;
 
+/**
+ * Kontroler trybu łączenia.
+ *
+ * Klasa pełni rolę kontrolera we wzorcu MVC. Odpowiada za:
+ * - inicjalizację trybu nauki,
+ * - komunikację pomiędzy modelem a widokiem,
+ * - obsługę zdarzeń użytkownika,
+ * - zapisywanie i przywracanie stanu sesji (Memento),
+ * - powiadamianie obserwatorów o wynikach odpowiedzi.
+ */
+
 public class ConnectController implements Controller {
+    /**
+     * Klucz identyfikujący tryb w mechanizmie zapisu stanu sesji.
+     */
     private static final ModeType MODE_KEY = ModeType.CONNECT;
     private final AppRouter router;
     private final LearningSession session;
     private final ConnectMode mode;
+    /**
+     * Akcja wykonywana po zakończeniu trybu lub opuszczeniu go przez użytkownika.
+     */
     private final Runnable onFinish;
 
+    /**
+     * Magistrala zdarzeń sesji, wykorzystywana do komunikacji
+     * pomiędzy trybami a obserwatorami statystyk.
+     */
     private final SessionEventBus eventBus;
+
+    /**
+     * Bufor komunikatów generowanych przez obserwatorów,
+     * wyświetlanych użytkownikowi po odpowiedzi.
+     */
     private final SessionFeedbackBuffer feedbackBuffer = new SessionFeedbackBuffer();
 
     public ConnectController(AppRouter router,
