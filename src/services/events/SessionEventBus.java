@@ -3,22 +3,16 @@ package services.events;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Magistrala zdarzeń odpowiedzialna za przekazywanie informacji
- * zwrotnej w obrębie jednej sesji nauki.
+ * Magistrala zdarzeń sesji nauki.
  *
- * Klasa pośredniczy pomiędzy obserwatorami odpowiedzi
- * (np. statystykami lub planowaniem powtórek)
- * a komponentami odpowiedzialnymi za prezentację feedbacku.
- *
- * EventBus jest tworzony na początku sesji i współdzielony
- * przez tryby nauki uruchamiane w jej trakcie.
+ * Umożliwia przekazywanie informacji zwrotnej
+ * pomiędzy obserwatorami odpowiedzi a komponentami
+ * reagującymi na feedback w trakcie sesji.
  */
 public class SessionEventBus {
+
     /**
-     * Lista listenerów zdarzeń sesji.
-     *
-     * Listenery są rejestrowani dynamicznie przez kontrolery
-     * i usuwani przy opuszczaniu trybu nauki.
+     * Zarejestrowane listenery zdarzeń sesji.
      */
     private final List<SessionFeedbackListener> feedbacks = new ArrayList<>();
 
