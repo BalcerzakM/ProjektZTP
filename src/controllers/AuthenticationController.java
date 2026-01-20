@@ -54,7 +54,7 @@ public class AuthenticationController implements Controller {
             loginPanel.showNoUserExistError();
             return;
         }
-        if (!model.isPasswordCorrect(context.getUserPasswordFromDb(username), password)) {
+        if (model.isPasswordCorrect(context.getUserPasswordFromDb(username), password)) {
             loginPanel.showWrongPasswordError();
             return;
         }
@@ -78,7 +78,7 @@ public class AuthenticationController implements Controller {
             registerPanel.showUserExistsError();
             return;
         }
-        if (!model.isPasswordCorrect(repeatedPassword, password)) {
+        if (model.isPasswordCorrect(repeatedPassword, password)) {
             registerPanel.showRepeatedPasswordNotEqualError();
             return;
         }

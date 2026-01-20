@@ -54,10 +54,6 @@ public class AppContext {
         return wordSetProvider.getWordSet(filename, currentUser);
     }
 
-    public boolean isDatabaseSelected() {
-        return currentWordSet != null;
-    }
-
     public List<String> getDatabaseNamesList() {
         try {
             return Connector.getInstance().getAviableDatabaseNames();

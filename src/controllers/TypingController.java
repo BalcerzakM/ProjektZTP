@@ -70,7 +70,7 @@ public class TypingController implements Controller {
         currentWord = mode.nextWord();
 
         TypingPanel panel = new TypingPanel();
-        panel.setWord(currentWord.getSource());
+        panel.setWord(currentWord.source());
         panel.setProgress(
                 mode.getIndex() ,
                 mode.getTotalQuestions()
@@ -92,7 +92,7 @@ public class TypingController implements Controller {
             message.append("Dobrze!");
         } else {
             message.append("Źle! \nPoprawna Odpowiedź to: ")
-                    .append(currentWord.getTarget());
+                    .append(currentWord.target());
         }
 
         List<String> feedback = feedbackBuffer.consumeMessages();

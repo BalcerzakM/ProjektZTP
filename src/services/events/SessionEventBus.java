@@ -25,8 +25,4 @@ public class SessionEventBus {
             feedback.onReviewPrepared(words);
         }
     }
-
-    public void clear() {
-        feedbacks.clear();
-    }
 }

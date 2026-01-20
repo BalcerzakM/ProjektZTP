@@ -67,13 +67,13 @@ public class FlashCardController implements Controller {
         }
 
         side = Side.FRONT;
-        panel.setText(wordSet.getWords().get(index).getSource());
+        panel.setText(wordSet.getWords().get(index).source());
         updateProgress();
     }
 
     private void showBack() {
         side = Side.BACK;
-        panel.setText(wordSet.getWords().get(index).getTarget());
+        panel.setText(wordSet.getWords().get(index).target());
         wasRevealed = true;
     }
 

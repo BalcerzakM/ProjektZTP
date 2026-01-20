@@ -147,7 +147,6 @@ public class Connector {
         int perfectLessons = Integer.parseInt(scanner.nextLine().strip().replace("perfectLessons: ", ""));
         int totalFlashCard = Integer.parseInt(scanner.nextLine().strip().replace("totalFlashCards: " , ""));
         scanner.close();
-        Statistics statistics = new Statistics(completedLessonsAmount, correctOverall, incorrectOverall, longestStreak, learnedWords, perfectLessons, totalFlashCard);
-        return statistics;
+        return new Statistics(completedLessonsAmount, correctOverall, incorrectOverall, longestStreak, learnedWords, perfectLessons, totalFlashCard);
     }
 }

@@ -3,10 +3,10 @@ username: sigmaPeter
 password: Rizzman12
 languageCEFRLevel: A1
 ----STATS----
-completedLessons: 7
-correctOverall: 53
+completedLessons: 9
+correctOverall: 58
 incorrectOverall: 5
 longestStreak: 10
-learnedWordsAmount: 46
-perfectLessons: 3
-totalFlashCards: 11
+learnedWordsAmount: 51
+perfectLessons: 4
+totalFlashCards: 13

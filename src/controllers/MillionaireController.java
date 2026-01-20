@@ -69,7 +69,7 @@ public class MillionaireController implements Controller {
         MillionairePanel panel = new MillionairePanel();
         panel.setQuestion(
                 "Jakie jest tłumaczenie słowa: \"" +
-                        mode.getWord().getSource() + "\""
+                        mode.getWord().source() + "\""
         );
 
         panel.setOptions(mode.getOptions(), this::handleAnswer);
@@ -94,7 +94,7 @@ public class MillionaireController implements Controller {
             message.append("Dobrze!");
         } else {
             message.append("Źle! \nPoprawna Odpowiedź to: ")
-                   .append(mode.getWord().getTarget());
+                   .append(mode.getWord().target());
         }
 
         List<String> feedback = feedbackBuffer.consumeMessages();

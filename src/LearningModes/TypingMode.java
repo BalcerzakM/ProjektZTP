@@ -13,7 +13,6 @@ public class TypingMode implements LearningMode {
     private int index = 0;
     private final int totalQuestions;
     private Random rand = new Random();
-    private Word currentWord;
 
     public TypingMode(WordSet wordSet, int totalQuestions) {
         this.words = wordSet.getWords();
@@ -43,7 +42,7 @@ public class TypingMode implements LearningMode {
     }
 
     public Word nextWord() {
-         return currentWord = words.get(rand.nextInt(words.size()));
+        return words.get(rand.nextInt(words.size()));
     }
 
     public void advance() {
@@ -51,7 +50,7 @@ public class TypingMode implements LearningMode {
     }
 
     public boolean checkAnswer(Word word, String input) {
-        return input.equalsIgnoreCase(word.getTarget());
+        return input.equalsIgnoreCase(word.target());
     }
 
     public int getIndex() {

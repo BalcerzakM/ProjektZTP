@@ -49,12 +49,12 @@ public class MillionaireMode implements LearningMode {
         currentWord = words.get(rand.nextInt(words.size()));
 
         options = new ArrayList<>();
-        options.add(currentWord.getTarget());
+        options.add(currentWord.target());
 
         while (options.size() < 4) {
             Word w = words.get(rand.nextInt(words.size()));
-            if (!options.contains(w.getTarget())) {
-                options.add(w.getTarget());
+            if (!options.contains(w.target())) {
+                options.add(w.target());
             }
         }
 
@@ -71,7 +71,7 @@ public class MillionaireMode implements LearningMode {
 
 
     public boolean checkAnswer(String selected) {
-        return selected.equals(currentWord.getTarget());
+        return selected.equals(currentWord.target());
     }
 
     public int getCurrentQuestionIndex() {

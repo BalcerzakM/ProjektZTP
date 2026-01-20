@@ -2,7 +2,7 @@ package models;
 
 public class User {
     private final String username;
-    private String password;
+    private final String password;
     private LanguageCERFLevel langLevel;
 
     public User(String username, String password, LanguageCERFLevel langLevel) {

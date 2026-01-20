@@ -50,7 +50,7 @@ public class ConnectController implements Controller {
 
     private void show() {
         ConnectPanel panel = new ConnectPanel(
-                mode.getLeftSources().stream().map(Word::getSource).toList(),
+                mode.getLeftSources().stream().map(Word::source).toList(),
                 mode.getRightTargets()
         );
 
@@ -113,7 +113,7 @@ public class ConnectController implements Controller {
         }
 
         panel.updateLists(
-                mode.getLeftSources().stream().map(Word::getSource).toList(),
+                mode.getLeftSources().stream().map(Word::source).toList(),
                 mode.getRightTargets()
         );
     }

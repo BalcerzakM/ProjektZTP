@@ -43,14 +43,14 @@ public class ConnectMode implements LearningMode {
 
         for (int i = 0; i < Math.min(8, shuffled.size()); i++) {
             left.add(shuffled.get(i));
-            right.add(shuffled.get(i).getTarget());
+            right.add(shuffled.get(i).target());
         }
 
         Collections.shuffle(right, rand);
     }
 
     public boolean check(int leftIndex, int rightIndex) {
-        return left.get(leftIndex).getTarget().equals(right.get(rightIndex));
+        return left.get(leftIndex).target().equals(right.get(rightIndex));
     }
 
     public Word removePair(int leftIndex, int rightIndex) {
