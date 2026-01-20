@@ -3,6 +3,13 @@ package views;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Widok odpowiedzialny za logowanie użytkownika do aplikacji.
+ *
+ * Panel umożliwia wprowadzenie nazwy użytkownika i hasła,
+ * wyświetlanie komunikatów o błędach logowania oraz
+ * przekazanie akcji do kontrolera.
+ */
 public class LoginPanel extends JPanel {
     private final JTextField usernameField;
     private final JPasswordField passwordField;
@@ -48,6 +55,9 @@ public class LoginPanel extends JPanel {
 
     }
 
+    /**
+     * Wyświetla komunikat o nieprawidłowym haśle.
+     */
     public void showWrongPasswordError() {
         JOptionPane.showMessageDialog(
                 this,
@@ -56,6 +66,9 @@ public class LoginPanel extends JPanel {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Wyświetla komunikat informujący, że użytkownik o podanej nazwie nie istnieje.
+     */
     public void showNoUserExistError() {
         JOptionPane.showMessageDialog(
                 this,
@@ -64,6 +77,9 @@ public class LoginPanel extends JPanel {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Wyświetla komunikat o pozostawieniu pustych pól formularza.
+     */
     public void showEmptyFieldsError() {
         JOptionPane.showMessageDialog(
                 this,
@@ -72,6 +88,9 @@ public class LoginPanel extends JPanel {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Wyświetla komunikat o pomyślnym zalogowaniu użytkownika.
+     */
     public void showSuccessMessage() {
         JOptionPane.showMessageDialog(
                 this,
@@ -80,18 +99,39 @@ public class LoginPanel extends JPanel {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Zwraca nazwę użytkownika wprowadzoną w formularzu.
+     *
+     * @return nazwa użytkownika
+     */
     public String getUsername() {
         return usernameField.getText();
     }
 
+    /**
+     * Zwraca hasło wprowadzone w formularzu.
+     *
+     * @return hasło użytkownika
+     */
     public String getPassword() {
         return new String(passwordField.getPassword());
     }
 
+
+    /**
+     * Rejestruje akcję wykonywaną po kliknięciu przycisku logowania.
+     *
+     * @param action akcja obsługująca logowanie
+     */
     public void onLoginBtn(Runnable action) {
         loginBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję przejścia do panelu rejestracji.
+     *
+     * @param action akcja zmiany widoku na rejestrację
+     */
     public void onGoToRegisterPanelBtn(Runnable action) {
         goToRegisterPanelBtn.addActionListener(e -> action.run());
     }

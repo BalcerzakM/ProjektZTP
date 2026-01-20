@@ -3,6 +3,12 @@ package views;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Widok głównego menu aplikacji.
+ *
+ * Panel umożliwia użytkownikowi wybór głównych funkcji aplikacji:
+ * rozpoczęcie sesji nauki, podgląd statystyk oraz wylogowanie.
+ */
 public class MainMenuPanel extends JPanel {
     private final JLabel loggedUserLabel;
 
@@ -33,10 +39,18 @@ public class MainMenuPanel extends JPanel {
         add(centerWrapper, BorderLayout.CENTER);
     }
 
+    /**
+     * Ustawia komunikat powitalny z nazwą aktualnie zalogowanego użytkownika.
+     *
+     * @param username nazwa zalogowanego użytkownika
+     */
     public void setWelcomeMessage(String username) {
         loggedUserLabel.setText("Zalogowano jako: " + username);
     }
 
+    /**
+     * Wyświetla komunikat informujący o pomyślnym wylogowaniu użytkownika.
+     */
     public void showLogOutMessage() {
         JOptionPane.showMessageDialog(
                 this,
@@ -46,14 +60,29 @@ public class MainMenuPanel extends JPanel {
 
     }
 
+    /**
+     * Rejestruje akcję wywoływaną po wybraniu opcji rozpoczęcia nauki.
+     *
+     * @param action logika uruchamiana po kliknięciu przycisku
+     */
     public void onLearningSessionBtn(Runnable action) {
         learningSessionBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję wywoływaną po wybraniu opcji wyświetlenia statystyk.
+     *
+     * @param action logika uruchamiana po kliknięciu przycisku
+     */
     public void onStatisticsBtn(Runnable action) {
         statisticsBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję wywoływaną po wybraniu opcji wylogowania.
+     *
+     * @param action logika uruchamiana po kliknięciu przycisku
+     */
     public void onLogOutBtn(Runnable action) {
         logOutBtn.addActionListener(e -> action.run());
     }

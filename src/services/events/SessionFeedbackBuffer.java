@@ -3,9 +3,25 @@ package services.events;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Bufor informacji zwrotnej generowanej w trakcie sesji nauki.
+ *
+ * Implementacja listenera, która gromadzi komunikaty
+ * otrzymywane z SessionEventBus i udostępnia je
+ * do jednorazowego odczytu przez controller danego trybu nauki.
+ */
 public class SessionFeedbackBuffer implements SessionFeedbackListener {
+
+    /**
+     * Lista komunikatów oczekujących na odczyt.
+     */
     private final List<String> messages = new ArrayList<>();
 
+    /**
+     * Dodaje komunikat związany z aktualną serią poprawnych odpowiedzi.
+     *
+     * @param streak liczba poprawnych odpowiedzi z rzędu
+     */
     @Override
     public void onStreak(int streak) {
         switch(streak) {
@@ -24,11 +40,24 @@ public class SessionFeedbackBuffer implements SessionFeedbackListener {
         }
     }
 
+    /**
+     * Dodaje komunikat informujący o przygotowaniu sesji powtórkowej.
+     *
+     * @param words liczba słów przeznaczonych do powtórki
+     */
     @Override
     public void onReviewPrepared(int words) {
         messages.add("🔁 Masz " + words + " słów do powtórki!\nSprawdź lekcję powtórzeniową.");
     }
 
+    /**
+     * Zwraca wszystkie zgromadzone komunikaty i czyści bufor.
+     *
+     * Metoda przeznaczona do jednokrotnego użycia
+     * po obsłużeniu odpowiedzi użytkownika.
+     *
+     * @return lista komunikatów wygenerowanych od ostatniego odczytu
+     */
     public List<String> consumeMessages() {
         List<String> msg = List.copyOf(messages);
         messages.clear();

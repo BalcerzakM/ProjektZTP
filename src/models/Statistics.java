@@ -2,6 +2,13 @@ package models;
 
 import services.observers.SessionStatistics;
 
+/**
+ * Model przechowujący zagregowane statystyki użytkownika
+ * z wszystkich ukończonych sesji nauki.
+ *
+ * Odpowiada za akumulację danych z pojedynczych sesji
+ * oraz obliczanie postępu poziomu językowego.
+ */
 public class Statistics {
     private int completedLessons;
     private int correctOverall;
@@ -21,6 +28,12 @@ public class Statistics {
         this.totalFlashCards = totalFlashCards;
     }
 
+    /**
+     * Aktualizuje statystyki użytkownika na podstawie
+     * statystyk zakończonej sesji nauki.
+     *
+     * @param sessionStats statystyki pojedynczej sesji
+     */
     public void addToStatistics(SessionStatistics sessionStats) {
         completedLessons++;
         correctOverall += sessionStats.getCorrectCount();
@@ -62,10 +75,22 @@ public class Statistics {
         return totalFlashCards;
     }
 
+    /**
+     * Oblicza całkowity postęp użytkownika
+     * na podstawie zgromadzonych statystyk.
+     *
+     * @return liczba punktów postępu
+     */
     public int calculateLevelProgress() {
         return completedLessons + correctOverall/2 + longestStreak*3 + perfectLessons*2;
     }
 
+    /**
+     * Oblicza procentowy postęp w obrębie aktualnego poziomu językowego.
+     *
+     * @param level aktualny poziom językowy
+     * @return procent ukończenia poziomu (0–100)
+     */
     public int getLevelProgressPercent(LanguageCERFLevel level) {
         int levelMin = level.getMinPoints();
         int levelRange = level.getPointsRange();

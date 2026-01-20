@@ -3,6 +3,12 @@ package views;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Widok głównego menu sesji nauki.
+ *
+ * Panel umożliwia użytkownikowi wybór jednego z dostępnych trybów nauki
+ * (fiszki, łączenie, milionerzy, wpisywanie) oraz powrót do poprzedniego widoku.
+ */
 public class LearningSessionPanel extends JPanel {
 
     private final JButton flashCardBtn = new JButton("Fiszki");
@@ -29,6 +35,12 @@ public class LearningSessionPanel extends JPanel {
         add(modes, BorderLayout.CENTER);
     }
 
+    /**
+     * Wyświetla okno dialogowe z pytaniem,
+     * czy użytkownik chce zakończyć sesję nauki.
+     *
+     * @return kod wyboru użytkownika (tak lub nie)
+     */
     public int showQuestionMessage() {
         return JOptionPane.showOptionDialog(
                 this,
@@ -42,22 +54,47 @@ public class LearningSessionPanel extends JPanel {
         );
     }
 
+    /**
+     * Rejestruje akcję wywoływaną po wybraniu trybu fiszek.
+     *
+     * @param action akcja wykonywana po kliknięciu przycisku „Fiszki”
+     */
     public void onFlashCard(Runnable action) {
         flashCardBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję wywoływaną po wybraniu trybu łączenia.
+     *
+     * @param action akcja wykonywana po kliknięciu przycisku „Łączenie”
+     */
     public void onConnect(Runnable action) {
         connectBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję wywoływaną po wybraniu trybu „Milionerzy”.
+     *
+     * @param action akcja wykonywana po kliknięciu przycisku „Milionerzy”
+     */
     public void onMillionaire(Runnable action) {
         millionaireBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję wywoływaną po wybraniu trybu wpisywania.
+     *
+     * @param action akcja wykonywana po kliknięciu przycisku „Wpisywanie”
+     */
     public void onTyping(Runnable action) {
         typingBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję powrotu do poprzedniego widoku.
+     *
+     * @param action akcja wykonywana po kliknięciu przycisku „Wróć”
+     */
     public void onBack(Runnable action) {backBtn.addActionListener(e -> action.run());}
 }
 

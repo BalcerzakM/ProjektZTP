@@ -3,6 +3,11 @@ package views;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel trybu wpisywania odpowiedzi.
+ * Wyświetla słowo do przetłumaczenia, pole do wpisania odpowiedzi
+ * oraz informację o postępie w sesji nauki.
+ */
 public class TypingPanel extends JPanel {
 
     private final JLabel wordLabel = new JLabel("", SwingConstants.CENTER);
@@ -53,25 +58,52 @@ public class TypingPanel extends JPanel {
         add(bottom, BorderLayout.SOUTH);
     }
 
+    /**
+     * Ustawia aktualne słowo do przetłumaczenia oraz czyści pole wejściowe.
+     *
+     * @param word słowo wyświetlane użytkownikowi
+     */
     public void setWord(String word) {
         wordLabel.setText(word);
         inputField.setText("");
         inputField.requestFocusInWindow();
     }
 
+    /**
+     * Aktualizuje informację o postępie w trybie nauki.
+     *
+     * @param current indeks aktualnego pytania
+     * @param total   łączna liczba pytań
+     */
     public void setProgress(int current, int total) {
         progressLabel.setText((current + 1) + " / " + total);
     }
 
+    /**
+     * Zwraca odpowiedź wpisaną przez użytkownika.
+     *
+     * @return tekst wpisany w pole odpowiedzi (bez białych znaków)
+     */
     public String getInput() {
         return inputField.getText().trim();
     }
 
+    /**
+     * Rejestruje akcję sprawdzenia odpowiedzi.
+     * Akcja wywoływana jest po kliknięciu przycisku lub naciśnięciu Enter.
+     *
+     * @param action logika sprawdzania odpowiedzi
+     */
     public void onCheck(Runnable action) {
         checkButton.addActionListener(e -> action.run());
         inputField.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję powrotu do poprzedniego widoku.
+     *
+     * @param action logika powrotu
+     */
     public void setOnBack(Runnable action) {
         backBtn.addActionListener(e -> action.run());
     }

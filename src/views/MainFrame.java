@@ -7,11 +7,24 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Główne okno aplikacji.
+ * Odpowiada za:
+ * - wyświetlanie aktualnego widoku aplikacji
+ * - zarządzanie przełączaniem paneli za pomocą CardLayout
+ * - obsługę zamykania aplikacji i zapis danych przed wyjściem.
+ */
 public class MainFrame extends JFrame {
     private final CardLayout layout = new CardLayout();
     private final JPanel root = new JPanel(layout);
     private final AppContext context;
 
+    /**
+     * Tworzy główne okno aplikacji.
+     *
+     * @param title   tytuł okna
+     * @param context kontekst aplikacji wykorzystywany do zapisu danych przy zamykaniu
+     */
     public MainFrame(String title, AppContext context) {
         super(title);
 
@@ -51,6 +64,15 @@ public class MainFrame extends JFrame {
 
     }
 
+    /**
+     * Wyświetla wskazany widok w głównym oknie aplikacji.
+     *
+     * Metoda zastępuje aktualnie wyświetlany panel nowym widokiem
+     * i przełącza układ na podaną nazwę.
+     *
+     * @param panel panel do wyświetlenia
+     * @param name  identyfikator widoku
+     */
     public void showView(JPanel panel, String name) {
         root.removeAll();
         root.add(panel, name);

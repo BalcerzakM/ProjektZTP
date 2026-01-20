@@ -5,6 +5,13 @@ import services.observers.SessionStatistics;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel prezentujący podsumowanie pojedynczej sesji nauki.
+ *
+ * Widok dostosowuje sposób prezentacji danych w zależności
+ * od rodzaju sesji (standardowa sesja z odpowiedziami
+ * lub sesja fiszek).
+ */
 public class SessionStatisticsPanel extends JPanel {
     private final JLabel correctLabel = new JLabel();
     private final JLabel incorrectLabel = new JLabel();
@@ -22,6 +29,14 @@ public class SessionStatisticsPanel extends JPanel {
         add(maxSessionStreakLabel);
     }
 
+    /**
+     * Ustawia dane statystyczne sesji i aktualizuje widok.
+     *
+     * W przypadku sesji fiszek prezentowane są wyłącznie
+     * informacje związane z liczbą przejrzanych kart.
+     *
+     * @param stats statystyki zakończonej sesji
+     */
     public void setStatistics(SessionStatistics stats) {
         if (stats.isFlashCardSession()) {
             correctLabel.setText("Przejrzane fiszki: " + stats.getFlashCardCount());
@@ -41,6 +56,11 @@ public class SessionStatisticsPanel extends JPanel {
         maxSessionStreakLabel.setText("Najlepszy streak: " + stats.getMaxSessionStreak());
     }
 
+    /**
+     * Wyświetla panel w modalnym oknie dialogowym.
+     *
+     * @param parent okno nadrzędne
+     */
     public void showInDialog(JFrame parent) {
         JDialog dialog = new JDialog(parent, "Podsumowanie lekcji", true);
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);

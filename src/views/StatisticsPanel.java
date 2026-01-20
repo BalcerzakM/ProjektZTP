@@ -7,6 +7,12 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/**
+ * Panel prezentujący ogólne statystyki użytkownika.
+ *
+ * Widok wyświetla dane zagregowane z wszystkich sesji nauki
+ * oraz informację o aktualnym postępie poziomu językowego.
+ */
 public class StatisticsPanel extends JPanel {
     private final JLabel usernameLabel = new JLabel();
     private final JLabel levelLabel = new JLabel();
@@ -33,12 +39,23 @@ public class StatisticsPanel extends JPanel {
         add(buildBottomPanel(), BorderLayout.SOUTH);
     }
 
+    /**
+     * Ustawia dane identyfikujące użytkownika
+     * oraz informacje o jego poziomie językowym.
+     *
+     * @param user aktualny użytkownik
+     */
     public void setUser(User user) {
         usernameLabel.setText("Użytkownik: " + user.getUsername());
         levelLabel.setText("Poziom języka: " + user.getLanguageLevel());
         progressLabel.setText("Postęp do następnego poziomu: ");
     }
 
+    /**
+     * Ustawia zagregowane statystyki użytkownika.
+     *
+     * @param stats statystyki użytkownika
+     */
     public void setStatistics(Statistics stats) {
         completedLessons.setText(String.valueOf(stats.getCompletedLessons()));
         correctAnswers.setText(String.valueOf(stats.getCorrectOverall()));
@@ -50,6 +67,11 @@ public class StatisticsPanel extends JPanel {
 
     }
 
+    /**
+     * Aktualizuje pasek postępu poziomu językowego.
+     *
+     * @param percent procent ukończenia poziomu (0–100)
+     */
     public void setProgressBar(int percent) {
         levelProgressBar.setMinimum(0);
         levelProgressBar.setMaximum(100);
@@ -58,6 +80,11 @@ public class StatisticsPanel extends JPanel {
         levelProgressBar.setStringPainted(true);
     }
 
+    /**
+     * Rejestruje akcję powrotu do poprzedniego widoku.
+     *
+     * @param action akcja wykonywana po naciśnięciu przycisku
+     */
     public void onBack(Runnable action) {
         backBtn.addActionListener(e -> action.run());
     }
