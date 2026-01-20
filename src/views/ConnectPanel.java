@@ -4,7 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-
+/**
+ * Widok trybu łączenia par (Connect).
+ *
+ * Panel prezentuje dwie listy elementów, pomiędzy którymi
+ * użytkownik wybiera pary do połączenia. Odpowiada wyłącznie
+ * za warstwę prezentacji oraz zbieranie akcji użytkownika.
+ */
 public class ConnectPanel extends JPanel {
 
     private final JList<String> leftList;
@@ -13,6 +19,12 @@ public class ConnectPanel extends JPanel {
     private final JButton backBtn = new JButton("Wróć");
     private Runnable onBack;
 
+    /**
+     * Tworzy panel trybu łączenia z dwiema listami elementów.
+     *
+     * @param left lista elementów wyświetlanych po lewej stronie
+     * @param right lista elementów wyświetlanych po prawej stronie
+     */
     public ConnectPanel(List<String> left, List<String> right) {
 
         setLayout(new BorderLayout(20, 20));
@@ -69,26 +81,51 @@ public class ConnectPanel extends JPanel {
 
     // ===== API DLA CONTROLLERA =====
 
+    /**
+     * Zwraca indeks zaznaczonego elementu z lewej listy.
+     *
+     * @return indeks zaznaczenia lub -1, jeśli brak wyboru
+     */
     public int getLeftIndex() {
         return leftList.getSelectedIndex();
     }
 
+    /**
+     * Zwraca indeks zaznaczonego elementu z prawej listy.
+     *
+     * @return indeks zaznaczenia lub -1, jeśli brak wyboru
+     */
     public int getRightIndex() {
         return rightList.getSelectedIndex();
     }
 
+    /**
+     * Rejestruje akcję wywoływaną po kliknięciu przycisku „Połącz”.
+     *
+     * @param action logika obsługi sprawdzenia pary
+     */
     public void onCheck(Runnable action) {
         checkBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Aktualizuje zawartość obu list po zmianie stanu trybu.
+     *
+     * @param left nowa lista elementów po lewej stronie
+     * @param right nowa lista elementów po prawej stronie
+     */
     public void updateLists(List<String> left, List<String> right) {
         leftList.setListData(left.toArray(new String[0]));
         rightList.setListData(right.toArray(new String[0]));
     }
 
     /**
-     * Metoda Powrotu do ostatniego widoku i zapisania Memento
-     * @param action
+     * Rejestruje akcję powrotu do poprzedniego widoku.
+     *
+     * Metoda wykorzystywana przez kontroler do zapisania
+     * stanu sesji (Memento) i zakończenia trybu nauki.
+     *
+     * @param action logika wykonywana przy powrocie
      */
     public void setOnBack(Runnable action) {backBtn.addActionListener(e -> action.run());}
 }

@@ -7,6 +7,14 @@ import models.Statistics;
 import models.User;
 import views.StatisticsPanel;
 
+/**
+ * Kontroler odpowiedzialny za prezentację
+ * globalnych statystyk użytkownika.
+ *
+ * Klasa pobiera dane użytkownika i jego statystyki
+ * z kontekstu aplikacji oraz konfiguruje widok
+ * statystyk ogólnych.
+ */
 public class StatisticsController implements Controller {
     private final AppRouter router;
     private final AppContext context;
@@ -16,6 +24,10 @@ public class StatisticsController implements Controller {
         this.context = context;
     }
 
+    /**
+     * Inicjalizuje widok statystyk użytkownika
+     * i obsługuje powrót do menu głównego.
+     */
     @Override
     public void run() {
         User currentUser = context.getCurrentUser();

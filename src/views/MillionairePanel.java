@@ -5,6 +5,12 @@ import java.awt.*;
 import java.util.function.Consumer;
 import java.util.List;
 
+/**
+ * Panel widoku dla trybu nauki typu „Milionerzy”.
+ *
+ * Odpowiada za prezentację pytania, czterech możliwych odpowiedzi
+ * oraz informacji o postępie w aktualnej sesji.
+ */
 public class MillionairePanel extends JPanel {
 
     private final JLabel questionLabel = new JLabel("", SwingConstants.CENTER);
@@ -53,10 +59,22 @@ public class MillionairePanel extends JPanel {
 
     }
 
+    /**
+     * Ustawia treść aktualnego pytania wyświetlanego użytkownikowi.
+     *
+     * @param question treść pytania
+     */
     public void setQuestion(String question) {
         questionLabel.setText(question);
     }
 
+    /**
+     * Ustawia listę możliwych odpowiedzi oraz akcję wywoływaną
+     * po wyborze jednej z nich.
+     *
+     * @param options lista czterech odpowiedzi
+     * @param onSelect akcja wykonywana po kliknięciu odpowiedzi
+     */
     public void setOptions(List<String> options, Consumer<String> onSelect) {
         for (int i = 0; i < 4; i++) {
             String option = options.get(i);
@@ -65,14 +83,24 @@ public class MillionairePanel extends JPanel {
         }
     }
 
-
+    /**
+     * Aktualizuje informację o postępie w trybie „Milionerzy”.
+     *
+     * @param current indeks aktualnego pytania
+     * @param total łączna liczba pytań w sesji
+     */
     public void setProgress(int current, int total) {
         progressLabel.setText((current + 1) + " / " + total);
     }
 
 
     /**
-     * Metoda Powrotu do ostatniego widoku i zapisania Memnto
+     * Rejestruje akcję wykonywaną po naciśnięciu przycisku powrotu.
+     *
+     * Zwykle wykorzystywana do zapisania stanu sesji (Memento)
+     * i powrotu do poprzedniego widoku.
+     *
+     * @param action akcja powrotu
      */
     public void setOnBack(Runnable action) {backBtn.addActionListener(e -> action.run());}
 }

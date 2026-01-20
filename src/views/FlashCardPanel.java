@@ -4,6 +4,14 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Widok trybu fiszek (FlashCard).
+ *
+ * Panel prezentuje pojedynczą fiszkę oraz umożliwia
+ * przełączanie pomiędzy jej stroną przednią i tylną,
+ * a także nawigację pomiędzy kolejnymi kartami.
+ *
+ */
 public class FlashCardPanel extends JPanel {
 
     private final JLabel card = new JLabel("", SwingConstants.CENTER);
@@ -60,31 +68,57 @@ public class FlashCardPanel extends JPanel {
         });
     }
 
+    /**
+     * Ustawia tekst wyświetlany na fiszce.
+     *
+     * @param text treść fiszki
+     */
     public void setText(String text) {
         card.setText(text);
     }
 
+    /**
+     * Rejestruje akcję wykonywaną po kliknięciu fiszki.
+     *
+     * @param action logika przełączania strony fiszki
+     */
     public void setOnClick(Runnable action) {
         this.onClick = action;
     }
 
+    /**
+     * Rejestruje akcję przejścia do następnej fiszki.
+     *
+     * @param action logika obsługi przycisku „następna”
+     */
     public void setOnNext(Runnable action) {
         nextBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję powrotu do poprzedniej fiszki.
+     *
+     * @param action logika obsługi przycisku „poprzednia”
+     */
     public void setOnPrev(Runnable action) {
         prevBtn.addActionListener(e -> action.run());
     }
 
     /**
-     * Metoda Powrotu do ostatniego widoku i zapisania Memnto
+     * Rejestruje akcję powrotu do poprzedniego widoku.
+     *
+     * Metoda wykorzystywana przez kontroler do zapisania
+     * stanu sesji (Memento) i zakończenia trybu fiszek.
+     *
+     * @param action logika wykonywana przy powrocie
      */
     public void setOnBack(Runnable action) {backBtn.addActionListener(e -> action.run());}
 
     /**
-     * Metoda do wyświetlania, na której fiszcze jest użytkownik
-     * @param current aktualna fiszka
-     * @param total wszystkie w WordSet
+     * Aktualizuje informację o postępie w zestawie fiszek.
+     *
+     * @param current indeks aktualnej fiszki
+     * @param total łączna liczba fiszek
      */
     public void setProgress(int current, int total) {
         progressLabel.setText((current + 1) + " / " + total);

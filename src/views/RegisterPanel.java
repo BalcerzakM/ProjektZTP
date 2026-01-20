@@ -3,6 +3,12 @@ package views;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel rejestracji nowego użytkownika.
+ *
+ * Odpowiada za prezentację formularza rejestracyjnego
+ * oraz komunikatów związanych z procesem zakładania konta.
+ */
 public class RegisterPanel extends JPanel {
     private final JTextField usernameField;
     private final JPasswordField passwordField;
@@ -10,7 +16,10 @@ public class RegisterPanel extends JPanel {
     private final JButton registerBtn;
     private final JButton goToLoginPanelBtn;
 
-
+    /**
+     * Tworzy panel rejestracji użytkownika i inicjalizuje
+     * wszystkie komponenty interfejsu.
+     */
     public RegisterPanel() {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -66,6 +75,9 @@ public class RegisterPanel extends JPanel {
 
     }
 
+    /**
+     * Wyświetla komunikat błędu informujący o pustych polach formularza.
+     */
     public void showEmptyFieldsError() {
         JOptionPane.showMessageDialog(
                 this,
@@ -74,6 +86,9 @@ public class RegisterPanel extends JPanel {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Wyświetla komunikat informujący, że użytkownik o podanej nazwie już istnieje.
+     */
     public void showUserExistsError() {
         JOptionPane.showMessageDialog(
                 this,
@@ -82,6 +97,9 @@ public class RegisterPanel extends JPanel {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Wyświetla komunikat informujący o niespełnieniu wymagań hasła.
+     */
     public void showTooEasyPasswordError() {
         JOptionPane.showMessageDialog(
                 this,
@@ -90,6 +108,9 @@ public class RegisterPanel extends JPanel {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Wyświetla komunikat informujący, że podane hasła nie są identyczne.
+     */
     public void showRepeatedPasswordNotEqualError() {
         JOptionPane.showMessageDialog(
                 this,
@@ -98,6 +119,9 @@ public class RegisterPanel extends JPanel {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Wyświetla komunikat potwierdzający poprawną rejestrację użytkownika.
+     */
     public void showSuccessMessage() {
         JOptionPane.showMessageDialog(
                 this,
@@ -118,10 +142,16 @@ public class RegisterPanel extends JPanel {
         return new String(repeatedPasswordField.getPassword());
     }
 
+    /**
+     * Rejestruje akcję wywoływaną po kliknięciu przycisku rejestracji.
+     */
     public void onRegisterBtn(Runnable action) {
         registerBtn.addActionListener(e -> action.run());
     }
 
+    /**
+     * Rejestruje akcję przejścia do panelu logowania.
+     */
     public void onGoToLoginPanelBtn(Runnable action) {
         goToLoginPanelBtn.addActionListener(e -> action.run());
     }
