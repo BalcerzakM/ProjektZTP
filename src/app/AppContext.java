@@ -10,6 +10,24 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Centralny kontekst aplikacji.
+ *
+ * Klasa pełni rolę wspólnego punktu dostępu do aktualnego stanu aplikacji,
+ * przechowując informacje o:
+ * - aktualnie zalogowanym użytkowniku,
+ * - jego statystykach,
+ * - aktualnie wybranym zestawie słówek,
+ * - mechanizmach dostępu do danych oraz planowania powtórek.
+ *
+ * AppContext integruje kilka wzorców projektowych:
+ * - Singleton (pośrednio, poprzez klasę Connector),
+ * - Proxy (kontrolowany dostęp do zestawów słówek),
+ * - Observer (współpraca z ReviewScheduler).
+ *
+ * Klasa jest wykorzystywana głównie przez kontrolery jako warstwa pośrednia
+ * pomiędzy logiką aplikacji a trwałym źródłem danych.
+ */
 public class AppContext {
     private User currentUser;
     private Statistics currentUsersStatistics;
@@ -17,6 +35,10 @@ public class AppContext {
     private final ReviewScheduler reviewScheduler = new ReviewScheduler();
     private final WordsetProvider wordSetProvider;
 
+    /**
+     * Tworzy kontekst aplikacji oraz inicjalizuje mechanizm
+     * bezpiecznego dostępu do zestawów słówek przy użyciu wzorca Proxy.
+     */
     public AppContext() {
         WordSetLoader realLoader = new WordSetLoader(this);
         this.wordSetProvider = new WordSetLoaderProxy(realLoader);
@@ -50,9 +72,20 @@ public class AppContext {
         return reviewScheduler;
     }
 
+    /**
+     * Ładuje zestaw słówek z uwzględnieniem uprawnień użytkownika.
+     *
+     * Metoda wykorzystuje wzorzec Proxy do kontroli dostępu
+     * do zasobów edukacyjnych.
+     *
+     * @param filename nazwa pliku zestawu słówek
+     * @return załadowany zestaw słówek
+     * @throws Exception jeśli dostęp do zestawu jest niedozwolony
+     */
     public WordSet loadWordSetSecurely(String filename) throws Exception {
         return wordSetProvider.getWordSet(filename, currentUser);
     }
+
 
     public List<String> getDatabaseNamesList() {
         try {
@@ -86,6 +119,12 @@ public class AppContext {
         }
     }
 
+    /**
+     * Wczytuje wszystkie dane użytkownika z bazy danych.
+     *
+     * @param username nazwa użytkownika
+     * @return obiekt użytkownika
+     */
     public User getNewUserFromDb(String username) {
         try {
             return Connector.getInstance().readUserFromFile(username + ".txt");
@@ -94,6 +133,12 @@ public class AppContext {
         }
     }
 
+    /**
+     * Wczytuje statystyki użytkownika z bazy danych.
+     *
+     * @param username nazwa użytkownika
+     * @return statystyki użytkownika
+     */
     public Statistics getNewStatisticsFromDb(String username) {
         try {
             return Connector.getInstance().readStatisticsFromFile(username + ".txt");
@@ -102,6 +147,12 @@ public class AppContext {
         }
     }
 
+    /**
+     * Zapisuje nowego użytkownika w bazie danych wraz
+     * z początkowymi statystykami.
+     *
+     * @param user nowo utworzony użytkownik
+     */
     public void saveNewUserToDb(User user) {
         Statistics stats = new Statistics(0, 0, 0, 0, 0, 0, 0);
         try {
@@ -111,6 +162,10 @@ public class AppContext {
         }
     }
 
+    /**
+     * Zapisuje dane aktualnego użytkownika i jego statystyki
+     * przed zakończeniem pracy aplikacji.
+     */
     public void saveToDbAndExit() {
         if (currentUser != null & currentUsersStatistics != null){
             try {
