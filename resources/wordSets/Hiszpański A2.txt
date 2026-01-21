@@ -1,4 +1,4 @@
-a2
+A2
 miasto - ciudad
 ulica - calle
 sklep - tienda
@@ -49,3 +49,53 @@ zakupy - compras
 cena - precio
 taniej - más barato
 drożej - más caro
+praca - trabajo
+biuro - oficina
+podróż - viaje
+wakacje - vacaciones
+lotnisko - aeropuerto
+bilet - billete
+hotel - hotel
+klucz - llave
+spotkanie - reunión
+rozmowa - conversación
+pomysł - idea
+problem - problema
+pomoc - ayuda
+zdrowie - salud
+lekarz - médico
+apteka - farmacia
+choroba - enfermedad
+ból - dolor
+zakupy - compras
+cena - precio
+taniej - más barato
+drożej - más caro
+restauracja - restaurante
+obserwować - observar
+rozmawiać - hablar
+tłumaczyć - explicar
+planować - planear
+decydować - decidir
+wybierać - elegir
+zmieniać - cambiar
+kontrolować - controlar
+spotykać - encontrarse
+poznać - conocer
+przyjeżdżać - llegar
+wyjeżdżać - salir
+odwiedzać - visitar
+zwiedzać - descubrir
+przepraszać - perdonar
+czuć - sentir
+słyszeć - oír
+widzieć - ver
+wiedzieć - saber
+myśleć - pensar
+wierzyć - creer
+pamiętać - recordar
+zapamiętać - memorizar
+łatwy - fácil
+trudny - difícil
+szybki - rápido
+wolny - lento

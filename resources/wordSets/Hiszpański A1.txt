@@ -1,4 +1,4 @@
-a1
+A1
 dom - casa
 mieszkanie - apartamento
 pokój - habitación
@@ -49,3 +49,53 @@ miasto - ciudad
 sklep - tienda
 pieniądze - dinero
 czas - tiempo
+jedzenie - comida
+napój - bebida
+woda mineralna - agua mineral
+cukier - azúcar
+sól - sal
+śniadanie - desayuno
+obiad - almuerzo
+kolacja - cena
+owoc - fruta
+warzywo - verdura
+jajko - huevo
+ser - queso
+masło - mantequilla
+ciasto - pastel
+cukierek - caramelo
+twarz - cara
+głowa - cabeza
+ręka - mano
+noga - pierna
+oko - ojo
+ucho - oreja
+nos - nariz
+usta - boca
+ciało - cuerpo
+ubranie - ropa
+koszula - camisa
+spodnie - pantalones
+buty - zapatos
+kurtka - chaqueta
+czapka - gorra
+domowy - doméstico
+praca domowa - tarea
+lekcja - lección
+pytanie - pregunta
+odpowiedź - respuesta
+imię - nombre
+nazwisko - apellido
+wiek - edad
+adres - dirección
+miłość - amor
+dzień dobry - buenos días
+do widzenia - adiós
+proszę - por favor
+dziękuję - gracias
+tak - sí
+nie - no
+dobry - bueno
+zły - malo
+duży - grande
+mały - pequeño
