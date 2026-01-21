@@ -155,12 +155,12 @@ public class LearningSessionController implements Controller {
     }
 
     private void handleReview() {
-
-        if (context.getReviewScheduler().getReviewWords().size() < 10) {
+        int reviewWordsAmount = context.getReviewScheduler().getReviewWords().size();
+        if (reviewWordsAmount < 10) {
             JOptionPane.showMessageDialog(
                     dbSelectionPanel,
-                    "Za mało słów do powtórzenia!",
-                    "Review",
+                    "Za mało słów do powtórzenia! [" + reviewWordsAmount + "/10]",
+                    "Powtórka",
                     JOptionPane.INFORMATION_MESSAGE
             );
             return;
