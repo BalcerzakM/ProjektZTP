@@ -10,7 +10,7 @@ import java.util.List;
  * Przechowywane dane pozwalają na:
  * - powrót do aktualnego pytania,
  * - zachowanie kolejności losowania,
- * - odtworzenie odpowiedzi użytkownika.
+ * - odtworzenie odpowiedzi.
  *
  * Obiekt nie jest modyfikowalny po utworzeniu.
  */
