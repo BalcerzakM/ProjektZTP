@@ -1,5 +1,6 @@
 package LearningModes;
 
+import models.TextNormalizer;
 import models.Word;
 import models.WordSet;
 
@@ -83,14 +84,18 @@ public class TypingMode implements LearningMode {
     }
 
     /**
-     * Sprawdza poprawność wpisanej odpowiedzi.
+     * Sprawdza poprawność wpisanej odpowiedzi użytkownika.
+     *
+     * Porównanie odbywa się po normalizacji tekstu, co oznacza
+     * ignorowanie wielkości liter oraz znaków diakrytycznych.
      *
      * @param word słowo, którego dotyczy pytanie
      * @param input odpowiedź użytkownika
      * @return true jeśli odpowiedź jest poprawna
      */
     public boolean checkAnswer(Word word, String input) {
-        return input.equalsIgnoreCase(word.target());
+        return TextNormalizer.normalize(input)
+                .equals(TextNormalizer.normalize(word.target()));
     }
 
     /**
