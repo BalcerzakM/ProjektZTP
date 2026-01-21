@@ -10,7 +10,7 @@ Aplikacja desktopowa (Java Swing) wspomagająca naukę języków obcych poprzez 
 
 ### Instrukcja
 1. **Pobierz kod:** Sklonuj repozytorium.
-2. **Otwórz w IDE:** Zaimportuj folder projektu do IntelliJ IDEA lub Eclipse.
+2. **Otwórz w IDE:** Zaimportuj folder projektu do programu budującego program.
 3. **Uruchom:** Znajdź i uruchom główą klasę aplikacji Main.java.
 
 ---
